@@ -1,37 +1,48 @@
-import { useState } from "react";
-import Card from "./Card";
+"use client";
 
-type Pet = {
-  name: string;
-  owner: string;
+import React from "react";
+import "chart.js/auto";
+import { Bar } from "react-chartjs-2";
+import Card from "./Card";
+import useFetch from "./hooks/useFetch";
+
+type RowData = {
+  id: number;
+  datum: string;
+  fil: string;
+  belopp: string;
+  inkomst_utgift: "Inkomst" | "Utgift";
+  land: string;
+  konto1: string;
+  konto2: string;
+  konto3: string;
+  titel: string;
+  kommentar: string;
 };
 
-export default async function Home() {
-  // const response = await fetch("https://dummyjson.com/products/2");
-  // const data = await response.json();
+export default function Home() {
+  const { error, fetchData } = useFetch("http://localhost:3000/api");
 
-  const response = await fetch("http://localhost:3000/api");
-  // const asdf = await response.json();
-  // console.log(asdf);
-  const { pets: fetchedPets } = await response.json(); // Destructuring here
-  console.log(fetchedPets);
+  const chartData = {
+    labels: fetchData?.allRows.map((row: RowData) => row.datum) || [],
+    datasets: [
+      {
+        label: "Belopp",
+        data: fetchData?.allRows.map((row: RowData) => row.belopp) || [],
+        backgroundColor: "rgb(8, 51, 68)",
+      },
+    ],
+  };
 
   return (
-    <main className="items-center p-24 text-center flex">
-      <Card />
-      <Card />
-      <Card />
+    <main className="items-center p-24 text-center">
+      <div className="flex">
+        <Card title="Inkomster" data={fetchData?.totalInkomst || 0} />
+        <Card title="Utgifter" data={fetchData?.totalUtgift || 0} />
+        <Card title="Resultat" data={fetchData?.resultat || 0} />
+      </div>
 
-      <h1>Pets List</h1>
-      <ul>
-        {fetchedPets &&
-          fetchedPets.map &&
-          fetchedPets.map((pet: Pet, index: number) => (
-            <li key={index}>
-              {pet.name} - Owner: {pet.owner}
-            </li>
-          ))}
-      </ul>
+      <Bar datasetIdKey="id" data={chartData} />
     </main>
   );
 }
