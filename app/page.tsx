@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import Card from "./Card";
@@ -21,7 +21,13 @@ type RowData = {
 };
 
 export default function Home() {
-  const { error, fetchData } = useFetch("http://localhost:3000/api");
+  const [selectedYear, setSelectedYear] = useState("");
+
+  const { error, fetchData } = useFetch(`api`);
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedYear(event.target.value);
+  };
 
   const chartData = {
     labels: fetchData?.allRows.map((row: RowData) => row.datum) || [],
@@ -43,6 +49,15 @@ export default function Home() {
       </div>
 
       <Bar datasetIdKey="id" data={chartData} />
+
+      <label htmlFor="year">Select a year:</label>
+      <select className="text-black" id="year" value={selectedYear} onChange={handleYearChange}>
+        <option value="">Select</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+      </select>
+      <p>Selected Year: {selectedYear}</p>
     </main>
   );
 }

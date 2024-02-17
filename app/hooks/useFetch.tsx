@@ -18,7 +18,7 @@ const useFetch = (url: string) => {
       }
     };
     fetchData();
-  }, [url]); // Glöm ej
+  }, []); // Glöm ej
 
   return { error, fetchData };
 };
