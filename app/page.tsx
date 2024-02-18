@@ -21,20 +21,20 @@ type RowData = {
 };
 
 export default function Home() {
-  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedYear, setSelectedYear] = useState("2024");
 
-  const { error, fetchData } = useFetch(`api`);
+  const { fetchData } = useFetch(`api?q=${selectedYear}`);
 
-  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(event.target.value);
+  const handleYearChange = (newYear: string) => {
+    setSelectedYear(newYear);
   };
 
   const chartData = {
-    labels: fetchData?.allRows.map((row: RowData) => row.datum) || [],
+    labels: fetchData?.yearData.map((row: RowData) => row.datum) || [],
     datasets: [
       {
         label: "Belopp",
-        data: fetchData?.allRows.map((row: RowData) => row.belopp) || [],
+        data: fetchData?.yearData.map((row: RowData) => row.belopp) || [],
         backgroundColor: "rgb(8, 51, 68)",
       },
     ],
@@ -47,17 +47,21 @@ export default function Home() {
         <Card title="Utgifter" data={fetchData?.totalUtgift || 0} />
         <Card title="Resultat" data={fetchData?.resultat || 0} />
       </div>
-
-      <Bar datasetIdKey="id" data={chartData} />
-
+      <div className="mx-auto w-4/5">
+        <Bar datasetIdKey="id" data={chartData} className="p-10 h-60" />
+      </div>
       <label htmlFor="year">Select a year:</label>
-      <select className="text-black" id="year" value={selectedYear} onChange={handleYearChange}>
+      <select
+        className="text-black"
+        id="year"
+        value={selectedYear}
+        onChange={(e) => handleYearChange(e.target.value)}
+      >
         <option value="">Select</option>
         <option value="2022">2022</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>
       </select>
-      <p>Selected Year: {selectedYear}</p>
     </main>
   );
 }

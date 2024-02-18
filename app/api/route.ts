@@ -2,7 +2,16 @@ import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  // const { year } = request.query;
+  const params = new URL(request.url).searchParams;
+  const year = params.get("q");
+
+  let yearData = null;
+
+  if (year) {
+    const yearQuery =
+      await sql`SELECT * FROM test WHERE EXTRACT(year FROM datum) = ${year} ORDER BY datum DESC;`;
+    yearData = yearQuery.rows;
+  }
 
   const dataInkomst =
     await sql`SELECT SUM(belopp) AS totalBelopp FROM test WHERE Inkomst_utgift = 'Inkomst';`;
@@ -18,7 +27,7 @@ export async function GET(request: Request) {
   const allRows = query.rows;
 
   return NextResponse.json(
-    { totalInkomst, totalUtgift, resultat, allRows },
+    { totalInkomst, totalUtgift, resultat, allRows, yearData },
     { status: 200 }
   );
 }
