@@ -22,7 +22,6 @@ const Bookkeep: React.FC = () => {
   const [titel, setTitel] = useState("");
   const [kommentar, setKommentar] = useState("");
 
-  // Callar tydligen usePostData() som returnerar postBookkeepData
   // const { postBookkeepData } = usePostData();
 
   const handleSubmit = async () => {
@@ -32,13 +31,34 @@ const Bookkeep: React.FC = () => {
       searchText,
       konto1,
       konto2,
-      // konto3,
+      konto3,
       belopp,
       säljarensLand,
       datum,
       titel,
       kommentar,
     };
+
+    try {
+      const response = await fetch("/api/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (response.ok) {
+        // Handle the response
+        const result = await response.json();
+        console.log(result);
+      } else {
+        // Handle errors
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
 
     // await postBookkeepData(dataToSend);
   };

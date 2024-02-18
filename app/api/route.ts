@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
@@ -30,4 +31,13 @@ export async function GET(request: Request) {
     { totalInkomst, totalUtgift, resultat, allRows, yearData },
     { status: 200 }
   );
+}
+
+////////////////////////////////////////////////////////////////
+
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  const data = await req.body;
+  console.log(data);
+
+  return NextResponse.json(res);
 }
