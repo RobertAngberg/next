@@ -5,7 +5,7 @@ import Card from "./Card";
 import HomeChart from "./HomeChart";
 import useFetch from "./hooks/useFetch";
 
-export default function Home() {
+const Home: React.FC = () => {
   const [year, setYear] = useState("2024");
   const { fetchData } = useFetch(`api?q=${year}`);
 
@@ -23,4 +23,6 @@ export default function Home() {
       />
     </main>
   );
-}
+};
+
+export default Home;

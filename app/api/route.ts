@@ -11,7 +11,8 @@ export async function GET(request: Request) {
 
   if (year) {
     const yearQuery =
-      await sql`SELECT * FROM test WHERE EXTRACT(year FROM datum) = ${year} ORDER BY datum DESC;`;
+      await sql`SELECT * FROM test WHERE EXTRACT(year FROM datum) = ${year} 
+      ORDER BY datum DESC;`;
     yearData = yearQuery.rows;
   }
 
@@ -40,18 +41,21 @@ export async function POST(req: Request) {
   // const data = await req.json();
   const data = await req.formData();
 
-  const file = data.get("file");
-  const inkomst_utgift = data.get("radioInkomstUtgift");
-  const konto1 = data.get("konto1");
-  const konto2 = data.get("konto2");
-  const konto3 = data.get("konto3");
-  const belopp = data.get("belopp");
-  const land = data.get("säljarensLand");
-  const datum = data.get("datum");
-  const titel = data.get("titel");
-  const kommentar = data.get("kommentar");
+  // Skapar key-value pairs från FormData
+  const {
+    file,
+    radioInkomstUtgift,
+    konto1,
+    konto2,
+    konto3,
+    belopp,
+    land,
+    datum,
+    titel,
+    kommentar,
+  } = Object.fromEntries(data);
 
-  // Detta för att file kan vara string eller File
+  // TS - Detta för att file kan vara string eller File
   if (file instanceof File) {
     const tempPath = file.name;
     const uploadsDir = path.join(process.cwd(), "public", "assets");
@@ -69,7 +73,7 @@ export async function POST(req: Request) {
         INSERT INTO test (Fil, Inkomst_utgift, konto1, konto2, konto3, 
           belopp, land, datum, titel, kommentar)
         VALUES (${file instanceof File ? (file as File).name : null}, 
-        ${String(inkomst_utgift)}, 
+        ${String(radioInkomstUtgift)}, 
         ${Number(konto1)}, 
         ${Number(konto2)}, 
         ${Number(konto3)}, 

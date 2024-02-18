@@ -9,18 +9,13 @@ type RowData = {
   datum: string;
   belopp: string;
 };
-
 type HomeChartProps = {
   year: string;
   setYear: (year: string) => void;
   chartData: RowData[] | undefined;
 };
 
-export default function HomeChart({
-  year,
-  setYear,
-  chartData,
-}: HomeChartProps) {
+export default function HomeChart({ setYear, chartData }: HomeChartProps) {
   const data = {
     labels: chartData?.map((row) => row.datum) || [],
     datasets: [
