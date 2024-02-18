@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
+import fs from "fs";
+import path from "path";
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
@@ -35,9 +36,53 @@ export async function GET(request: Request) {
 
 ////////////////////////////////////////////////////////////////
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const data = await req.body;
-  console.log(data);
+export async function POST(req: Request) {
+  // const data = await req.json();
+  const data = await req.formData();
 
-  return NextResponse.json(res);
+  const file = data.get("file");
+  const inkomst_utgift = data.get("radioInkomstUtgift");
+  const konto1 = data.get("konto1");
+  const konto2 = data.get("konto2");
+  const konto3 = data.get("konto3");
+  const belopp = data.get("belopp");
+  const land = data.get("säljarensLand");
+  const datum = data.get("datum");
+  const titel = data.get("titel");
+  const kommentar = data.get("kommentar");
+
+  // Detta för att file kan vara string eller File
+  if (file instanceof File) {
+    const tempPath = file.name;
+    const uploadsDir = path.join(process.cwd(), "public", "assets");
+    const targetPath = path.join(uploadsDir, file.name);
+
+    fs.copyFile(tempPath, targetPath, (err) => {
+      if (err) {
+        console.error("Error copying file:", err);
+      }
+    });
+  }
+
+  try {
+    await sql`
+        INSERT INTO test (Fil, Inkomst_utgift, konto1, konto2, konto3, 
+          belopp, land, datum, titel, kommentar)
+        VALUES (${file instanceof File ? (file as File).name : null}, 
+        ${String(inkomst_utgift)}, 
+        ${Number(konto1)}, 
+        ${Number(konto2)}, 
+        ${Number(konto3)}, 
+        ${Number(belopp)}, 
+        ${String(land)}, 
+        ${datum ? String(datum) : null}, 
+        ${String(titel)}, 
+        ${String(kommentar)})`;
+  } catch (error) {
+    console.error("Error inserting data:", error);
+  }
+
+  return NextResponse.json({
+    message: "Data received successfully",
+  });
 }

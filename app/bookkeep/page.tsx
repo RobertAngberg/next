@@ -28,7 +28,6 @@ const Bookkeep: React.FC = () => {
     const dataToSend = {
       file,
       radioInkomstUtgift,
-      searchText,
       konto1,
       konto2,
       konto3,
@@ -39,25 +38,41 @@ const Bookkeep: React.FC = () => {
       kommentar,
     };
 
+    const formData = new FormData();
+    if (file) {
+      formData.append("file", file);
+    }
+    formData.append("radioInkomstUtgift", radioInkomstUtgift);
+    // formData.append("searchText", searchText);
+    formData.append("konto1", konto1);
+    formData.append("konto2", konto2);
+    formData.append("konto3", konto3);
+    formData.append("belopp", belopp);
+    formData.append("säljarensLand", säljarensLand);
+    formData.append("datum", datum);
+    formData.append("titel", titel);
+    formData.append("kommentar", kommentar);
+
     try {
-      const response = await fetch("/api/post", {
+      const response = await fetch("http://localhost:3000/api", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
+        // body: JSON.stringify(dataToSend),
+        body: formData,
       });
 
       if (response.ok) {
         // Handle the response
         const result = await response.json();
-        console.log(result);
+        console.log("Fras");
       } else {
         // Handle errors
-        console.error("Error:", response.statusText);
+        console.log("ErrorFirst:", response.statusText);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.log("SecondError:", error);
     }
 
     // await postBookkeepData(dataToSend);
