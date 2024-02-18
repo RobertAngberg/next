@@ -37,7 +37,7 @@ export default function HomeChart({
       <div className="mx-auto w-4/5">
         <Bar datasetIdKey="id" data={data} className="p-10 h-60" />
       </div>
-      <label className="p-3" htmlFor="year">
+      <label className="p-3 text-white" htmlFor="year">
         Visa år:
       </label>
       <select
