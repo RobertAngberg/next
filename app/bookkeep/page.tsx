@@ -73,7 +73,7 @@ const Bookkeep: React.FC = () => {
   };
 
   return (
-    <div className="p-10 flex">
+    <main className="p-10 flex items-center p-10 text-center bg-slate-950 text-white">
       <div className="w-1/4">
         {/* <form onSubmit={handleSubmit}> */}
         <FileUpload file={file} setFile={setFile} />
@@ -128,49 +128,12 @@ const Bookkeep: React.FC = () => {
             src={pdfUrl}
             width="100%"
             height="100%"
-            style={{ border: "none" }}
             title="PDF Viewer"
           ></iframe>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 
 export default Bookkeep;
-
-// "use client";
-// import React, { useState, ChangeEvent } from "react";
-
-// const PdfViewer: React.FC = () => {
-// const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-
-// const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-//   const file = event.target.files ? event.target.files[0] : null;
-
-//   if (file && file.type === "application/pdf") {
-//     const fileUrl = URL.createObjectURL(file);
-//     setPdfUrl(fileUrl);
-//   } else {
-//     setPdfUrl(null);
-//     alert("Please upload a PDF file.");
-//   }
-// };
-
-//   return (
-// <div>
-//   <input type="file" accept="application/pdf" onChange={handleFileChange} />
-//   {pdfUrl && (
-//     <iframe
-//       src={pdfUrl}
-//       width="100%"
-//       height="600px"
-//       style={{ border: "none" }}
-//       title="PDF Viewer"
-//     ></iframe>
-//   )}
-// </div>
-//   );
-// };
-
-// export default PdfViewer;

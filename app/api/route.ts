@@ -6,16 +6,13 @@ import path from "path";
 export async function GET(request: Request) {
   const paramsGrab = new URL(request.url).searchParams;
   const params = paramsGrab.get("q");
-  console.log("Loggy: GET -> params", params);
 
   if (params === "history") {
-    const historyQuery = await sql`SELECT * FROM test ORDER BY datum DESC;`;
-    historyQuery.rows;
-    console.log("Loggy: GET -> historyQuery.rows", historyQuery.rows);
+    const historyQuery = await sql`SELECT * FROM test ORDER BY datum ASC;`;
+    const allRows = historyQuery.rows;
+		console.log("Loggy: GET -> allRows", allRows);
 
-    return NextResponse.json({
-      message: "Data received successfully",
-    });
+    return NextResponse.json({ allRows }, { status: 200 });
   }
 
   if (params !== null && typeof Number) {
