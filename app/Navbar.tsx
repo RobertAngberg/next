@@ -18,6 +18,11 @@ const Navbar = () => {
                   <p>Bokför</p>
                 </Link>
               </li>
+              <li>
+                <Link href="/history">
+                  <p>Historik</p>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

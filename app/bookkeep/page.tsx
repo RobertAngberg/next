@@ -23,7 +23,6 @@ const Bookkeep: React.FC = () => {
   const [datum, setDatum] = useState("");
   const [titel, setTitel] = useState("");
   const [kommentar, setKommentar] = useState("");
-
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {

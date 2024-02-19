@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Card from "./Card";
-import HomeChart from "./HomeChart";
+import Card from "./home/Card";
+import HomeChart from "./home/HomeChart";
 import useFetchGet from "./hooks/useFetchGet";
 
 const Home: React.FC = () => {

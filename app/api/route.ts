@@ -4,42 +4,57 @@ import fs from "fs";
 import path from "path";
 
 export async function GET(request: Request) {
-  const params = new URL(request.url).searchParams;
-  const year = params.get("q");
+  const paramsGrab = new URL(request.url).searchParams;
+  const params = paramsGrab.get("q");
+  console.log("Loggy: GET -> params", params);
 
-  let yearData = null;
+  if (params === "history") {
+    const historyQuery = await sql`SELECT * FROM test ORDER BY datum DESC;`;
+    historyQuery.rows;
+    console.log("Loggy: GET -> historyQuery.rows", historyQuery.rows);
 
-  if (year) {
-    const yearQuery =
-      await sql`SELECT * FROM test WHERE EXTRACT(year FROM datum) = ${year} 
-      ORDER BY datum DESC;`;
-    yearData = yearQuery.rows;
+    return NextResponse.json({
+      message: "Data received successfully",
+    });
   }
 
-  const dataInkomst =
-    await sql`SELECT SUM(belopp) AS totalBelopp FROM test WHERE Inkomst_utgift = 'Inkomst';`;
-  const totalInkomst = dataInkomst.rows[0].totalbelopp;
+  if (params !== null && typeof Number) {
+    let yearData = null;
 
-  const dataUtgift =
-    await sql`SELECT SUM(belopp) AS totalBelopp FROM test WHERE Inkomst_utgift = 'Utgift';`;
-  const totalUtgift = dataUtgift.rows[0].totalbelopp;
+    if (params) {
+      const yearQuery =
+        await sql`SELECT * FROM test WHERE EXTRACT(year FROM datum) = ${params} 
+      ORDER BY datum DESC;`;
+      yearData = yearQuery.rows;
+    }
 
-  const resultat = totalInkomst - totalUtgift;
+    const dataInkomst =
+      await sql`SELECT SUM(belopp) AS totalBelopp FROM test WHERE Inkomst_utgift = 'Inkomst';`;
+    const totalInkomst = dataInkomst.rows[0].totalbelopp;
 
-  const query = await sql`SELECT * FROM test ORDER BY datum DESC;`;
-  const allRows = query.rows;
+    const dataUtgift =
+      await sql`SELECT SUM(belopp) AS totalBelopp FROM test WHERE Inkomst_utgift = 'Utgift';`;
+    const totalUtgift = dataUtgift.rows[0].totalbelopp;
 
-  return NextResponse.json(
-    { totalInkomst, totalUtgift, resultat, allRows, yearData },
-    { status: 200 }
-  );
+    const resultat = totalInkomst - totalUtgift;
+
+    const query = await sql`SELECT * FROM test ORDER BY datum DESC;`;
+    const allRows = query.rows;
+
+    return NextResponse.json(
+      { totalInkomst, totalUtgift, resultat, allRows, yearData },
+      { status: 200 }
+    );
+  }
 }
 
 ////////////////////////////////////////////////////////////////
+// POST
+////////////////////////////////////////////////////////////////
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   // const data = await req.json();
-  const data = await req.formData();
+  const data = await request.formData();
 
   // Skapar key-value pairs från FormData
   const {
