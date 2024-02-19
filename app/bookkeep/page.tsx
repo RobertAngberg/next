@@ -29,16 +29,23 @@ const Bookkeep: React.FC = () => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    formData.append("file", file || "");
-    formData.append("radioInkomstUtgift", radioInkomstUtgift);
-    formData.append("konto1", konto1);
-    formData.append("konto2", konto2);
-    formData.append("konto3", konto3);
-    formData.append("belopp", belopp);
-    formData.append("säljarensLand", säljarensLand);
-    formData.append("datum", datum);
-    formData.append("titel", titel);
-    formData.append("kommentar", kommentar);
+
+    const formFields = {
+      file: file || "",
+      radioInkomstUtgift,
+      konto1,
+      konto2,
+      konto3,
+      belopp,
+      säljarensLand,
+      datum,
+      titel,
+      kommentar,
+    };
+    // Loop over the object and append each field to formData
+    Object.entries(formFields).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
     await postFormData("http://localhost:3000/api", formData);
   };
