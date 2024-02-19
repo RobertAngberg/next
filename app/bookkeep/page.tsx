@@ -7,7 +7,10 @@ import InkomstUtgift from "./InkomstUtgift";
 import Accounts from "./Accounts";
 import Information from "./Information";
 import TitleAndComment from "./TitleAndComment";
-// import usePostData from "../../hooks/usePostData";
+import useFetchPost from "./../hooks/useFetchPost";
+
+// Kod längst ner för PDF-viewer
+// Fattar fortfarande inte await postFormData("http://localhost:3000/api", formData); men det funkar
 
 const Bookkeep: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -22,28 +25,12 @@ const Bookkeep: React.FC = () => {
   const [titel, setTitel] = useState("");
   const [kommentar, setKommentar] = useState("");
 
-  // const { postBookkeepData } = usePostData();
+  const postFormData = useFetchPost();
 
   const handleSubmit = async () => {
-    const dataToSend = {
-      file,
-      radioInkomstUtgift,
-      konto1,
-      konto2,
-      konto3,
-      belopp,
-      säljarensLand,
-      datum,
-      titel,
-      kommentar,
-    };
-
     const formData = new FormData();
-    if (file) {
-      formData.append("file", file);
-    }
+    formData.append("file", file || "");
     formData.append("radioInkomstUtgift", radioInkomstUtgift);
-    // formData.append("searchText", searchText);
     formData.append("konto1", konto1);
     formData.append("konto2", konto2);
     formData.append("konto3", konto3);
@@ -53,34 +40,13 @@ const Bookkeep: React.FC = () => {
     formData.append("titel", titel);
     formData.append("kommentar", kommentar);
 
-    try {
-      const response = await fetch("http://localhost:3000/api", {
-        method: "POST",
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
-        // body: JSON.stringify(dataToSend),
-        body: formData,
-      });
-
-      if (response.ok) {
-        // Handle the response
-        const result = await response.json();
-        console.log("Fras");
-      } else {
-        // Handle errors
-        console.log("ErrorFirst:", response.statusText);
-      }
-    } catch (error) {
-      console.log("SecondError:", error);
-    }
-
-    // await postBookkeepData(dataToSend);
+    await postFormData("http://localhost:3000/api", formData);
   };
 
   return (
     <div className="p-10 flex">
       <div className="w-1/4">
+        {/* <form onSubmit={handleSubmit}> */}
         <FileUpload file={file} setFile={setFile} />
         <InkomstUtgift
           radioInkomstUtgift={radioInkomstUtgift}
@@ -118,6 +84,7 @@ const Bookkeep: React.FC = () => {
         <button type="submit" className="button-bokför" onClick={handleSubmit}>
           Bokför
         </button>
+        {/* </form> */}
       </div>
       <div className="column-right">
         <p>--- Ladda upp ett underlag så visas det här ---</p>
@@ -127,3 +94,39 @@ const Bookkeep: React.FC = () => {
 };
 
 export default Bookkeep;
+
+// "use client";
+// import React, { useState, ChangeEvent } from "react";
+
+// const PdfViewer: React.FC = () => {
+//   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+
+//   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+//     const file = event.target.files ? event.target.files[0] : null;
+
+//     if (file && file.type === "application/pdf") {
+//       const fileUrl = URL.createObjectURL(file);
+//       setPdfUrl(fileUrl);
+//     } else {
+//       setPdfUrl(null);
+//       alert("Please upload a PDF file.");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <input type="file" accept="application/pdf" onChange={handleFileChange} />
+//       {pdfUrl && (
+//         <iframe
+//           src={pdfUrl}
+//           width="100%"
+//           height="600px"
+//           style={{ border: "none" }}
+//           title="PDF Viewer"
+//         ></iframe>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default PdfViewer;

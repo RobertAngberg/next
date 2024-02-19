@@ -1,0 +1,21 @@
+const useFetchPost = () => {
+    const postData = async (url: string, formData: FormData) => {
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error("Error posting data:", error);
+      }
+    };
+  
+    return postData;
+  };
+  
+  export default useFetchPost;
+  

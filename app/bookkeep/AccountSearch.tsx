@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import useFetchData from "../hooks/useFetch";
+import useFetchData from "../hooks/useFetchGet";
 
 type AccountSearchProps = {
   radio: string;

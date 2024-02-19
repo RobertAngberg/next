@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import Card from "./Card";
 import HomeChart from "./HomeChart";
-import useFetch from "./hooks/useFetch";
+import useFetchGet from "./hooks/useFetchGet";
 
 const Home: React.FC = () => {
   const [year, setYear] = useState("2024");
-  const { fetchData } = useFetch(`api?q=${year}`);
+  const { fetchData } = useFetchGet(`api?q=${year}`);
 
   return (
     <main className="items-center p-10 text-center bg-slate-950">
