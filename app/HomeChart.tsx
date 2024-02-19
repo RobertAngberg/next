@@ -16,6 +16,7 @@ type HomeChartProps = {
 };
 
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
+  
   const data = {
     labels: chartData?.map((row) => row.datum) || [],
     datasets: [
