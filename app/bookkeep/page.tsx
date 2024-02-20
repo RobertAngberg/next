@@ -122,12 +122,12 @@ const Bookkeep: React.FC = () => {
         </button>
         {/* </form> */}
       </div>
-      <div className="w-4/5 ml-10">
+      <div className="w-3/4 ml-10">
         {pdfUrl && (
           <iframe
             src={pdfUrl}
             width="100%"
-            height="100%"
+            height="1000px"
             title="PDF Viewer"
           ></iframe>
         )}

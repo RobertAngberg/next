@@ -5,10 +5,11 @@ import useFetchGet from "../hooks/useFetchGet";
 
 const History: React.FC = () => {
   const [historyData, setHistoryData] = useState([]);
+  const [year, setYear] = useState("");
   const { fetchData } = useFetchGet("api?q=history");
 
   useEffect(() => {
-    if (fetchData && fetchData.allRows) {
+    if (fetchData) {
       setHistoryData(fetchData.allRows);
     }
     console.log("Loggy: History:React.FC -> fetchData", fetchData);
@@ -17,21 +18,21 @@ const History: React.FC = () => {
   return (
     <main className="items-center p-10 text-center bg-slate-950 text-white">
       <table className="m-auto">
-        <thead className="bg-cyan-950 pb-20">
+        <thead className="bg-cyan-950">
           <tr>
-            <th className="p-6 rounded-tl-lg pl-10">ID</th>
-            <th>Datum</th>
-            <th>Konto1</th>
-            <th>Konto2</th>
-            <th>Konto3</th>
-            <th>Belopp</th>
-            <th>Land</th>
-            <th>Inkomst_utgift</th>
-            <th>Titel</th>
-            <th className="rounded-tr-lg pr-10">Kommentar</th>
+            <th className="p-6 rounded-tl-lg">id</th>
+            <th>datum</th>
+            <th>konto1</th>
+            <th>konto2</th>
+            <th>konto3</th>
+            <th>belopp</th>
+            <th>land</th>
+            <th>inkomst_utgift</th>
+            <th>titel</th>
+            <th>kommentar</th>
           </tr>
         </thead>
-        <tbody className="[&>*:nth-child(odd)]:bg-slate-900 [&>*:nth-child(even)]:bg-slate-800">
+        <tbody>
           {historyData.map(
             (item: {
               id: string;
@@ -61,6 +62,20 @@ const History: React.FC = () => {
           )}
         </tbody>
       </table>
+
+      <label className="p-3 text-white" htmlFor="year">
+        Visa år:
+      </label>
+      <select
+        className="text-black p-2"
+        id="year"
+        onChange={(e) => setYear(e.target.value)}
+      >
+        <option value="">Select</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+      </select>
     </main>
   );
 };

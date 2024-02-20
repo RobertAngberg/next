@@ -10,7 +10,6 @@ export async function GET(request: Request) {
   if (params === "history") {
     const historyQuery = await sql`SELECT * FROM test ORDER BY datum ASC;`;
     const allRows = historyQuery.rows;
-		console.log("Loggy: GET -> allRows", allRows);
 
     return NextResponse.json({ allRows }, { status: 200 });
   }
