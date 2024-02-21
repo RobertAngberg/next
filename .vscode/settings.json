@@ -8,5 +8,31 @@
   },
   "editor.quickSuggestions": {
     "strings": true
-  }
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".env.development.local": true,
+    ".eslintrc.json": true,
+    ".git": true,
+    ".gitignore": true,
+    ".next": true,
+    ".vercel": true,
+    ".vscode": true,
+    "**/*.cs.meta": true,
+    "app/globals.css": true,
+    "next-env.d.ts": true,
+    "next.config.mjs": true,
+    "node_modules": true,
+    "package-lock.json": true,
+    "package.json": true,
+    "postcss.config.js": true,
+    "tailwind.config.js": true,
+    "tsconfig.json": true
+  },
+  "hide-files.files": []
 }

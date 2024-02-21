@@ -17,9 +17,9 @@ const History: React.FC = () => {
   return (
     <main className="min-h-screen items-center p-10 text-center bg-slate-950 text-white">
       <table className="m-auto">
-        <thead className="bg-cyan-950 text-lg text-">
+        <thead className="bg-cyan-950 text-lg">
           <tr>
-            <th className="p-8 pl-6 rounded-tl-lg">ID</th>
+            <th className="p-7 pl-10 rounded-tl-lg">ID</th>
             <th>Datum</th>
             <th>Fil</th>
             <th>Konto 1</th>
@@ -29,7 +29,7 @@ const History: React.FC = () => {
             <th>Land</th>
             <th>Typ</th>
             <th>Titel</th>
-            <th className="p-4 pr-6 rounded-tr-lg">Kommentar</th>
+            <th className="pr-10 rounded-tr-lg">Kommentar</th>
           </tr>
         </thead>
         <tbody>
