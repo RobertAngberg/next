@@ -5,9 +5,8 @@ const Navbar = () => {
     <>
       <div className="w-full h-20 bg-cyan-950 sticky top-0">
         <div className="container mx-auto px-4 h-full">
-          <div className="flex justify-between items-center h-full">
-            {/* <Logo /> */}
-            <ul className="hidden md:flex gap-x-6 text-white">
+          <div className="flex justify-center items-center h-full">
+            <ul className="hidden md:flex gap-x-14 text-white text-lg font-bold text-center">
               <li>
                 <Link href="/">
                   <p>Hem</p>

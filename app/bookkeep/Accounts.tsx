@@ -21,7 +21,7 @@ const Accounts: React.FC<AccountsProps> = ({
     <div>
       <label htmlFor="konto1">Ditt konto, oftast 1930:</label>
       <input
-        className="w-full p-2  border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2  border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="konto1"
         name="konto1"
@@ -34,7 +34,7 @@ const Accounts: React.FC<AccountsProps> = ({
       <label htmlFor="konto2">Moms:</label>
       <br />
       <input
-        className="w-full p-2  border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2  border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="konto2"
         name="konto2"
@@ -48,7 +48,7 @@ const Accounts: React.FC<AccountsProps> = ({
       <label htmlFor="konto3">Motkonto:</label>
       <br />
       <input
-        className="w-full p-2  border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2  border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="konto3"
         name="konto3"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import AccountSearch from "./AccountSearch";
 import FileUpload from "./FileUpload";
 import InkomstUtgift from "./InkomstUtgift";
@@ -9,10 +9,9 @@ import Information from "./Information";
 import TitleAndComment from "./TitleAndComment";
 import useFetchPost from "./../hooks/useFetchPost";
 
-// Fattar fortfarande inte await postFormData("http://localhost:3000/api", formData); men det funkar
-
 const Bookkeep: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [radioInkomstUtgift, setRadioInkomstUtgift] = useState("");
   const [searchText, setSearchText] = useState("");
   const [konto1, setKonto1] = useState("1930 - Företagskonto");
@@ -23,30 +22,8 @@ const Bookkeep: React.FC = () => {
   const [datum, setDatum] = useState("");
   const [titel, setTitel] = useState("");
   const [kommentar, setKommentar] = useState("");
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files ? event.target.files[0] : null;
-
-    if (file) {
-      const fileType = file.type;
-      const validImageTypes = ["image/jpeg", "image/png"];
-
-      if (
-        fileType === "application/pdf" ||
-        validImageTypes.includes(fileType)
-      ) {
-        const fileUrl = URL.createObjectURL(file);
-        setPdfUrl(fileUrl); // Assuming setFileUrl is the state setter function for handling the file URL
-      } else {
-        setPdfUrl(null);
-        alert("Please upload a PDF or an image file.");
-      }
-    } else {
-      setPdfUrl(null);
-    }
-  };
-
+  // Fattar fortfarande inte helt
   const postFormData = useFetchPost();
 
   const handleSubmit = async () => {
@@ -69,30 +46,25 @@ const Bookkeep: React.FC = () => {
       formData.append(key, value);
     });
 
-    await postFormData("http://localhost:3000/api", formData);
+    await postFormData("http://localhost:3000/api/bookkeep/", formData);
   };
 
   return (
     <main className="p-10 flex items-center p-10 text-center bg-slate-950 text-white">
       <div className="w-1/4">
-        {/* <form onSubmit={handleSubmit}> */}
-        <FileUpload file={file} setFile={setFile} />
-
-        <input
-          type="file"
-          accept="application/pdf,image/png,image/jpeg"
-          onChange={handleFileChange}
-        />
+        <FileUpload setFile={setFile} setPdfUrl={setPdfUrl} />
 
         <InkomstUtgift
           radioInkomstUtgift={radioInkomstUtgift}
           setRadioInkomstUtgift={setRadioInkomstUtgift}
         />
+
         <AccountSearch
           radio={radioInkomstUtgift}
           searchText={searchText}
           setSearchText={setSearchText}
         />
+
         <Accounts
           konto1={konto1}
           setKonto1={setKonto1}
@@ -101,7 +73,9 @@ const Bookkeep: React.FC = () => {
           konto3={konto3}
           setKonto3={setKonto3}
         />
-        <hr />
+
+        <hr className="my-8" />
+
         <Information
           belopp={belopp}
           setBelopp={setBelopp}
@@ -110,17 +84,23 @@ const Bookkeep: React.FC = () => {
           datum={datum}
           setDatum={setDatum}
         />
-        <hr />
+
+        <hr className="my-8" />
+
         <TitleAndComment
           titel={titel}
           setTitel={setTitel}
           kommentar={kommentar}
           setKommentar={setKommentar}
         />
-        <button type="submit" className="button-bokför" onClick={handleSubmit}>
+
+        <button
+          type="submit"
+          className="bg-cyan-600 hover:bg-cyan-700 w-full text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+          onClick={handleSubmit}
+        >
           Bokför
         </button>
-        {/* </form> */}
       </div>
       <div className="w-3/4 ml-10">
         {pdfUrl && (

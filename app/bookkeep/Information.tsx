@@ -22,7 +22,7 @@ const Information: React.FC<InformationProps> = ({
       <label htmlFor="belopp">Belopp:</label>
       <br />
       <input
-        className="w-full p-2  border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2  border-solid border-2 border-gray-600 rounded text-black"
         type="number"
         id="belopp"
         name="belopp"
@@ -36,7 +36,7 @@ const Information: React.FC<InformationProps> = ({
       <label htmlFor="säljarens_land">Säljarens land:</label>
       <br />
       <select
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
         id="säljarens_land"
         name="säljarens_land"
         value={säljarensLand}
@@ -51,7 +51,7 @@ const Information: React.FC<InformationProps> = ({
       <label htmlFor="datum">Betaldatum:</label>
       <br />
       <input
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
         type="date"
         id="datum"
         name="datum"

@@ -9,6 +9,7 @@ type RowData = {
   datum: string;
   belopp: string;
 };
+
 type HomeChartProps = {
   year: string;
   setYear: (year: string) => void;
@@ -16,7 +17,6 @@ type HomeChartProps = {
 };
 
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
-  
   const data = {
     labels: chartData?.map((row) => row.datum) || [],
     datasets: [
@@ -28,20 +28,56 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
     ],
   };
 
+  const options = {
+    scales: {
+      x: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 18, // X-axis labels font size
+          },
+        },
+      },
+      y: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 18, // Y-axis labels font size
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "white",
+          font: {
+            size: 18, // Legend labels font size
+          },
+        },
+      },
+    },
+  };
+
   return (
     <div>
-      <div className="mx-auto w-4/5">
-        <Bar datasetIdKey="id" data={data} className="p-10 h-60" />
+      <div className="mx-auto w-4/5 text-white">
+        <Bar
+          datasetIdKey="id"
+          options={options}
+          data={data}
+          className="p-10 h-60"
+        />
       </div>
-      <label className="p-3 text-white" htmlFor="year">
+      <label className="p-3 text-white font-bold" htmlFor="year">
         Visa år:
       </label>
       <select
-        className="text-black p-2"
+        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded"
         id="year"
         onChange={(e) => setYear(e.target.value)}
       >
-        <option value="">Select</option>
+        <option value="">Välj</option>
         <option value="2022">2022</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>

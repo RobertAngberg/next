@@ -1,15 +1,33 @@
 "use client";
 
 type FileUploadProps = {
-  file: File | null;
   setFile: (file: File | null) => void;
+  setPdfUrl: (url: string | null) => void;
 };
 
-const FileUpload: React.FC<FileUploadProps> = ({ file, setFile }) => {
+const FileUpload: React.FC<FileUploadProps> = ({ setFile, setPdfUrl }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
+      const file = event.target.files ? event.target.files[0] : null;
       setFile(file);
+
+      if (file) {
+        const fileType = file.type;
+        const validImageTypes = ["image/jpeg", "image/png"];
+
+        if (
+          fileType === "application/pdf" ||
+          validImageTypes.includes(fileType)
+        ) {
+          const fileUrl = URL.createObjectURL(file);
+          setPdfUrl(fileUrl);
+        } else {
+          setPdfUrl(null);
+          alert("Please upload a PDF or an image file.");
+        }
+      } else {
+        setPdfUrl(null);
+      }
     }
   };
 
@@ -18,19 +36,17 @@ const FileUpload: React.FC<FileUploadProps> = ({ file, setFile }) => {
       <input
         type="file"
         id="fileUpload"
+        accept="application/pdf,image/png,image/jpeg"
         onChange={handleFileChange}
-        accept=".pdf, .jpg, .jpeg, .png"
         required
         style={{ display: "none" }}
       />
       <label
         htmlFor="fileUpload"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded flex items-center justify-center"
       >
         Välj fil
       </label>
-
-      {file && <p>Selected file: {file.name}</p>}
     </>
   );
 };

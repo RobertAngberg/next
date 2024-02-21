@@ -5,31 +5,31 @@ import useFetchGet from "../hooks/useFetchGet";
 
 const History: React.FC = () => {
   const [historyData, setHistoryData] = useState([]);
-  const [year, setYear] = useState("");
-  const { fetchData } = useFetchGet("api?q=history");
+  const [year, setYear] = useState("2024");
+  const { fetchData } = useFetchGet(`api/?q=${year}`);
 
   useEffect(() => {
     if (fetchData) {
-      setHistoryData(fetchData.allRows);
+      setHistoryData(fetchData.yearData);
     }
-    console.log("Loggy: History:React.FC -> fetchData", fetchData);
   }, [fetchData]);
 
   return (
-    <main className="items-center p-10 text-center bg-slate-950 text-white">
+    <main className="min-h-screen items-center p-10 text-center bg-slate-950 text-white">
       <table className="m-auto">
-        <thead className="bg-cyan-950">
+        <thead className="bg-cyan-950 text-lg text-">
           <tr>
-            <th className="p-6 rounded-tl-lg">id</th>
-            <th>datum</th>
-            <th>konto1</th>
-            <th>konto2</th>
-            <th>konto3</th>
-            <th>belopp</th>
-            <th>land</th>
-            <th>inkomst_utgift</th>
-            <th>titel</th>
-            <th>kommentar</th>
+            <th className="p-8 pl-6 rounded-tl-lg">ID</th>
+            <th>Datum</th>
+            <th>Fil</th>
+            <th>Konto 1</th>
+            <th>Konto 2</th>
+            <th>Konto 3</th>
+            <th>Belopp</th>
+            <th>Land</th>
+            <th>Typ</th>
+            <th>Titel</th>
+            <th className="p-4 pr-6 rounded-tr-lg">Kommentar</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +37,7 @@ const History: React.FC = () => {
             (item: {
               id: string;
               datum: string;
+              fil: string;
               konto1: string;
               konto2: string;
               konto3: string;
@@ -46,32 +47,36 @@ const History: React.FC = () => {
               titel: string;
               kommentar: string;
             }) => (
-              <tr key={item.id}>
-                <td className="p-4">{item.id}</td>
-                <td className="p-4">{item.datum}</td>
-                <td className="p-4">{item.konto1}</td>
-                <td className="p-4">{item.konto2}</td>
-                <td className="p-4">{item.konto3}</td>
-                <td className="p-4">{item.belopp}</td>
-                <td className="p-4">{item.land}</td>
-                <td className="p-4">{item.inkomst_utgift}</td>
-                <td className="p-4">{item.titel}</td>
-                <td className="p-4">{item.kommentar}</td>
+              <tr
+                key={item.id}
+                className="even:bg-gray-950 odd:bg-gray-900 border-b border-t border-gray-700"
+              >
+                <td className="p-5">{item.id}</td>
+                <td className="p-5">{item.datum.slice(0, 10)}</td>
+                <td className="p-5">{item.fil}</td>
+                <td className="p-5">{item.konto1}</td>
+                <td className="p-5">{item.konto2}</td>
+                <td className="p-5">{item.konto3}</td>
+                <td className="p-5">{item.belopp}</td>
+                <td className="p-5">{item.land}</td>
+                <td className="p-5">{item.inkomst_utgift}</td>
+                <td className="p-5">{item.titel}</td>
+                <td className="p-5">{item.kommentar}</td>
               </tr>
             )
           )}
         </tbody>
       </table>
-
+      <br />
       <label className="p-3 text-white" htmlFor="year">
         Visa år:
       </label>
       <select
-        className="text-black p-2"
+        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded"
         id="year"
         onChange={(e) => setYear(e.target.value)}
       >
-        <option value="">Select</option>
+        <option value="">Välj</option>
         <option value="2022">2022</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>

@@ -45,7 +45,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
         Sök typ av inkomst/utgift:
       </label>
       <input
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded"
+        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="search-account-number"
         name="searchInput"
