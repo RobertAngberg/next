@@ -50,7 +50,7 @@ const Bookkeep: React.FC = () => {
   };
 
   return (
-    <main className="p-10 flex items-center p-10 text-center bg-slate-950 text-white">
+    <main className="flex items-center p-10 text-center bg-slate-950 text-white">
       <div className="w-1/4">
         <FileUpload setFile={setFile} setPdfUrl={setPdfUrl} />
 

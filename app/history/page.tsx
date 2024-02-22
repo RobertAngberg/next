@@ -19,7 +19,7 @@ const History: React.FC = () => {
       <table className="m-auto">
         <thead className="bg-cyan-950 text-lg">
           <tr>
-            <th className="p-7 pl-10 rounded-tl-lg">ID</th>
+            <th className="p-6 pl-10 rounded-tl-lg">ID</th>
             <th>Datum</th>
             <th>Fil</th>
             <th>Konto 1</th>
@@ -49,9 +49,10 @@ const History: React.FC = () => {
             }) => (
               <tr
                 key={item.id}
-                className="even:bg-gray-950 odd:bg-gray-900 border-b border-t border-gray-700"
+                className="even:bg-gray-950 odd:bg-gray-900 border-b border-t border-gray-700 hover:bg-gray-700"
               >
                 <td className="p-5">{item.id}</td>
+                {/* Visa bara första 10 tecken av datumet */}
                 <td className="p-5">{item.datum.slice(0, 10)}</td>
                 <td className="p-5">{item.fil}</td>
                 <td className="p-5">{item.konto1}</td>

@@ -22,6 +22,11 @@ const Navbar = () => {
                   <p>Historik</p>
                 </Link>
               </li>
+              <li>
+                <Link href="/canvas">
+                  <p>Canvas</p>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

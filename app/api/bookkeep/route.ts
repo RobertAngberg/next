@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 
 export async function POST(request: Request) {
-  // const data = await req.json();
   const data = await request.formData();
 
   // Skapar key-value pairs från FormData
