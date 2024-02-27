@@ -23,7 +23,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ setFile, setPdfUrl }) => {
           setPdfUrl(fileUrl);
         } else {
           setPdfUrl(null);
-          alert("Please upload a PDF or an image file.");
+          alert("Endast PDF, jpg- samt png-filer tillåts.");
         }
       } else {
         setPdfUrl(null);
