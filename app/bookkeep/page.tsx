@@ -41,7 +41,6 @@ const Bookkeep: React.FC = () => {
       titel,
       kommentar,
     };
-    // Loop over the object and append each field to formData
     Object.entries(formFields).forEach(([key, value]) => {
       formData.append(key, value);
     });

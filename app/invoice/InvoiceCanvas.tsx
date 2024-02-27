@@ -1,29 +1,43 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import LogoUpload from "./LogoUpload";
+import React, { useEffect } from "react";
 
 type TextFields = { [key: string]: string };
+type LogoImage = HTMLImageElement | null;
 
-const InvoiceCanvas = ({ textFields }: { textFields: TextFields }) => {
-  // const [imageFile, setImageFile] = useState<File | null>(null);
-  const [image, setImage] = useState<HTMLImageElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+type InvoiceCanvasProps = {
+  canvasRef: React.RefObject<HTMLCanvasElement>;
+  textFields: TextFields;
+  logoImage: LogoImage;
+  saveAsJPG: () => void;
+};
 
+const InvoiceCanvas: React.FC<InvoiceCanvasProps> = ({
+  canvasRef,
+  textFields,
+  logoImage,
+  saveAsJPG,
+}) => {
   useEffect(() => {
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext("2d");
       if (ctx) {
+        // Clear the canvas
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-        if (image) {
+        // Set the entire canvas background to white
+        ctx.fillStyle = "#FFF"; // White color
+        ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+        if (logoImage) {
           // Här sätts maxhöjd och maxbredd för loggan
-          let scale = Math.min(200 / image.width, 125 / image.height);
-          let width = image.width * scale;
-          let height = image.height * scale;
+          let scale = Math.min(200 / logoImage.width, 125 / logoImage.height);
+          let width = logoImage.width * scale;
+          let height = logoImage.height * scale;
           let x = canvasRef.current.width - width;
+
           // x - 30 är 30px padding från högerkanten.. + 5 padding från toppen
-          ctx.drawImage(image, x - 30, 30 + 5, width, height);
+          ctx.drawImage(logoImage, x - 40, 30 + 5, width, height);
         }
 
         ctx.font = "bold 48px Arial";
@@ -65,7 +79,7 @@ const InvoiceCanvas = ({ textFields }: { textFields: TextFields }) => {
         // Transaktionen
         const tableStartX = 40;
         const tableStartY = 500;
-        const columnWidth = 130;
+        const columnWidth = 126;
         const rowHeight = 25;
         const headerHeight = rowHeight * 2 - 10;
 
@@ -96,9 +110,9 @@ const InvoiceCanvas = ({ textFields }: { textFields: TextFields }) => {
         ctx.font = "16px Arial";
         ctx.fillText(textFields["Beskrivning"], 40, 520);
         ctx.fillText(textFields["Antal"], 190, 520);
-        ctx.fillText(textFields["Apris"], 320, 520);
-        ctx.fillText(textFields["Moms"], 450, 520);
-        ctx.fillText(textFields["Belopp"], 580, 520);
+        ctx.fillText(textFields["Apris"], 310, 520);
+        ctx.fillText(textFields["Moms"], 440, 520);
+        ctx.fillText(textFields["Belopp"], 565, 520);
 
         // Totaler
         ctx.font = "16px Arial";
@@ -113,61 +127,25 @@ const InvoiceCanvas = ({ textFields }: { textFields: TextFields }) => {
 
         // Fot kolumn 1
         ctx.font = "11px Arial";
-        ctx.fillText(textFields["Fot, företagsnamn"], 40, 760);
-        ctx.fillText(textFields["Fot, adress"], 40, 780);
-        ctx.fillText(textFields["Fot, postnummer och stad"], 40, 800);
-        ctx.fillText(textFields["Fot, orgnummer"], 40, 820);
-        ctx.fillText(textFields["Fot, momsnummer"], 40, 840);
+        ctx.fillText(textFields["Fot, företagsnamn"], 40, 860);
+        ctx.fillText(textFields["Fot, adress"], 40, 880);
+        ctx.fillText(textFields["Fot, postnummer och stad"], 40, 900);
+        ctx.fillText(textFields["Fot, orgnummer"], 40, 920);
+        ctx.fillText(textFields["Fot, momsnummer"], 40, 940);
 
         // Fot kolumn 2
-        ctx.fillText(textFields["Fot, kontaktperson"], 560, 760);
-        ctx.fillText(textFields["Fot, telefonnummer"], 560, 780);
-        ctx.fillText(textFields["Fot, email"], 560, 800);
-        ctx.fillText(textFields["Fot, hemsida"], 560, 820);
-        ctx.fillText(textFields["Fot, social media"], 560, 840);
+        ctx.fillText(textFields["Fot, kontaktperson"], 530, 860);
+        ctx.fillText(textFields["Fot, telefonnummer"], 530, 880);
+        ctx.fillText(textFields["Fot, email"], 530, 900);
+        ctx.fillText(textFields["Fot, hemsida"], 530, 920);
+        ctx.fillText(textFields["Fot, social media"], 530, 940);
       }
     }
-  }, [textFields, image]);
-
-  const handleFileUpload = (image: HTMLImageElement) => {
-    setImage(image);
-  };
-
-  const saveAsJPG = () => {
-    if (canvasRef.current) {
-      const tempCanvas = document.createElement("canvas");
-      tempCanvas.width = canvasRef.current.width;
-      tempCanvas.height = canvasRef.current.height;
-
-      const tempCtx = tempCanvas.getContext("2d");
-      if (tempCtx) {
-        tempCtx.fillStyle = "#FFF"; // White background
-        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-        tempCtx.drawImage(canvasRef.current, 0, 0);
-
-        const imageURL = tempCanvas.toDataURL("image/jpeg");
-        const downloadLink = document.createElement("a");
-        downloadLink.href = imageURL;
-        downloadLink.download = "canvas-image.jpg";
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-      }
-    }
-  };
+  }, [textFields, logoImage]);
 
   return (
     <>
-      <LogoUpload handleFileUpload={handleFileUpload} />
-      <br></br>
-      <br></br>
-      <canvas ref={canvasRef} width="730" height="900" className="bg-white" />
-      <button
-        className="bg-yellow-600 hover:bg-cyan-700 w-full text-white font-bold py-2 px-4 rounded flex items-center justify-center mb-10"
-        onClick={saveAsJPG}
-      >
-        Save as JPG
-      </button>
+      <canvas ref={canvasRef} width="715" height="1011" className="bg-white" />
     </>
   );
 };
