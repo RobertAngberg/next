@@ -6,7 +6,7 @@ import useFetchGet from "../hooks/useFetchGet";
 const History: React.FC = () => {
   const [historyData, setHistoryData] = useState([]);
   const [year, setYear] = useState("2024");
-  const { fetchData } = useFetchGet(`api/?q=${year}`);
+  const { fetchData } = useFetchGet(`api/history/?q=${year}`);
 
   useEffect(() => {
     if (fetchData) {

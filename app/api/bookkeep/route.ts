@@ -22,6 +22,7 @@ export async function POST(request: Request) {
 
   // TS - Detta för att file kan vara string eller File
   if (file instanceof File) {
+    // Ladda upp filen till servern - public/assets
     const tempPath = file.name;
     const uploadsDir = path.join(process.cwd(), "public", "assets");
     const targetPath = path.join(uploadsDir, file.name);
@@ -37,14 +38,14 @@ export async function POST(request: Request) {
     await sql`
         INSERT INTO test (Fil, Inkomst_utgift, konto1, konto2, konto3, 
           belopp, land, datum, titel, kommentar)
-        VALUES (${file instanceof File ? (file as File).name : null}, 
+          VALUES (${file instanceof File ? (file as File).name : null}, 
         ${String(radioInkomstUtgift)}, 
         ${Number(konto1)}, 
         ${Number(konto2)}, 
         ${Number(konto3)}, 
         ${Number(belopp)}, 
         ${String(land)}, 
-        ${datum ? String(datum) : null}, 
+        ${String(datum)}, 
         ${String(titel)}, 
         ${String(kommentar)})`;
   } catch (error) {
