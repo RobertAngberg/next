@@ -7,7 +7,7 @@ const useFetchGet = (url: string) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/` + url);
+        const response = await fetch(`https://localhost:3000/` + url);
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
