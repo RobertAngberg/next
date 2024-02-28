@@ -3,12 +3,6 @@
 import React, { useState } from "react";
 import useFetchData from "../hooks/useFetchGet";
 
-type AccountSearchProps = {
-  radio: string;
-  searchText: string;
-  setSearchText: (value: string) => void;
-};
-
 const AccountSearch: React.FC<AccountSearchProps> = ({
   radio,
   searchText,
@@ -41,9 +35,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
 
   return (
     <div className="w-full">
-      <label className="" htmlFor="search-account-number">
-        Sök typ av inkomst/utgift:
-      </label>
+      <label htmlFor="search-account-number">Sök typ av inkomst/utgift:</label>
       <input
         className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
         type="text"

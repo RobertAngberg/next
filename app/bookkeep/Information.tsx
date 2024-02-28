@@ -1,14 +1,5 @@
 "use client";
 
-type InformationProps = {
-  belopp: string;
-  setBelopp: (belopp: string) => void;
-  säljarensLand: string;
-  setSäljarensLand: (land: string) => void;
-  datum: string;
-  setDatum: (datum: string) => void;
-};
-
 const Information: React.FC<InformationProps> = ({
   belopp,
   setBelopp,

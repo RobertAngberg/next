@@ -7,15 +7,6 @@ import ToggleButton from "./ToggleButton";
 import InvoiceCanvas from "./InvoiceCanvas";
 import LogoUpload from "./LogoUpload";
 
-type Group =
-  | "first4"
-  | "second4"
-  | "third4"
-  | "fourth4"
-  | "fifth4"
-  | "sixth4"
-  | "seventh4";
-
 const Invoice: React.FC = () => {
   const [activeToggleBtn, setActiveToggleBtn] = useState<Group | null>(null);
   const [logoImage, setLogoImage] = useState<HTMLImageElement | null>(null);
@@ -193,15 +184,6 @@ const Invoice: React.FC = () => {
         >
           Download as PDF
         </button>
-
-        {pdfUrl && (
-          <iframe
-            src={pdfUrl}
-            width="100%"
-            height="100%" // Adjusted for full height in modal
-            title="PDF Viewer"
-          ></iframe>
-        )}
       </div>
     </main>
   );

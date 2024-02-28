@@ -4,21 +4,10 @@ import React from "react";
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-type RowData = {
-  id: number;
-  datum: string;
-  belopp: string;
-};
-
-type HomeChartProps = {
-  year: string;
-  setYear: (year: string) => void;
-  chartData: RowData[] | undefined;
-};
-
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
   const data = {
-    labels: chartData?.map((row) => row.datum) || [],
+    // slice10 ger yyyy-mm-dd
+    labels: chartData?.map((row) => row.datum.slice(0, 10)) || [],
     datasets: [
       {
         label: "Belopp",
@@ -34,7 +23,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         ticks: {
           color: "white",
           font: {
-            size: 18, // X-axis labels font size
+            size: 18,
           },
         },
       },
@@ -42,7 +31,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         ticks: {
           color: "white",
           font: {
-            size: 18, // Y-axis labels font size
+            size: 18,
           },
         },
       },
@@ -52,7 +41,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         labels: {
           color: "white",
           font: {
-            size: 18, // Legend labels font size
+            size: 18,
           },
         },
       },

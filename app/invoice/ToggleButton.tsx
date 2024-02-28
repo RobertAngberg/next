@@ -1,18 +1,3 @@
-type Group =
-  | "first4"
-  | "second4"
-  | "third4"
-  | "fourth4"
-  | "fifth4"
-  | "sixth4"
-  | "seventh4";
-
-type ToggleButtonProps = {
-  toggleGroup: Group;
-  buttonText: string;
-  fieldGroupVisible: boolean;
-  onToggle: (group: Group) => void;
-};
 
 const ToggleButton: React.FC<ToggleButtonProps> = ({
   toggleGroup,

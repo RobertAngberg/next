@@ -1,12 +1,5 @@
 "use client";
 
-type TitleAndCommentProps = {
-  titel: string;
-  setTitel: (value: string) => void;
-  kommentar: string;
-  setKommentar: (value: string) => void;
-};
-
 const TitleAndComment: React.FC<TitleAndCommentProps> = ({
   titel,
   setTitel,

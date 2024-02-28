@@ -2,16 +2,6 @@
 
 import React, { useEffect } from "react";
 
-type TextFields = { [key: string]: string };
-type LogoImage = HTMLImageElement | null;
-
-type InvoiceCanvasProps = {
-  canvasRef: React.RefObject<HTMLCanvasElement>;
-  textFields: TextFields;
-  logoImage: LogoImage;
-  saveAsJPG: () => void;
-};
-
 const InvoiceCanvas: React.FC<InvoiceCanvasProps> = ({
   canvasRef,
   textFields,

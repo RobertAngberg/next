@@ -1,10 +1,5 @@
 "use client";
 
-type InkomstUtgiftProps = {
-  radioInkomstUtgift: string;
-  setRadioInkomstUtgift: (value: string) => void;
-};
-
 const InkomstUtgift: React.FC<InkomstUtgiftProps> = ({
   radioInkomstUtgift,
   setRadioInkomstUtgift,
@@ -19,6 +14,7 @@ const InkomstUtgift: React.FC<InkomstUtgiftProps> = ({
             value="utgift"
             checked={radioInkomstUtgift === "utgift"}
             onChange={(e) => setRadioInkomstUtgift(e.target.value)}
+            className="mr-2"
           />
           Utgift
         </label>
@@ -29,6 +25,7 @@ const InkomstUtgift: React.FC<InkomstUtgiftProps> = ({
             value="inkomst"
             checked={radioInkomstUtgift === "inkomst"}
             onChange={(e) => setRadioInkomstUtgift(e.target.value)}
+            className="mr-2"
           />
           Inkomst
         </label>

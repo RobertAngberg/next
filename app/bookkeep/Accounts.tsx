@@ -1,14 +1,5 @@
 "use client";
 
-type AccountsProps = {
-  konto1: string;
-  setKonto1: (value: string) => void;
-  konto2: string;
-  setKonto2: (value: string) => void;
-  konto3: string;
-  setKonto3: (value: string) => void;
-};
-
 const Accounts: React.FC<AccountsProps> = ({
   konto1,
   setKonto1,

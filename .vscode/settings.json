@@ -24,6 +24,7 @@
     ".vercel": true,
     ".vscode": true,
     "**/*.cs.meta": true,
+    "app/.vscode": true,
     "globals.css": true,
     "next-env.d.ts": true,
     "node_modules": true,
@@ -31,7 +32,16 @@
     "package.json": true,
     "postcss.config.js": true,
     "tailwind.config.ts": true,
-    "tsconfig.json": true
+    "tsconfig.json": true,
+    "next.config.js": true,
+    "next.config.mjs": true,
+    "vercel.json": true,
+    "public": true
   },
-  "hide-files.files": []
+  "hide-files.files": [
+    "next.config.js",
+    "next.config.mjs",
+    "vercel.json",
+    "public"
+  ]
 }

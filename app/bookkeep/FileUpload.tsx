@@ -1,10 +1,5 @@
 "use client";
 
-type FileUploadProps = {
-  setFile: (file: File | null) => void;
-  setPdfUrl: (url: string | null) => void;
-};
-
 const FileUpload: React.FC<FileUploadProps> = ({ setFile, setPdfUrl }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {

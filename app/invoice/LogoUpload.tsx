@@ -1,7 +1,3 @@
-type LogoUploadProps = {
-  handleFileUpload: (logoImage: HTMLImageElement) => void;
-};
-
 const LogoUpload: React.FC<LogoUploadProps> = ({ handleFileUpload }) => {
   const handleImageUploaded = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;

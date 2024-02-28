@@ -1,15 +1,5 @@
 import React from "react";
 
-type TextFields = {
-  [key: string]: string;
-};
-
-type InputComponentProps = {
-  labelText: string;
-  textFields: TextFields;
-  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
 const TextField: React.FC<InputComponentProps> = ({
   labelText,
   textFields,

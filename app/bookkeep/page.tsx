@@ -49,7 +49,7 @@ const Bookkeep: React.FC = () => {
   };
 
   return (
-    <main className="flex items-center p-10 text-center bg-slate-950 text-white">
+    <main className="flex p-10 bg-slate-950 text-white">
       <div className="w-1/4">
         <FileUpload setFile={setFile} setPdfUrl={setPdfUrl} />
 
@@ -95,13 +95,13 @@ const Bookkeep: React.FC = () => {
 
         <button
           type="submit"
-          className="bg-cyan-600 hover:bg-cyan-700 w-full text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+          className="bg-cyan-600 hover:bg-cyan-700 w-full text-white font-bold py-6 px-4 rounded flex items-center justify-center"
           onClick={handleSubmit}
         >
           Bokför
         </button>
       </div>
-      <div className="w-3/4 ml-10">
+      <div className="w-3/4 ml-10 flex flex-col items-start">
         {pdfUrl && (
           <iframe
             src={pdfUrl}
