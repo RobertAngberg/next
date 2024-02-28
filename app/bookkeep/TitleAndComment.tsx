@@ -9,9 +9,8 @@ const TitleAndComment: React.FC<TitleAndCommentProps> = ({
   return (
     <div className="padder">
       <label htmlFor="titel">Titel:</label>
-      <br />
       <input
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full mb-4 p-2 border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="titel"
         name="titel"
@@ -20,12 +19,11 @@ const TitleAndComment: React.FC<TitleAndCommentProps> = ({
         value={titel}
         onChange={(e) => setTitel(e.target.value)}
       />
-      <br />
-      <br />
+
       <label htmlFor="kommentar">Kommentar:</label>
-      <br />
+
       <textarea
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full mb-4 p-2 border-solid border-2 border-gray-600 rounded text-black"
         id="kommentar"
         name="kommentar"
         maxLength={250}
@@ -33,8 +31,6 @@ const TitleAndComment: React.FC<TitleAndCommentProps> = ({
         value={kommentar}
         onChange={(e) => setKommentar(e.target.value)}
       />
-      <br />
-      <br />
     </div>
   );
 };

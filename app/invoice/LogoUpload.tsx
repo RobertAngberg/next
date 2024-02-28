@@ -24,7 +24,7 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ handleFileUpload }) => {
       />
       <label
         htmlFor="fileUpload"
-        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded"
+        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 my-6 rounded"
       >
         Ladda upp logotyp
       </label>

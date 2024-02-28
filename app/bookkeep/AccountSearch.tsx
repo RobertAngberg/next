@@ -37,7 +37,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
     <div className="w-full">
       <label htmlFor="search-account-number">Sök typ av inkomst/utgift:</label>
       <input
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full mb-4 p-2 border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="search-account-number"
         name="searchInput"
@@ -45,7 +45,6 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
         onChange={handleSearchAccNum}
       />
       <div id="searchResults"></div>
-      <br />
     </div>
   );
 };

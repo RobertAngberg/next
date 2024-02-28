@@ -168,21 +168,21 @@ const Invoice: React.FC = () => {
               })}
           </div>
         ))}
-        <br></br>
+
         <LogoUpload handleFileUpload={handleFileUpload} />
-        <br></br>
+
         <button
           className="bg-yellow-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center mb-4"
           onClick={saveAsJPG}
         >
-          Spara som .jpg
+          Spara som JPG
         </button>
 
         <button
           className="bg-yellow-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center mb-10"
           onClick={saveAsPDF}
         >
-          Download as PDF
+          Spara som PDF
         </button>
       </div>
     </main>

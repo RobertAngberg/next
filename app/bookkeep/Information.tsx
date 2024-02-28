@@ -11,9 +11,8 @@ const Information: React.FC<InformationProps> = ({
   return (
     <div className="padder">
       <label htmlFor="belopp">Belopp:</label>
-      <br />
       <input
-        className="w-full p-2  border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full p-2 mb-4 border-solid border-2 border-gray-600 rounded text-black"
         type="number"
         id="belopp"
         name="belopp"
@@ -22,12 +21,10 @@ const Information: React.FC<InformationProps> = ({
         value={belopp}
         onChange={(e) => setBelopp(e.target.value)}
       />
-      <br />
-      <br />
+
       <label htmlFor="säljarens_land">Säljarens land:</label>
-      <br />
       <select
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full mb-4 p-2 border-solid border-2 border-gray-600 rounded text-black"
         id="säljarens_land"
         name="säljarens_land"
         value={säljarensLand}
@@ -37,8 +34,7 @@ const Information: React.FC<InformationProps> = ({
         <option value="EU">Från EU-land</option>
         <option value="Icke-EU">Från icke EU-land</option>
       </select>
-      <br />
-      <br />
+
       <label htmlFor="datum">Betaldatum:</label>
       <br />
       <input
