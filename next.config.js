@@ -4,7 +4,7 @@ const nextConfig = {
         return [
             {
                 // Here you may add your source(s) using a regular expression.
-                source: "<your-source-url(s)>",
+                source: "/api/:path*",
                 headers: [
                     { key: "Access-Control-Allow-Credentials", value: "true" },
                     // Here you add your whitelisted origin
