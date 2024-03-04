@@ -1,4 +1,4 @@
-// Home
+// ---- HOME ----
 
 type FrontCardProps = {
   title: string;
@@ -17,11 +17,20 @@ type HomeChartProps = {
   chartData: RowData[] | undefined;
 };
 
-// Bookkeep
+// ---- BOOKKEEP ----
 
 type FileUploadProps = {
   setFile: (file: File | null) => void;
   setPdfUrl: (url: string | null) => void;
+  setBelopp: (belopp: string) => void;
+  setDatum: (datum: string) => void;
+  file: File | null;
+};
+
+///////////////////////////////// Ta bort ////////////////
+type TextRecognitionProps = {
+  setBelopp: (belopp: string) => void;
+  setDatum: (datum: string) => void;
 };
 
 type InkomstUtgiftProps = {
@@ -60,7 +69,7 @@ type TitleAndCommentProps = {
   setKommentar: (value: string) => void;
 };
 
-// History
+// ---- HISTORY ----
 
 type HistoryItem = {
   id: string;
@@ -76,7 +85,7 @@ type HistoryItem = {
   kommentar: string;
 };
 
-// Invoice
+// ---- INVOICE ----
 
 type Group =
   | "first4"

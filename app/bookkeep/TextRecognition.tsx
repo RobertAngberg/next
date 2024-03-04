@@ -4,47 +4,18 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import Tesseract from "tesseract.js";
 import { ChatGPTAPI } from "chatgpt";
 
-const FileUpload: React.FC<FileUploadProps> = ({
-  setFile,
-  setPdfUrl,
-  setDatum,
+const TextRecognition: React.FC<TextRecognitionProps> = ({
   setBelopp,
-  file,
+  setDatum,
 }) => {
+  const [selectedImage, setSelectedImage] = useState<File | undefined>();
   const [recognizedText, setRecognizedText] = useState("");
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files ? event.target.files[0] : null;
-
-      // PDF
-      if (file && file.type === "application/pdf") {
-        const fileUrl = URL.createObjectURL(file);
-        setPdfUrl(fileUrl);
-      } else if (
-        // Bild
-        file &&
-        (file.type === "image/jpeg" || file.type === "image/png")
-      ) {
-        setFile(file);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const scanImage = async () => {
-      if (file) {
-        const result = await Tesseract.recognize(file, "swe");
-        setRecognizedText(result.data.text);
-      }
-    };
-    scanImage();
-  }, [file]);
 
   useEffect(() => {
     const chatGPT = async () => {
       if (recognizedText) {
         const apiKey = process.env.OPENAI_API_KEY || "";
+        console.log(apiKey);
         const api = new ChatGPTAPI({
           apiKey: apiKey,
           fetch: self.fetch.bind(self),
@@ -67,24 +38,40 @@ const FileUpload: React.FC<FileUploadProps> = ({
     chatGPT();
   }, [recognizedText]);
 
+  useEffect(() => {
+    const recognizeText = async () => {
+      if (selectedImage) {
+        const result = await Tesseract.recognize(selectedImage, "swe");
+        setRecognizedText(result.data.text);
+      }
+    };
+    recognizeText();
+  }, [selectedImage]);
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const image = event.target.files?.[0];
+    setSelectedImage(image);
+  };
+
   return (
-    <>
+    <div className="mb-10">
       <input
         type="file"
-        id="fileUpload"
-        accept="application/pdf,image/png,image/jpeg"
-        onChange={handleFileChange}
+        id="asdf"
+        accept="image/*"
+        onChange={handleImageUpload}
         required
         style={{ display: "none" }}
       />
       <label
-        htmlFor="fileUpload"
+        htmlFor="asdf"
         className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded flex items-center justify-center"
       >
         Välj fil
       </label>
-    </>
+      {selectedImage && <img src={URL.createObjectURL(selectedImage)} />}
+    </div>
   );
 };
 
-export default FileUpload;
+export default TextRecognition;

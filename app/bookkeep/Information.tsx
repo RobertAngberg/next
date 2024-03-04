@@ -1,5 +1,12 @@
 "use client";
 
+import DatePicker from "react-datepicker";
+import { registerLocale } from "react-datepicker";
+import { sv } from "date-fns/locale/sv";
+registerLocale("sv", sv);
+
+import "react-datepicker/dist/react-datepicker.css";
+
 const Information: React.FC<InformationProps> = ({
   belopp,
   setBelopp,
@@ -35,19 +42,21 @@ const Information: React.FC<InformationProps> = ({
         <option value="Icke-EU">Från icke EU-land</option>
       </select>
 
-      <label htmlFor="datum">Betaldatum:</label>
-      <br />
-      <input
-        className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
-        type="date"
-        id="datum"
-        name="datum"
-        required
-        value={datum}
-        onChange={(e) => setDatum(e.target.value)}
-      />
-      <br />
-      <br />
+      <div>
+        <label htmlFor="datum">Betaldatum (ÅÅÅÅ-MM-DD):</label>
+        <br />
+        <DatePicker
+          className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
+          id="datum"
+          selected={datum ? new Date(datum) : null} // String till Date
+          onChange={date => {
+            setDatum(date ? date.toISOString() : ""); // Date till String
+          }}
+          dateFormat="yyyy-MM-dd"
+          locale="sv"
+          required
+        />
+      </div>
     </div>
   );
 };

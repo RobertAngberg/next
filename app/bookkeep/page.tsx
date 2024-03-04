@@ -30,7 +30,7 @@ const Bookkeep: React.FC = () => {
     const formData = new FormData();
 
     const formFields = {
-      file: file || "",
+      imageFile: file || "",
       radioInkomstUtgift,
       konto1,
       konto2,
@@ -51,7 +51,13 @@ const Bookkeep: React.FC = () => {
   return (
     <main className="flex p-10 bg-slate-950 text-white">
       <div className="w-1/4">
-        <FileUpload setFile={setFile} setPdfUrl={setPdfUrl} />
+        <FileUpload
+          file={file}
+          setFile={setFile}
+          setPdfUrl={setPdfUrl}
+          setBelopp={setBelopp}
+          setDatum={setDatum}
+        />
 
         <InkomstUtgift
           radioInkomstUtgift={radioInkomstUtgift}
@@ -102,6 +108,8 @@ const Bookkeep: React.FC = () => {
         </button>
       </div>
       <div className="w-3/4 ml-10 flex flex-col items-start">
+        {/* <TextRecognition setBelopp={setBelopp} setDatum={setDatum} /> */}
+
         {pdfUrl && (
           <iframe
             src={pdfUrl}
@@ -110,6 +118,8 @@ const Bookkeep: React.FC = () => {
             title="PDF Viewer"
           ></iframe>
         )}
+
+        {file && <img src={URL.createObjectURL(file)} />}
       </div>
     </main>
   );

@@ -62,11 +62,9 @@ const History: React.FC = () => {
         id="year"
         onChange={(e) => setYear(e.target.value)}
       >
-        <option value="2022">2022</option>
+        <option value="2024">2024</option>
         <option value="2023">2023</option>
-        <option value="2024" selected>
-          2024
-        </option>
+        <option value="2022">2022</option>
       </select>
     </main>
   );
