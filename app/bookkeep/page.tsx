@@ -14,10 +14,10 @@ const Bookkeep: React.FC = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [radioInkomstUtgift, setRadioInkomstUtgift] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [konto1, setKonto1] = useState("1930 - Företagskonto");
-  const [konto2, setKonto2] = useState("");
-  const [konto3, setKonto3] = useState("");
-  const [belopp, setBelopp] = useState("");
+  const [företagsKonto, setFöretagsKonto] = useState<number>(1930);
+  const [motkonto, setMotkonto] = useState<number | undefined>(undefined);
+  const [momsKonto, setMomsKonto] = useState<number | undefined>(undefined);
+  const [belopp, setBelopp] = useState<number | undefined>(undefined);
   const [säljarensLand, setSäljarensLand] = useState("Sverige");
   const [datum, setDatum] = useState("");
   const [titel, setTitel] = useState("");
@@ -32,20 +32,29 @@ const Bookkeep: React.FC = () => {
     const formFields = {
       imageFile: file || "",
       radioInkomstUtgift,
-      konto1,
-      konto2,
-      konto3,
+      företagsKonto,
+      motkonto,
+      momsKonto,
       belopp,
       säljarensLand,
       datum,
       titel,
       kommentar,
     };
+
+    // Här ska gå att ta bort igen............
+    // Loopar igenom alla värden i formFields och lägger till dem i formData
     Object.entries(formFields).forEach(([key, value]) => {
-      formData.append(key, value);
+      if (value instanceof File) {
+        // Om värdet är en fil så används File overload av FormData.append
+        formData.append(key, value, value.name);
+      } else {
+        // Konverterar värdet till en sträng, detta om det är en siffra
+        formData.append(key, String(value));
+      }
     });
 
-    await postFormData("http://localhost:3000/api/bookkeep/", formData);
+    await postFormData("api/bookkeep/", formData);
   };
 
   return (
@@ -65,18 +74,19 @@ const Bookkeep: React.FC = () => {
         />
 
         <AccountSearch
-          radio={radioInkomstUtgift}
+          radioInkomstUtgift={radioInkomstUtgift}
           searchText={searchText}
           setSearchText={setSearchText}
+          setMotkonto={setMotkonto}
         />
 
         <Accounts
-          konto1={konto1}
-          setKonto1={setKonto1}
-          konto2={konto2}
-          setKonto2={setKonto2}
-          konto3={konto3}
-          setKonto3={setKonto3}
+          företagsKonto={företagsKonto}
+          setFöretagsKonto={setFöretagsKonto}
+          motkonto={motkonto}
+          setMotkonto={setMotkonto}
+          momsKonto={momsKonto}
+          setMomsKonto={setMomsKonto}
         />
 
         <hr className="my-8" />
@@ -108,8 +118,7 @@ const Bookkeep: React.FC = () => {
         </button>
       </div>
       <div className="w-3/4 ml-10 flex flex-col items-start">
-        {/* <TextRecognition setBelopp={setBelopp} setDatum={setDatum} /> */}
-
+        {/* Visa PDF */}
         {pdfUrl && (
           <iframe
             src={pdfUrl}
@@ -118,7 +127,7 @@ const Bookkeep: React.FC = () => {
             title="PDF Viewer"
           ></iframe>
         )}
-
+        {/* Visa bild */}
         {file && <img src={URL.createObjectURL(file)} />}
       </div>
     </main>

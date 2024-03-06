@@ -56,3 +56,19 @@ export async function POST(request: Request) {
     message: "Data received successfully",
   });
 }
+
+////////////////////////////////////////////////////////
+
+export async function GET(request: Request) {
+  const params = new URL(request.url).searchParams.get("q");
+
+  if (params !== null && params.trim() !== "") {
+    const query = await sql`
+      SELECT * FROM bas WHERE ord LIKE '%' || ${params} || '%';
+    `;
+
+    const data = query.rows[0];
+
+    return NextResponse.json({ data }, { status: 200 });
+  }
+}

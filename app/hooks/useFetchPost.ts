@@ -1,7 +1,7 @@
 const useFetchPost = () => {
     const postData = async (url: string, formData: FormData) => {
       try {
-        const response = await fetch(url, {
+        const response = await fetch(`http://localhost:3000/` + url, {
           method: "POST",
           body: formData,
         });

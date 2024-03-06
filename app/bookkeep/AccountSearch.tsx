@@ -1,37 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
-import useFetchData from "../hooks/useFetchGet";
+import { useState } from "react";
+import useFetchGet from "../hooks/useFetchGet";
 
 const AccountSearch: React.FC<AccountSearchProps> = ({
-  radio,
+  radioInkomstUtgift,
   searchText,
   setSearchText,
+  setMotkonto,
 }) => {
-  const [shouldFetch, setShouldFetch] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(true);
 
-  // // Om man inte använder shouldFetch så kommer den att fetcha data varje tangenttryck
-  // const { data } = useFetchData(
-  //   `searchAccNum&account=${searchText}`,
-  //   shouldFetch
-  // );
+  const { fetchData } = useFetchGet(`api/bookkeep?q=${searchText}`);
 
-  // console.log("Från AccountSearch: " + data);
-
-  const handleSearchAccNum = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!radio) {
-      e.preventDefault();
+  const checkRadioSelected = (event: React.MouseEvent<HTMLInputElement>) => {
+    if (!radioInkomstUtgift) {
+      event.preventDefault();
       alert("Vänligen välj inkomst eller utgift först");
-    } else {
-      const inputValue = e.target.value;
-      setSearchText(inputValue);
-      if (inputValue.length >= 4) {
-        setShouldFetch(true); // Börja fetcha
-      } else {
-        setShouldFetch(false); // Resetta
-      }
+      return;
     }
   };
+
+  const handleSearchAccNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.trim();
+    setSearchText(inputValue);
+  };
+
+  function searchResultClick(item: FetchDataItem): void {
+    setMotkonto(item.konto);
+    setShowSearchResults(false);
+  }
 
   return (
     <div className="w-full">
@@ -43,8 +41,23 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
         name="searchInput"
         value={searchText}
         onChange={handleSearchAccNum}
+        onClick={checkRadioSelected}
       />
-      <div id="searchResults"></div>
+
+      {/* Div som dyker upp när man söker efter konto */}
+      {showSearchResults && fetchData?.data && (
+        <div id="searchResults">
+          {fetchData?.data && (
+            <div
+              className="bg-white w-full text-black font-bold py-3 px-4 mb-4 hover:bg-gray-300 hover:cursor-pointer"
+              onClick={() => searchResultClick(fetchData.data)}
+            >
+              {fetchData.data.konto} - {fetchData.data.beskrivning}
+              <div className="font-normal">{fetchData.data.ord}</div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -23,10 +23,9 @@ const Information: React.FC<InformationProps> = ({
         type="number"
         id="belopp"
         name="belopp"
-        placeholder="Ex: 250"
         required
         value={belopp}
-        onChange={(e) => setBelopp(e.target.value)}
+        onChange={(e) => setBelopp(Number(e.target.value))}
       />
 
       <label htmlFor="säljarens_land">Säljarens land:</label>
@@ -49,7 +48,7 @@ const Information: React.FC<InformationProps> = ({
           className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
           id="datum"
           selected={datum ? new Date(datum) : null} // String till Date
-          onChange={date => {
+          onChange={(date) => {
             setDatum(date ? date.toISOString() : ""); // Date till String
           }}
           dateFormat="yyyy-MM-dd"

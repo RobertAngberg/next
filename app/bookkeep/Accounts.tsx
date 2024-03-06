@@ -1,12 +1,12 @@
 "use client";
 
 const Accounts: React.FC<AccountsProps> = ({
-  konto1,
-  setKonto1,
-  konto2,
-  setKonto2,
-  konto3,
-  setKonto3,
+  företagsKonto,
+  setFöretagsKonto,
+  motkonto,
+  setMotkonto,
+  momsKonto,
+  setMomsKonto,
 }) => {
   return (
     <div>
@@ -16,31 +16,30 @@ const Accounts: React.FC<AccountsProps> = ({
         type="text"
         id="konto1"
         name="konto1"
-        value={konto1}
-        onChange={(e) => setKonto1(e.target.value)}
+        value={företagsKonto}
+        onChange={(e) => setFöretagsKonto(Number(e.target.value))}
         required
       />
 
-      <label htmlFor="konto2">Moms:</label>
+      <label htmlFor="konto2">Motkonto:</label>
       <input
         className="w-full p-2 mb-4 border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="konto2"
         name="konto2"
-        placeholder="Glöm inte att välja inkomst eller utgift"
-        value={konto2}
-        onChange={(e) => setKonto2(e.target.value)}
+        value={motkonto}
+        onChange={(e) => setMotkonto(Number(e.target.value))}
         required
       />
 
-      <label htmlFor="konto3">Motkonto:</label>
+      <label htmlFor="konto3">Momskonto</label>
       <input
         className="w-full p-2 mb-4 border-solid border-2 border-gray-600 rounded text-black"
         type="text"
         id="konto3"
         name="konto3"
-        value={konto3}
-        onChange={(e) => setKonto3(e.target.value)}
+        value={momsKonto}
+        onChange={(e) => setMomsKonto(Number(e.target.value))}
         required
       />
     </div>

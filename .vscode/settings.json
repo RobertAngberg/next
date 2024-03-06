@@ -17,7 +17,6 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     ".env.development.local": true,
-    ".env.local": true,
     ".eslintrc.json": true,
     ".git": true,
     ".gitignore": true,
@@ -27,23 +26,29 @@
     "**/*.cs.meta": true,
     "app/.vscode": true,
     "globals.css": true,
-    "next-env.d.ts": true,
-    "next.config.js": true,
     "package-lock.json": true,
     "package.json": true,
     "postcss.config.js": true,
-    "public": true,
-    "tailwind.config.js": true,
     "tailwind.config.ts": true,
     "tsconfig.json": true,
-    "vercel.json": true
+    "public": true,
+    "next-env.d.ts": true,
+    "vercel.json": true,
+    ".env.local": true,
+    "node_modules": true,
+    "next.config.mjs": true,
+    "next.config.js": true,
+    "tailwind.config.js": true
   },
   "hide-files.files": [
     "public",
-    "tailwind.config.js",
     "next-env.d.ts",
     "vercel.json",
+    ".env.local",
+    "node_modules",
+    "next.config.mjs",
     "next.config.js",
-    ".env.local"
+    ".env.development.local",
+    "tailwind.config.js"
   ]
 }

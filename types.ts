@@ -22,14 +22,13 @@ type HomeChartProps = {
 type FileUploadProps = {
   setFile: (file: File | null) => void;
   setPdfUrl: (url: string | null) => void;
-  setBelopp: (belopp: string) => void;
+  setBelopp: (belopp: number) => void;
   setDatum: (datum: string) => void;
   file: File | null;
 };
 
-///////////////////////////////// Ta bort ////////////////
 type TextRecognitionProps = {
-  setBelopp: (belopp: string) => void;
+  setBelopp: (belopp: number) => void;
   setDatum: (datum: string) => void;
 };
 
@@ -39,23 +38,29 @@ type InkomstUtgiftProps = {
 };
 
 type AccountSearchProps = {
-  radio: string;
+  radioInkomstUtgift: string;
   searchText: string;
   setSearchText: (value: string) => void;
+  setMotkonto: (value: number) => void;
+};
+
+type FetchDataItem = {
+  konto: number;
+  beskrivning: string;
 };
 
 type AccountsProps = {
-  konto1: string;
-  setKonto1: (value: string) => void;
-  konto2: string;
-  setKonto2: (value: string) => void;
-  konto3: string;
-  setKonto3: (value: string) => void;
+  företagsKonto: number;
+  setFöretagsKonto: (value: number) => void;
+  motkonto: number | undefined;
+  setMotkonto: (value: number) => void;
+  momsKonto: number | undefined;
+  setMomsKonto: (value: number) => void;
 };
 
 type InformationProps = {
-  belopp: string;
-  setBelopp: (belopp: string) => void;
+  belopp: number | undefined;
+  setBelopp: (belopp: number) => void;
   säljarensLand: string;
   setSäljarensLand: (land: string) => void;
   datum: string;
@@ -75,10 +80,10 @@ type HistoryItem = {
   id: string;
   datum: string;
   fil: string;
-  konto1: string;
-  konto2: string;
-  konto3: string;
-  belopp: string;
+  konto1: number;
+  konto2: number;
+  konto3: number;
+  belopp: number;
   land: string;
   inkomst_utgift: string;
   titel: string;
