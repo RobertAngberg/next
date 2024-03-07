@@ -7,6 +7,7 @@ const Accounts: React.FC<AccountsProps> = ({
   setMotkonto,
   momsKonto,
   setMomsKonto,
+  radioInkomstUtgift,
 }) => {
   return (
     <div>
@@ -38,7 +39,13 @@ const Accounts: React.FC<AccountsProps> = ({
         type="text"
         id="konto3"
         name="konto3"
-        value={momsKonto}
+        value={
+          radioInkomstUtgift === "inkomst"
+            ? "2610 - Utgående moms, 25 %"
+            : radioInkomstUtgift === "utgift"
+              ? "2640 - Ingående moms, 25 %"
+              : momsKonto
+        }
         onChange={(e) => setMomsKonto(Number(e.target.value))}
         required
       />

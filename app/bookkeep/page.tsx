@@ -58,8 +58,8 @@ const Bookkeep: React.FC = () => {
   };
 
   return (
-    <main className="flex p-10 bg-slate-950 text-white">
-      <div className="w-1/4">
+    <main className="flex justify-center p-10 bg-slate-950 text-white">
+      <div className="w-1/4 items-center justify-center">
         <FileUpload
           file={file}
           setFile={setFile}
@@ -87,6 +87,7 @@ const Bookkeep: React.FC = () => {
           setMotkonto={setMotkonto}
           momsKonto={momsKonto}
           setMomsKonto={setMomsKonto}
+          radioInkomstUtgift={radioInkomstUtgift}
         />
 
         <hr className="my-8" />
@@ -117,13 +118,13 @@ const Bookkeep: React.FC = () => {
           Bokför
         </button>
       </div>
-      <div className="w-3/4 ml-10 flex flex-col items-start">
+      <div className="w-3/4 ml-10 flex flex-col items-start border">
         {/* Visa PDF */}
         {pdfUrl && (
           <iframe
             src={pdfUrl}
             width="100%"
-            height="1000px"
+            height="100%"
             title="PDF Viewer"
           ></iframe>
         )}

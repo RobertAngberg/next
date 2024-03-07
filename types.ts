@@ -56,6 +56,7 @@ type AccountsProps = {
   setMotkonto: (value: number) => void;
   momsKonto: number | undefined;
   setMomsKonto: (value: number) => void;
+  radioInkomstUtgift: string;
 };
 
 type InformationProps = {

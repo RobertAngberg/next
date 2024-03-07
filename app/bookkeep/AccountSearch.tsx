@@ -39,6 +39,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
         type="text"
         id="search-account-number"
         name="searchInput"
+        autoComplete="off"
         value={searchText}
         onChange={handleSearchAccNum}
         onClick={checkRadioSelected}
