@@ -1,16 +1,23 @@
 "use client";
 
 import "chart.js/auto";
+import { useState } from "react";
 import { Bar } from "react-chartjs-2";
+import useFetchGet from "../hooks/useFetchGet";
 
-export default function HomeChart({ setYear, chartData }: HomeChartProps) {
+export default function HomeChart() {
+  const [year, setYear] = useState("2024");
+  const { fetchData } = useFetchGet(`api/home?q=${year}`);
+
   const data = {
     // slice10 ger yyyy-mm-dd
-    labels: chartData?.map((row) => row.datum.slice(0, 10)) || [],
+    labels: fetchData?.yearData.map((row: { datum: string }) =>
+      row.datum.slice(0, 10)
+    ),
     datasets: [
       {
         label: "Belopp",
-        data: chartData?.map((row) => row.belopp) || [],
+        data: fetchData?.yearData.map((row: { belopp: number }) => row.belopp),
         backgroundColor: "rgb(8, 51, 68)",
       },
     ],
