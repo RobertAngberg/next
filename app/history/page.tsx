@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
 
-const History: React.FC = () => {
+export default function History() {
   const [historyData, setHistoryData] = useState([]);
   const [year, setYear] = useState("2024");
   const { fetchData } = useFetchGet(`api/history/?q=${year}`);
@@ -69,5 +69,3 @@ const History: React.FC = () => {
     </main>
   );
 };
-
-export default History;

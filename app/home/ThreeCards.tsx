@@ -2,8 +2,6 @@ import Card from "./Card";
 import { sql } from "@vercel/postgres";
 
 export default async function Home() {
-  //   let data: QueryResultRow[] = (await sql`SELECT * FROM test;`).rows;
-
   // Alla inkomster summerat
   const dataInkomst = await sql`
   SELECT SUM(belopp) AS totalBelopp FROM test 
