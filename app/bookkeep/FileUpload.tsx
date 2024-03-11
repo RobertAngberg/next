@@ -44,6 +44,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   useEffect(() => {
     const chatGPT = async () => {
       if (recognizedText) {
+        console.log("recognizedText", recognizedText);
         const apiKey = process.env.OPENAI_API_KEY || "";
         const api = new ChatGPTAPI({
           apiKey: apiKey,
@@ -58,9 +59,23 @@ const FileUpload: React.FC<FileUploadProps> = ({
           The output MUST BE in the following format: {"datum": "YYYY-MM-DD", "belopp": "X"}`
         );
 
+
         const data = JSON.parse(res.text);
-        setDatum(data.datum);
-        setBelopp(data.belopp);
+
+        // Validate and set datum
+        const parsedDate = new Date(data.datum);
+        if (!isNaN(parsedDate.getTime())) {
+          setDatum(data.datum);
+        } else {
+          setDatum("");
+        }
+
+        // Validate and set belopp
+        if (!isNaN(parseFloat(data.belopp))) {
+          setBelopp(data.belopp);
+        } else {
+          setBelopp("");
+        }
       }
     };
 
@@ -79,7 +94,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       />
       <label
         htmlFor="fileUpload"
-        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+        className="flex items-center justify-center px-4 py-2 font-bold text-white rounded cursor-pointer bg-cyan-600 hover:bg-cyan-700"
       >
         Välj fil
       </label>

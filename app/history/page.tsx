@@ -40,7 +40,7 @@ export default function History() {
             >
               <td className="p-5">{item.id}</td>
               {/* Visa bara första 10 tecken av datumet */}
-              <td className="p-5">{item.datum.slice(0, 10)}</td>
+              <td className="p-5">{item.datum}</td>
               <td className="p-5">{item.fil}</td>
               <td className="p-5">{item.konto1}</td>
               <td className="p-5">{item.konto2}</td>

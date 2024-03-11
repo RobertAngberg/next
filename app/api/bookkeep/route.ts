@@ -7,15 +7,15 @@ export async function POST(request: Request) {
   const data = await request.formData();
 
   // Skapar key-value pairs från FormData
-  const {
+  let {
     fil,
+    verifikationsdatum,
     radioInkomstUtgift,
     företagsKonto,
     motkonto,
     momsKonto,
     belopp,
     land,
-    datum,
     titel,
     kommentar,
   } = Object.fromEntries(data);
@@ -32,20 +32,20 @@ export async function POST(request: Request) {
 
   try {
     await sql`
-        INSERT INTO transactions (Fil, In_ut, Företagskonto, Motkonto, Momskonto, 
-          Belopp, Land, Datum, Titel, Kommentar)
+        INSERT INTO transactions (Fil, Verifikationsdatum, Inkomst_utgift,
+          Företagskonto, Motkonto, Momskonto, Belopp, Land, Titel, Kommentar)
           VALUES (${fil instanceof File ? (fil as File).name : null}, 
+        ${String(verifikationsdatum)}, 
         ${String(radioInkomstUtgift)}, 
         ${String(företagsKonto)}, 
         ${String(motkonto)}, 
         ${String(momsKonto)}, 
         ${String(belopp)}, 
         ${String(land)}, 
-        ${String(datum)}, 
         ${String(titel)}, 
         ${String(kommentar)})`;
   } catch (error) {
-    console.error("Error inserting data:", error);
+    console.error("Fel:", error);
   }
 
   return NextResponse.json({
@@ -55,14 +55,14 @@ export async function POST(request: Request) {
 
 ////////////////////////////////////////////////////////
 // Auto-complete search for account numbers
+////////////////////////////////////////////////////////
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams.get("q");
 
   if (params !== null && params.trim() !== "") {
-    const query = await sql`
-      SELECT * FROM bas WHERE ord LIKE '%' || ${params} || '%';
-    `;
+    const query =
+      await sql`SELECT * FROM bas WHERE ord LIKE '%' || ${params} || '%';`;
 
     const data = query.rows[0];
 

@@ -7,8 +7,8 @@ type FrontCardProps = {
 
 type RowData = {
   id: number;
-  datum: string;
-  belopp: string;
+  verifikationsdatum: string;
+  belopp: number;
 };
 
 type HomeChartProps = {
@@ -22,13 +22,13 @@ type HomeChartProps = {
 type FileUploadProps = {
   setFile: (file: File | null) => void;
   setPdfUrl: (url: string | null) => void;
-  setBelopp: (belopp: string) => void;
+  setBelopp: (number: number) => void;
   setDatum: (datum: string) => void;
   file: File | null;
 };
 
 type TextRecognitionProps = {
-  setBelopp: (belopp: string) => void;
+  setBelopp: (belopp: number) => void;
   setDatum: (datum: string) => void;
 };
 
@@ -60,8 +60,8 @@ type AccountsProps = {
 };
 
 type InformationProps = {
-  belopp: string | undefined;
-  setBelopp: (belopp: string) => void;
+  belopp: number | undefined;
+  setBelopp: (belopp: number) => void;
   land: string;
   setLand: (land: string) => void;
   datum: string;

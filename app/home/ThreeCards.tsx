@@ -4,13 +4,15 @@ import { sql } from "@vercel/postgres";
 export default async function Home() {
   // Alla inkomster summerat
   const dataInkomst = await sql`
-  SELECT SUM(belopp) AS totalBelopp FROM test 
+  SELECT SUM(belopp) AS totalBelopp FROM transactions 
   WHERE Inkomst_utgift = 'Inkomst';`;
   const totalInkomst: number = dataInkomst.rows[0].totalbelopp;
 
+  console.log("dataInkomst", dataInkomst);
+
   // Alla utgifter summerat
   const dataUtgift = await sql`
-  SELECT SUM(belopp) AS totalBelopp FROM test 
+  SELECT SUM(belopp) AS totalBelopp FROM transactions 
   WHERE Inkomst_utgift = 'Utgift';`;
   const totalUtgift: number = dataUtgift.rows[0].totalbelopp;
 

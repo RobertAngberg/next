@@ -19,7 +19,7 @@ const Bookkeep: React.FC = () => {
   );
   const [motkonto, setMotkonto] = useState<string | undefined>(undefined);
   const [momsKonto, setMomsKonto] = useState<string | undefined>(undefined);
-  const [belopp, setBelopp] = useState<string | undefined>(undefined);
+  const [belopp, setBelopp] = useState<number | undefined>(undefined);
   const [land, setLand] = useState("Sverige");
   const [datum, setDatum] = useState("");
   const [titel, setTitel] = useState("");
@@ -30,16 +30,17 @@ const Bookkeep: React.FC = () => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
+    const datum10First = typeof datum === "string" ? datum.slice(0, 10) : datum;
 
     const formFields = {
       fil: file || "",
+      verifikationsdatum: datum10First,
       radioInkomstUtgift,
       företagsKonto,
       motkonto,
       momsKonto,
       belopp,
       land,
-      datum,
       titel,
       kommentar,
     };
