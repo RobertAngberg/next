@@ -1,8 +1,9 @@
 export default function FrontCard({ title, data }: FrontCardProps) {
   return (
-    <div className="w-1/3 items-center m-auto mx-8 max-w-5xl bg-cyan-950 border-4 rounded-xl">
-      <div className="text-4xl font-bold p-5 text-white">{title}</div>
-      <div className="bg-white text-sky-950 font-bold text-2xl p-6">{data}</div>
-    </div>
+<div className="max-w-5xl mx-8 border-4 sm:w-full sm:mx-0 bg-cyan-950 rounded-xl">
+  <div className="p-5 text-4xl font-bold text-white">{title}</div>
+  <div className="p-6 text-2xl font-bold bg-white text-sky-950">{data}</div>
+</div>
+
   );
 }

@@ -18,8 +18,8 @@ export default async function Home() {
   const totalResultat: number = totalInkomst - totalUtgift;
 
   return (
-    <main className="items-center p-10 text-center bg-slate-950">
-      <div className="flex">
+    <main className="items-center py-4 text-center bg-slate-950">
+      <div className="flex flex-col justify-center gap-4 md:flex-row md:px-20">
         <Card title="Inkomster" data={totalInkomst || 0} />
         <Card title="Utgifter" data={totalUtgift || 0} />
         <Card title="Resultat" data={totalResultat || 0} />

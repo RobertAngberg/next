@@ -58,8 +58,8 @@ const Bookkeep: React.FC = () => {
   };
 
   return (
-    <main className="flex justify-center p-10 bg-slate-950 text-white">
-      <div className="w-1/4 items-center justify-center">
+    <main className="flex flex-col flex-col-reverse justify-center p-10 text-white md:flex-row bg-slate-950">
+      <div className="w-full mb-10 md:w-1/4 md:mb-0 md:items-center md:justify-center">
         <FileUpload
           file={file}
           setFile={setFile}
@@ -112,13 +112,13 @@ const Bookkeep: React.FC = () => {
 
         <button
           type="submit"
-          className="bg-cyan-600 hover:bg-cyan-700 w-full text-white font-bold py-6 px-4 rounded flex items-center justify-center"
+          className="flex items-center justify-center w-full px-4 py-6 font-bold text-white rounded bg-cyan-600 hover:bg-cyan-700"
           onClick={handleSubmit}
         >
           Bokför
         </button>
       </div>
-      <div className="w-3/4 ml-10 flex flex-col items-start border">
+      <div className="flex flex-col items-center w-full border md:w-3/4 md:ml-10 md:items-start">
         {/* Visa PDF */}
         {pdfUrl && (
           <iframe

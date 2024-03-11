@@ -112,7 +112,7 @@ const Invoice: React.FC = () => {
   };
 
   return (
-    <main className="flex justify-center p-10 bg-slate-950 text-white">
+    <main className="flex justify-center p-10 text-white bg-slate-950">
       <div className="w-2/4">
         <InvoiceCanvas
           textFields={textFields}
@@ -121,7 +121,7 @@ const Invoice: React.FC = () => {
           canvasRef={canvasRef}
         />
       </div>
-      <div className="w-1/4 flex flex-col items-start">
+      <div className="flex flex-col items-start w-1/4">
         {toggleButtons.map((button, index) => (
           <div key={index}>
             <ToggleButton
@@ -172,14 +172,14 @@ const Invoice: React.FC = () => {
         <LogoUpload handleFileUpload={handleFileUpload} />
 
         <button
-          className="bg-yellow-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center mb-4"
+          className="flex items-center justify-center px-4 py-2 mb-4 font-bold text-white bg-yellow-600 rounded hover:bg-cyan-700"
           onClick={saveAsJPG}
         >
           Spara som JPG
         </button>
 
         <button
-          className="bg-yellow-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center mb-10"
+          className="flex items-center justify-center px-4 py-2 mb-10 font-bold text-white bg-yellow-600 rounded hover:bg-cyan-700"
           onClick={saveAsPDF}
         >
           Spara som PDF

@@ -55,20 +55,20 @@ export default function HomeChart() {
   };
 
   return (
-    <div>
-      <div className="mx-auto w-4/5 text-white">
-        <Bar
-          datasetIdKey="id"
-          options={options}
-          data={data}
-          className="p-10 h-60"
-        />
-      </div>
-      <label className="p-3 text-white font-bold" htmlFor="year">
+  <div className="flex flex-col items-center justify-center w-full p-4 md:px-20">
+    <div className="flex justify-center w-full">
+      <Bar
+        datasetIdKey="id"
+        options={options}
+        data={data}
+      />
+    </div>
+    <div className="flex flex-col items-center justify-center w-full mt-4">
+      <label className="mb-2 font-bold text-white" htmlFor="year">
         Visa år:
       </label>
       <select
-        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 rounded"
+        className="w-full px-4 py-2 font-bold text-white rounded cursor-pointer bg-cyan-600 hover:bg-cyan-700 sm:w-auto"
         id="year"
         onChange={(e) => setYear(e.target.value)}
       >
@@ -78,5 +78,8 @@ export default function HomeChart() {
         <option value="2024">2024</option>
       </select>
     </div>
-  );
+  </div>
+);
+
+  
 }

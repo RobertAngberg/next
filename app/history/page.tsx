@@ -15,9 +15,9 @@ export default function History() {
   }, [fetchData]);
 
   return (
-    <main className="min-h-screen items-center p-10 text-center bg-slate-950 text-white">
-      <table className="m-auto w-5/6">
-        <thead className="bg-cyan-950 text-lg">
+    <main className="items-center min-h-screen p-10 text-center text-white bg-slate-950">
+      <table className="w-5/6 m-auto">
+        <thead className="text-lg bg-cyan-950">
           <tr>
             <th className="p-5 pl-10 rounded-tl-lg">ID</th>
             <th>Datum</th>
@@ -36,7 +36,7 @@ export default function History() {
           {historyData.map((item: HistoryItem) => (
             <tr
               key={item.id}
-              className="even:bg-gray-950 odd:bg-gray-900 border-b border-t border-gray-700 hover:bg-gray-700"
+              className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
             >
               <td className="p-5">{item.id}</td>
               {/* Visa bara första 10 tecken av datumet */}
@@ -58,7 +58,7 @@ export default function History() {
         Visa år:
       </label>
       <select
-        className="bg-cyan-600 hover:bg-cyan-700 cursor-pointer text-white font-bold py-2 px-4 mt-10 rounded"
+        className="px-4 py-2 mt-10 font-bold text-white rounded cursor-pointer bg-cyan-600 hover:bg-cyan-700"
         id="year"
         onChange={(e) => setYear(e.target.value)}
       >
@@ -68,4 +68,4 @@ export default function History() {
       </select>
     </main>
   );
-};
+}

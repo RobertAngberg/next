@@ -19,7 +19,7 @@ const Information: React.FC<InformationProps> = ({
     <div className="padder">
       <label htmlFor="belopp">Belopp:</label>
       <input
-        className="w-full p-2 mb-4 border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full p-2 mb-4 text-black border-2 border-gray-600 border-solid rounded"
         type="number"
         id="belopp"
         name="belopp"
@@ -30,7 +30,7 @@ const Information: React.FC<InformationProps> = ({
 
       <label htmlFor="säljarens_land">Säljarens land:</label>
       <select
-        className="w-full mb-4 p-2 border-solid border-2 border-gray-600 rounded text-black"
+        className="w-full p-2 mb-4 text-black border-2 border-gray-600 border-solid rounded"
         id="säljarens_land"
         name="säljarens_land"
         value={säljarensLand}
@@ -45,7 +45,7 @@ const Information: React.FC<InformationProps> = ({
         <label htmlFor="datum">Betaldatum (ÅÅÅÅ-MM-DD):</label>
         <br />
         <DatePicker
-          className="w-full p-2 border-solid border-2 border-gray-600 rounded text-black"
+          className="w-full p-2 text-black border-2 border-gray-600 border-solid rounded"
           id="datum"
           selected={datum ? new Date(datum) : null} // String till Date
           onChange={(date) => {
