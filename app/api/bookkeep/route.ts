@@ -8,11 +8,11 @@ export async function POST(request: Request) {
 
   // Skapar key-value pairs från FormData
   const {
-    file,
+    fil,
     radioInkomstUtgift,
-    konto1,
-    konto2,
-    konto3,
+    företagsKonto,
+    motkonto,
+    momsKonto,
     belopp,
     land,
     datum,
@@ -21,29 +21,25 @@ export async function POST(request: Request) {
   } = Object.fromEntries(data);
 
   // TS - Detta för att file kan vara string eller File
-  if (file instanceof File) {
-    // Ladda upp filen till servern - public/assets
-    const tempPath = file.name;
+  if (fil instanceof File) {
+    // Ladda upp filen till servern inuti public/assets
     const uploadsDir = path.join(process.cwd(), "public", "assets");
-    const targetPath = path.join(uploadsDir, file.name);
-
-    fs.copyFile(tempPath, targetPath, (err) => {
-      if (err) {
-        console.error("Error copying file:", err);
-      }
-    });
+    const targetPath = path.join(uploadsDir, fil.name);
+    // Läser filens data som en ArrayBuffer och skriver den till targetPath
+    const fileData = await fil.arrayBuffer();
+    fs.writeFileSync(targetPath, Buffer.from(fileData));
   }
 
   try {
     await sql`
-        INSERT INTO test (Fil, Inkomst_utgift, konto1, konto2, konto3, 
-          belopp, land, datum, titel, kommentar)
-          VALUES (${file instanceof File ? (file as File).name : null}, 
+        INSERT INTO transactions (Fil, In_ut, Företagskonto, Motkonto, Momskonto, 
+          Belopp, Land, Datum, Titel, Kommentar)
+          VALUES (${fil instanceof File ? (fil as File).name : null}, 
         ${String(radioInkomstUtgift)}, 
-        ${Number(konto1)}, 
-        ${Number(konto2)}, 
-        ${Number(konto3)}, 
-        ${Number(belopp)}, 
+        ${String(företagsKonto)}, 
+        ${String(motkonto)}, 
+        ${String(momsKonto)}, 
+        ${String(belopp)}, 
         ${String(land)}, 
         ${String(datum)}, 
         ${String(titel)}, 
@@ -58,6 +54,7 @@ export async function POST(request: Request) {
 }
 
 ////////////////////////////////////////////////////////
+// Auto-complete search for account numbers
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams.get("q");

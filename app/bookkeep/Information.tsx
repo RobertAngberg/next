@@ -10,8 +10,8 @@ import "react-datepicker/dist/react-datepicker.css";
 const Information: React.FC<InformationProps> = ({
   belopp,
   setBelopp,
-  säljarensLand,
-  setSäljarensLand,
+  land,
+  setLand,
   datum,
   setDatum,
 }) => {
@@ -33,8 +33,8 @@ const Information: React.FC<InformationProps> = ({
         className="w-full p-2 mb-4 text-black border-2 border-gray-600 border-solid rounded"
         id="säljarens_land"
         name="säljarens_land"
-        value={säljarensLand}
-        onChange={(e) => setSäljarensLand(e.target.value)}
+        value={land}
+        onChange={(e) => setLand(e.target.value)}
       >
         <option value="Sverige">Från Sverige</option>
         <option value="EU">Från EU-land</option>

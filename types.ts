@@ -22,13 +22,13 @@ type HomeChartProps = {
 type FileUploadProps = {
   setFile: (file: File | null) => void;
   setPdfUrl: (url: string | null) => void;
-  setBelopp: (belopp: number) => void;
+  setBelopp: (belopp: string) => void;
   setDatum: (datum: string) => void;
   file: File | null;
 };
 
 type TextRecognitionProps = {
-  setBelopp: (belopp: number) => void;
+  setBelopp: (belopp: string) => void;
   setDatum: (datum: string) => void;
 };
 
@@ -41,29 +41,29 @@ type AccountSearchProps = {
   radioInkomstUtgift: string;
   searchText: string;
   setSearchText: (value: string) => void;
-  setMotkonto: (value: number) => void;
+  setMotkonto: (value: string) => void;
 };
 
 type FetchDataItem = {
-  konto: number;
+  konto: string;
   beskrivning: string;
 };
 
 type AccountsProps = {
-  företagsKonto: number;
-  setFöretagsKonto: (value: number) => void;
-  motkonto: number | undefined;
-  setMotkonto: (value: number) => void;
-  momsKonto: number | undefined;
-  setMomsKonto: (value: number) => void;
+  företagsKonto: string;
+  setFöretagsKonto: (value: string) => void;
+  motkonto: string | undefined;
+  setMotkonto: (value: string) => void;
+  momsKonto: string | undefined;
+  setMomsKonto: (value: string) => void;
   radioInkomstUtgift: string;
 };
 
 type InformationProps = {
-  belopp: number | undefined;
-  setBelopp: (belopp: number) => void;
-  säljarensLand: string;
-  setSäljarensLand: (land: string) => void;
+  belopp: string | undefined;
+  setBelopp: (belopp: string) => void;
+  land: string;
+  setLand: (land: string) => void;
   datum: string;
   setDatum: (datum: string) => void;
 };

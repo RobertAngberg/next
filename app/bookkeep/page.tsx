@@ -14,11 +14,13 @@ const Bookkeep: React.FC = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [radioInkomstUtgift, setRadioInkomstUtgift] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [företagsKonto, setFöretagsKonto] = useState<number>(1930);
-  const [motkonto, setMotkonto] = useState<number | undefined>(undefined);
-  const [momsKonto, setMomsKonto] = useState<number | undefined>(undefined);
-  const [belopp, setBelopp] = useState<number | undefined>(undefined);
-  const [säljarensLand, setSäljarensLand] = useState("Sverige");
+  const [företagsKonto, setFöretagsKonto] = useState<string>(
+    "1930 - Företagskonto"
+  );
+  const [motkonto, setMotkonto] = useState<string | undefined>(undefined);
+  const [momsKonto, setMomsKonto] = useState<string | undefined>(undefined);
+  const [belopp, setBelopp] = useState<string | undefined>(undefined);
+  const [land, setLand] = useState("Sverige");
   const [datum, setDatum] = useState("");
   const [titel, setTitel] = useState("");
   const [kommentar, setKommentar] = useState("");
@@ -30,27 +32,26 @@ const Bookkeep: React.FC = () => {
     const formData = new FormData();
 
     const formFields = {
-      imageFile: file || "",
+      fil: file || "",
       radioInkomstUtgift,
       företagsKonto,
       motkonto,
       momsKonto,
       belopp,
-      säljarensLand,
+      land,
       datum,
       titel,
       kommentar,
     };
 
-    // Här ska gå att ta bort igen............
     // Loopar igenom alla värden i formFields och lägger till dem i formData
     Object.entries(formFields).forEach(([key, value]) => {
       if (value instanceof File) {
-        // Om värdet är en fil så används File overload av FormData.append
+        // Om det är en fil, lägg till filen i formData, tredje param är filens namn
         formData.append(key, value, value.name);
       } else {
         // Konverterar värdet till en sträng, detta om det är en siffra
-        formData.append(key, String(value));
+        formData.append(key, value !== undefined ? String(value) : "");
       }
     });
 
@@ -95,8 +96,8 @@ const Bookkeep: React.FC = () => {
         <Information
           belopp={belopp}
           setBelopp={setBelopp}
-          säljarensLand={säljarensLand}
-          setSäljarensLand={setSäljarensLand}
+          land={land}
+          setLand={setLand}
           datum={datum}
           setDatum={setDatum}
         />
