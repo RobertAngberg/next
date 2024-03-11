@@ -69,8 +69,6 @@ type InformationProps = {
 };
 
 type TitleAndCommentProps = {
-  titel: string;
-  setTitel: (value: string) => void;
   kommentar: string;
   setKommentar: (value: string) => void;
 };
@@ -79,15 +77,14 @@ type TitleAndCommentProps = {
 
 type HistoryItem = {
   id: string;
-  datum: string;
+  verifikationsdatum: string;
   fil: string;
-  konto1: number;
-  konto2: number;
-  konto3: number;
+  företagskonto: number;
+  motkonto: number;
+  momskonto: number;
   belopp: number;
   land: string;
   inkomst_utgift: string;
-  titel: string;
   kommentar: string;
 };
 

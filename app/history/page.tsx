@@ -8,6 +8,8 @@ export default function History() {
   const [year, setYear] = useState("2024");
   const { fetchData } = useFetchGet(`api/history/?q=${year}`);
 
+  console.log(fetchData);
+
   useEffect(() => {
     if (fetchData) {
       setHistoryData(fetchData.yearData);
@@ -16,19 +18,18 @@ export default function History() {
 
   return (
     <main className="items-center min-h-screen p-10 text-center text-white bg-slate-950">
-      <table className="w-5/6 m-auto">
+      <table className="w-full m-auto">
         <thead className="text-lg bg-cyan-950">
           <tr>
             <th className="p-5 pl-10 rounded-tl-lg">ID</th>
-            <th>Datum</th>
+            <th>Verifikationsdatum</th>
             <th>Fil</th>
-            <th>Konto 1</th>
-            <th>Konto 2</th>
-            <th>Konto 3</th>
+            <th>Företagskonto</th>
+            <th>Motkonto</th>
+            <th>Momskonto</th>
             <th>Belopp</th>
             <th>Land</th>
-            <th>Typ</th>
-            <th>Titel</th>
+            <th>Ink/Utg</th>
             <th className="pr-10 rounded-tr-lg">Kommentar</th>
           </tr>
         </thead>
@@ -40,15 +41,14 @@ export default function History() {
             >
               <td className="p-5">{item.id}</td>
               {/* Visa bara första 10 tecken av datumet */}
-              <td className="p-5">{item.datum}</td>
+              <td className="p-5">{item.verifikationsdatum}</td>
               <td className="p-5">{item.fil}</td>
-              <td className="p-5">{item.konto1}</td>
-              <td className="p-5">{item.konto2}</td>
-              <td className="p-5">{item.konto3}</td>
+              <td className="p-5">{item.företagskonto}</td>
+              <td className="p-5">{item.motkonto}</td>
+              <td className="p-5">{item.momskonto}</td>
               <td className="p-5">{item.belopp}</td>
               <td className="p-5">{item.land}</td>
               <td className="p-5">{item.inkomst_utgift}</td>
-              <td className="p-5">{item.titel}</td>
               <td className="p-5">{item.kommentar}</td>
             </tr>
           ))}

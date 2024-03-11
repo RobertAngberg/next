@@ -16,7 +16,6 @@ export async function POST(request: Request) {
     momsKonto,
     belopp,
     land,
-    titel,
     kommentar,
   } = Object.fromEntries(data);
 
@@ -33,7 +32,7 @@ export async function POST(request: Request) {
   try {
     await sql`
         INSERT INTO transactions (Fil, Verifikationsdatum, Inkomst_utgift,
-          Företagskonto, Motkonto, Momskonto, Belopp, Land, Titel, Kommentar)
+          Företagskonto, Motkonto, Momskonto, Belopp, Land, Kommentar)
           VALUES (${fil instanceof File ? (fil as File).name : null}, 
         ${String(verifikationsdatum)}, 
         ${String(radioInkomstUtgift)}, 
@@ -42,7 +41,6 @@ export async function POST(request: Request) {
         ${String(momsKonto)}, 
         ${String(belopp)}, 
         ${String(land)}, 
-        ${String(titel)}, 
         ${String(kommentar)})`;
   } catch (error) {
     console.error("Fel:", error);

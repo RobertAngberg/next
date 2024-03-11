@@ -22,7 +22,6 @@ const Bookkeep: React.FC = () => {
   const [belopp, setBelopp] = useState<number | undefined>(undefined);
   const [land, setLand] = useState("Sverige");
   const [datum, setDatum] = useState("");
-  const [titel, setTitel] = useState("");
   const [kommentar, setKommentar] = useState("");
 
   // Fattar fortfarande inte helt
@@ -41,7 +40,6 @@ const Bookkeep: React.FC = () => {
       momsKonto,
       belopp,
       land,
-      titel,
       kommentar,
     };
 
@@ -106,8 +104,6 @@ const Bookkeep: React.FC = () => {
         <hr className="my-8" />
 
         <TitleAndComment
-          titel={titel}
-          setTitel={setTitel}
           kommentar={kommentar}
           setKommentar={setKommentar}
         />
