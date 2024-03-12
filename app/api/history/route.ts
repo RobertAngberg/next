@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     const yearQuery = await sql`
       SELECT * FROM transactions 
       WHERE EXTRACT(year FROM TO_TIMESTAMP(verifikationsdatum, 'YYYY-MM-DD')) = ${params} 
-      ORDER BY verifikationsdatum DESC;`;
+      ORDER BY id ASC;`;
     yearData = yearQuery.rows;
 
     // Alla rows som finns i table, sorterat efter datum
