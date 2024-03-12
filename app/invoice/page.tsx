@@ -112,78 +112,87 @@ const Invoice: React.FC = () => {
   };
 
   return (
-    <main className="flex justify-center p-10 text-white bg-slate-950">
-      <div className="w-2/4">
-        <InvoiceCanvas
-          textFields={textFields}
-          logoImage={logoImage}
-          saveAsJPG={saveAsJPG}
-          canvasRef={canvasRef}
-        />
+    <main className="flex flex-col justify-center p-10 text-white bg-slate-950">
+      {/* Syns bara på mindre skärmar */}
+      <div className="block lg:hidden">
+        <p className="text-center">
+          Beklagar, den här funktionen är endast tillgänglig på större skärmar.
+        </p>
       </div>
-      <div className="flex flex-col items-start w-1/4">
-        {toggleButtons.map((button, index) => (
-          <div key={index}>
-            <ToggleButton
-              toggleGroup={button.group}
-              buttonText={button.text}
-              fieldGroupVisible={activeToggleBtn === button.group}
-              onToggle={() => toggleVisibility(button.group)}
-            />
-            {activeToggleBtn === button.group &&
-              Object.keys(textFields).map((labelText, fieldIndex) => {
-                if (
-                  (button.group === "first4" &&
-                    fieldIndex >= 0 &&
-                    fieldIndex < 5) ||
-                  (button.group === "second4" &&
-                    fieldIndex >= 5 &&
-                    fieldIndex < 9) ||
-                  (button.group === "third4" &&
-                    fieldIndex >= 9 &&
-                    fieldIndex < 13) ||
-                  (button.group === "fourth4" &&
-                    fieldIndex >= 13 &&
-                    fieldIndex < 18) ||
-                  (button.group === "fifth4" &&
-                    fieldIndex >= 18 &&
-                    fieldIndex < 21) ||
-                  (button.group === "sixth4" &&
-                    fieldIndex >= 21 &&
-                    fieldIndex < 26) ||
-                  (button.group === "seventh4" &&
-                    fieldIndex >= 26 &&
-                    fieldIndex < 31)
-                ) {
-                  return (
-                    <TextField
-                      key={labelText}
-                      labelText={labelText}
-                      textFields={textFields}
-                      handleInputChange={handleInputChange}
-                    />
-                  );
-                }
-                return null;
-              })}
+
+      <div className="hidden lg:block">
+        <div className="flex justify-center">
+          <InvoiceCanvas
+            textFields={textFields}
+            logoImage={logoImage}
+            saveAsJPG={saveAsJPG}
+            canvasRef={canvasRef}
+          />
+          <div className="flex flex-col items-start w-1/4 ml-6">
+            {toggleButtons.map((button, index) => (
+              <div key={index}>
+                <ToggleButton
+                  toggleGroup={button.group}
+                  buttonText={button.text}
+                  fieldGroupVisible={activeToggleBtn === button.group}
+                  onToggle={() => toggleVisibility(button.group)}
+                />
+                {activeToggleBtn === button.group &&
+                  Object.keys(textFields).map((labelText, fieldIndex) => {
+                    if (
+                      (button.group === "first4" &&
+                        fieldIndex >= 0 &&
+                        fieldIndex < 5) ||
+                      (button.group === "second4" &&
+                        fieldIndex >= 5 &&
+                        fieldIndex < 9) ||
+                      (button.group === "third4" &&
+                        fieldIndex >= 9 &&
+                        fieldIndex < 13) ||
+                      (button.group === "fourth4" &&
+                        fieldIndex >= 13 &&
+                        fieldIndex < 18) ||
+                      (button.group === "fifth4" &&
+                        fieldIndex >= 18 &&
+                        fieldIndex < 21) ||
+                      (button.group === "sixth4" &&
+                        fieldIndex >= 21 &&
+                        fieldIndex < 26) ||
+                      (button.group === "seventh4" &&
+                        fieldIndex >= 26 &&
+                        fieldIndex < 31)
+                    ) {
+                      return (
+                        <TextField
+                          key={labelText}
+                          labelText={labelText}
+                          textFields={textFields}
+                          handleInputChange={handleInputChange}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+              </div>
+            ))}
+
+            <LogoUpload handleFileUpload={handleFileUpload} />
+
+            <button
+              className="flex items-center justify-center px-4 py-2 mb-4 font-bold text-white bg-yellow-600 rounded hover:bg-cyan-700"
+              onClick={saveAsJPG}
+            >
+              Spara som JPG
+            </button>
+
+            <button
+              className="flex items-center justify-center px-4 py-2 mb-10 font-bold text-white bg-yellow-600 rounded hover:bg-cyan-700"
+              onClick={saveAsPDF}
+            >
+              Spara som PDF
+            </button>
           </div>
-        ))}
-
-        <LogoUpload handleFileUpload={handleFileUpload} />
-
-        <button
-          className="flex items-center justify-center px-4 py-2 mb-4 font-bold text-white bg-yellow-600 rounded hover:bg-cyan-700"
-          onClick={saveAsJPG}
-        >
-          Spara som JPG
-        </button>
-
-        <button
-          className="flex items-center justify-center px-4 py-2 mb-10 font-bold text-white bg-yellow-600 rounded hover:bg-cyan-700"
-          onClick={saveAsPDF}
-        >
-          Spara som PDF
-        </button>
+        </div>
       </div>
     </main>
   );

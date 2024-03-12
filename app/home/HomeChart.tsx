@@ -50,15 +50,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
   };
 
   return (
-    <div>
-      <div className="w-4/5 mx-auto text-white">
-        <Bar
-          datasetIdKey="id"
-          options={options}
-          data={data}
-          className="p-10 h-60"
-        />
-      </div>
+    <div className="w-full h-screen text-white md:mx-auto md:w-4/5">
       <label className="p-3 font-bold text-white" htmlFor="year">
         Visa år:
       </label>
@@ -72,6 +64,12 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         <option value="2023">2023</option>
         <option value="2024">2024</option>
       </select>
+      <Bar
+        datasetIdKey="id"
+        options={options}
+        data={data}
+        className="p-10 h-60"
+      />
     </div>
   );
 }
