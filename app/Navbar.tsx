@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import AuthButton from "./AuthButton";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,16 +14,28 @@ export default function Navbar() {
 
   const renderMenuLinks = () => (
     <>
-      <li onClick={closeMenu} className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold">
+      <li
+        onClick={closeMenu}
+        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
         <Link href="/">Hem</Link>
       </li>
-      <li onClick={closeMenu} className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold">
+      <li
+        onClick={closeMenu}
+        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
         <Link href="/bookkeep">Bokför</Link>
       </li>
-      <li onClick={closeMenu}  className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold">
+      <li
+        onClick={closeMenu}
+        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
         <Link href="/history">Historik</Link>
       </li>
-      <li onClick={closeMenu}  className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold">
+      <li
+        onClick={closeMenu}
+        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
         <Link href="/invoice">Faktura</Link>
       </li>
     </>
@@ -29,18 +43,17 @@ export default function Navbar() {
 
   return (
     <div className="sticky flex items-center justify-end w-full h-20 px-4 md:justify-center bg-cyan-950">
+      <AuthButton />
       {/* Mobil */}
       {isOpen && (
         <ul className="text-4xl absolute p-6 pr-10 top-20 right-0 w-full h-screen bg-cyan-950 text-white font-bold text-right md:hidden">
           {renderMenuLinks()}
         </ul>
       )}
-
       {/* Desktop */}
       <ul className="hidden md:flex md:static md:text-center md:justify-center md:w-auto md:h-auto">
         {renderMenuLinks()}
       </ul>
-
       {/* Hamburger */}
       <div onClick={() => setIsOpen(!isOpen)} className="z-50 md:hidden">
         <svg

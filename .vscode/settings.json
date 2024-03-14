@@ -33,24 +33,27 @@
     "public": true,
     "next-env.d.ts": true,
     "vercel.json": true,
-    ".env.local": true,
     "node_modules": true,
     "next.config.mjs": true,
     "next.config.js": true,
     ".env.development.local": true,
     "tailwind.config.js": true,
-    "app/globals.css": true
+    "app/globals.css": true,
+    ".env": true,
+    ".env.local": true
   },
   "hide-files.files": [
     "public",
     "next-env.d.ts",
     "vercel.json",
-    ".env.local",
     "node_modules",
     "next.config.mjs",
     "next.config.js",
     ".env.development.local",
     "tailwind.config.js",
-    "app/globals.css"
+    "app/globals.css",
+    "package.json",
+    ".env",
+    ".env.local"
   ]
 }

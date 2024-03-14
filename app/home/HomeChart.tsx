@@ -5,7 +5,6 @@ import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
-  console.log(chartData);
 
   const data = {
     labels: chartData?.map((row) => row.verifikationsdatum) || [],
