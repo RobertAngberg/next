@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import AuthButton from "./AuthButton";
+import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,37 +15,39 @@ export default function Navbar() {
     <>
       <li
         onClick={closeMenu}
-        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
         <Link href="/">Hem</Link>
       </li>
       <li
         onClick={closeMenu}
-        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
         <Link href="/bookkeep">Bokför</Link>
       </li>
       <li
         onClick={closeMenu}
-        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
         <Link href="/history">Historik</Link>
       </li>
       <li
         onClick={closeMenu}
-        className="hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
         <Link href="/invoice">Faktura</Link>
+      </li>
+      <li className="mt-20 md:hidden">
+        <LogoutButton />
       </li>
     </>
   );
 
   return (
-    <div className="sticky flex items-center justify-end w-full h-20 px-4 md:justify-center bg-cyan-950">
-      <AuthButton />
-      {/* Mobil */}
+    <div className="sticky top-0 z-50 flex items-center justify-end w-full h-20 px-4 bg-cyan-950 md:justify-center">
+      {/* Mobile */}
       {isOpen && (
-        <ul className="text-4xl absolute p-6 pr-10 top-20 right-0 w-full h-screen bg-cyan-950 text-white font-bold text-right md:hidden">
+        <ul className="text-4xl absolute p-6 pr-10 top-20 right-0 w-full h-screen bg-cyan-950 text-white font-bold text-right">
           {renderMenuLinks()}
         </ul>
       )}
@@ -85,6 +86,9 @@ export default function Navbar() {
             />
           )}
         </svg>
+      </div>
+      <div className="hidden md:block">
+        <LogoutButton />
       </div>
     </div>
   );

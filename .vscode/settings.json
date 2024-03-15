@@ -26,12 +26,10 @@
     "app/.vscode": true,
     "globals.css": true,
     "package-lock.json": true,
-    "package.json": true,
     "postcss.config.js": true,
     "tailwind.config.ts": true,
     "tsconfig.json": true,
     "public": true,
-    "next-env.d.ts": true,
     "vercel.json": true,
     "node_modules": true,
     "next.config.mjs": true,
@@ -39,12 +37,13 @@
     ".env.development.local": true,
     "tailwind.config.js": true,
     "app/globals.css": true,
+    "package.json": true,
     ".env": true,
-    ".env.local": true
+    ".env.local": true,
+    "next-env.d.ts": true
   },
   "hide-files.files": [
     "public",
-    "next-env.d.ts",
     "vercel.json",
     "node_modules",
     "next.config.mjs",
@@ -54,6 +53,7 @@
     "app/globals.css",
     "package.json",
     ".env",
-    ".env.local"
+    ".env.local",
+    "next-env.d.ts"
   ]
 }
