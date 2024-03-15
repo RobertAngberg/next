@@ -31,7 +31,6 @@
     "tsconfig.json": true,
     "public": true,
     "vercel.json": true,
-    "node_modules": true,
     "next.config.mjs": true,
     "next.config.js": true,
     ".env.development.local": true,
@@ -40,12 +39,12 @@
     "package.json": true,
     ".env": true,
     ".env.local": true,
-    "next-env.d.ts": true
+    "next-env.d.ts": true,
+    "node_modules": true
   },
   "hide-files.files": [
     "public",
     "vercel.json",
-    "node_modules",
     "next.config.mjs",
     "next.config.js",
     ".env.development.local",
@@ -54,6 +53,7 @@
     "package.json",
     ".env",
     ".env.local",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "node_modules"
   ]
 }
