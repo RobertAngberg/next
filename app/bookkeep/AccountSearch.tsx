@@ -27,7 +27,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
   };
 
   function searchResultClick(item: FetchDataItem): void {
-    setMotkonto(item.konto);
+    setMotkonto(item.konto_nummer);
     setShowSearchResults(false);
   }
 
@@ -53,7 +53,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
               className="bg-white w-full text-black font-bold py-3 px-4 mb-4 hover:bg-gray-300 hover:cursor-pointer"
               onClick={() => searchResultClick(fetchData.data)}
             >
-              {fetchData.data.konto} - {fetchData.data.beskrivning}
+              {fetchData.data.konto_nummer} - {fetchData.data.konto_namn}
               <div className="font-normal">{fetchData.data.ord}</div>
             </div>
           )}

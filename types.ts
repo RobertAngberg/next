@@ -45,7 +45,7 @@ type AccountSearchProps = {
 };
 
 type FetchDataItem = {
-  konto: string;
+  konto_nummer: string;
   beskrivning: string;
 };
 
