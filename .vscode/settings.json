@@ -38,7 +38,10 @@
     ".env": true,
     ".env.local": true,
     "next-env.d.ts": true,
-    "node_modules": true
+    "node_modules": true,
+    "public/assets": true,
+    "public": true,
+    "package.json": true
   },
   "hide-files.files": [
     "vercel.json",
@@ -50,6 +53,9 @@
     ".env",
     ".env.local",
     "next-env.d.ts",
-    "node_modules"
+    "node_modules",
+    "public/assets",
+    "public",
+    "package.json"
   ]
 }
