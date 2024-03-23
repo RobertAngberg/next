@@ -41,7 +41,8 @@
     "node_modules": true,
     "public/assets": true,
     "public": true,
-    "package.json": true
+    "package.json": true,
+    "SessionProvider.tsx": true
   },
   "hide-files.files": [
     "vercel.json",
@@ -56,6 +57,7 @@
     "node_modules",
     "public/assets",
     "public",
-    "package.json"
+    "package.json",
+    "SessionProvider.tsx"
   ]
 }

@@ -38,7 +38,7 @@ type InkomstUtgiftProps = {
 };
 
 type AccountSearchProps = {
-  radioInkomstUtgift: string;
+  // radioInkomstUtgift: string;
   searchText: string;
   setSearchText: (value: string) => void;
   setMotkonto: (value: string) => void;
