@@ -71,48 +71,8 @@ const Bookkeep: React.FC = () => {
           radioInkomstUtgift={radioInkomstUtgift}
           setRadioInkomstUtgift={setRadioInkomstUtgift}
         />
-        <br></br>
-        Här måste jag determine debet och kredit...
-        <br></br>
-        <br></br>
-        Har ju nu en tabell transaktionsposter där varje transaktion får alla
-        rader som behövs och på dessa finns debet och kredit.. glöm inte att
-        moms får sin egen rad
-        <br></br>
-        <br></br>
-        Note: Bokio startar med mall-val, vilket gör det lättare att avgöra alla
-        värden för motkonto, debet, kredit, etc.. annars är det manuellt...
-        <br></br>
-        <br></br>
-        Så börja med mallar/förval.. bra förval är att kunna bläddra också
-        <br></br>
-        <br></br>
-        Så bort med för många fält från UI, diggar
-        <br></br>
-        <br></br>
-        Ska man börja med:
-        <br></br>
-        <br></br>1 - välj förval
-        <br></br>2 - ladda upp underlag
-        <br></br>3 - resten?
-        <br></br>
-        <br></br>
-        Det funkar i samma component och bara render olika UI:s... fast ja,
-        varje "screen" får ju sin egen component... håll koll på vilken med
-        state I guess
-        <br></br>
-        <br></br>
-        Just ja... allra först får man välja inkomst eller utgift på Bokio...
-        Sen kommer man till mall-val... hmmm.. kan man inte skippa första
-        steget..?
-        <br></br>
-        <br></br>
-        Först tänkte jag att de gör så för att inte behöva söka i DB så mycket
-        men jag tror det är så att inkomster inte har många olika varianter alls
-        <br></br>
-        <br></br>
         <AccountSearch
-          radioInkomstUtgift={radioInkomstUtgift}
+          // radioInkomstUtgift={radioInkomstUtgift}
           searchText={searchText}
           setSearchText={setSearchText}
           setMotkonto={setMotkonto}

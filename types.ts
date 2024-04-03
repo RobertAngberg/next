@@ -40,13 +40,17 @@ type InkomstUtgiftProps = {
 type AccountSearchProps = {
   // radioInkomstUtgift: string;
   searchText: string;
+  setCurrentStep: (value: number) => void;
   setSearchText: (value: string) => void;
-  setMotkonto: (value: string) => void;
+  setKontonummer: (value: number) => void;
+  setKontotyp: (value: string) => void;
+  setKontonamn: (value: string) => void;
 };
 
 type FetchDataItem = {
-  konto_nummer: string;
-  beskrivning: string;
+  konto_nummer: number;
+  konto_typ: string;
+  konto_namn: string;
 };
 
 type AccountsProps = {

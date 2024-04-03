@@ -4,9 +4,12 @@ import { useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
 
 const AccountSearch: React.FC<AccountSearchProps> = ({
+  setCurrentStep,
   searchText,
   setSearchText,
-  setMotkonto,
+  setKontonummer,
+  setKontotyp,
+  setKontonamn,
 }) => {
   const [showSearchResults, setShowSearchResults] = useState(true);
 
@@ -18,7 +21,10 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
   };
 
   function searchResultClick(item: FetchDataItem): void {
-    setMotkonto(item.konto_nummer);
+    setKontonummer(item.konto_nummer);
+    setKontotyp(item.konto_typ);
+    setKontonamn(item.konto_namn);
+    setCurrentStep(2);
     setShowSearchResults(false);
   }
 
