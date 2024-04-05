@@ -19,6 +19,10 @@ type HomeChartProps = {
 
 // ---- BOOKKEEP ----
 
+type Step2Props = {
+  setCurrentStep: (number: number) => void;
+}
+
 type FileUploadProps = {
   setFile: (file: File | null) => void;
   setPdfUrl: (url: string | null) => void;
