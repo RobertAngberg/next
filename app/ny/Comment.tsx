@@ -1,9 +1,6 @@
 "use client";
 
-const TitleAndComment: React.FC<TitleAndCommentProps> = ({
-  kommentar,
-  setKommentar,
-}) => {
+const Comment: React.FC<CommentProps> = ({ kommentar, setKommentar }) => {
   return (
     <div className="mb-4">
       <label htmlFor="kommentar">Kommentar:</label>
@@ -20,4 +17,4 @@ const TitleAndComment: React.FC<TitleAndCommentProps> = ({
   );
 };
 
-export default TitleAndComment;
+export default Comment;

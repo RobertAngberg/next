@@ -1,20 +1,15 @@
-import { useState } from "react";
 import useFetchPost from "../hooks/useFetchPost";
 
-export default function Step3() {
-  const [currentStep, setCurrentStep] = useState<number>(1);
-  const [searchText, setSearchText] = useState("");
-  const [kontonummer, setKontonummer] = useState<number>(0);
-  const [kontonamn, setKontonamn] = useState<string>();
-  const [kontotyp, setKontotyp] = useState<string>();
-  const [file, setFile] = useState<File | null>(null);
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [företagskonto, setFöretagskonto] = useState("1930 - Företagskonto");
-  const [belopp, setBelopp] = useState<number | undefined>(undefined);
-  const [land, setLand] = useState("Sverige");
-  const [datum, setDatum] = useState("");
-  const [kommentar, setKommentar] = useState("");
-
+const Step3: React.FC<Step3Props> = ({
+  kontonummer,
+  kontonamn,
+  kontotyp,
+  file,
+  belopp,
+  land,
+  datum,
+  kommentar,
+}) => {
   // Fattar fortfarande inte helt
   const postFormData = useFetchPost();
 
@@ -45,8 +40,6 @@ export default function Step3() {
     });
 
     await postFormData("api/bookkeep/", formData);
-
-    setCurrentStep(3);
   };
 
   return (
@@ -88,4 +81,6 @@ export default function Step3() {
       </div>
     </main>
   );
-}
+};
+
+export default Step3;

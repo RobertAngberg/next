@@ -1,21 +1,22 @@
-import { useState } from "react";
 import FileUpload from "./FileUpload";
 import Information from "./Information";
-import TitleAndComment from "./TitleAndComment";
+import Comment from "./Comment";
 
-const Step2: React.FC<Step2Props> = ({ setCurrentStep }) => {
-  const [searchText, setSearchText] = useState("");
-  const [kontonummer, setKontonummer] = useState<number>(0);
-  const [kontonamn, setKontonamn] = useState<string>();
-  const [kontotyp, setKontotyp] = useState<string>();
-  const [file, setFile] = useState<File | null>(null);
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [företagskonto, setFöretagskonto] = useState("1930 - Företagskonto");
-  const [belopp, setBelopp] = useState<number | undefined>(undefined);
-  const [land, setLand] = useState("Sverige");
-  const [datum, setDatum] = useState("");
-  const [kommentar, setKommentar] = useState("");
-
+const Step2: React.FC<Step2Props> = ({
+  setCurrentStep,
+  file,
+  setFile,
+  pdfUrl,
+  setPdfUrl,
+  belopp,
+  setBelopp,
+  land,
+  setLand,
+  datum,
+  setDatum,
+  kommentar,
+  setKommentar,
+}) => {
   function handleSubmit1() {
     setCurrentStep(3);
   }
@@ -40,7 +41,7 @@ const Step2: React.FC<Step2Props> = ({ setCurrentStep }) => {
           setDatum={setDatum}
         />
 
-        <TitleAndComment kommentar={kommentar} setKommentar={setKommentar} />
+        <Comment kommentar={kommentar} setKommentar={setKommentar} />
 
         <button
           type="submit"

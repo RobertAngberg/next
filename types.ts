@@ -20,8 +20,31 @@ type HomeChartProps = {
 // ---- BOOKKEEP ----
 
 type Step2Props = {
-  setCurrentStep: (number: number) => void;
-}
+  setCurrentStep: (stepNumber: number) => void;
+  file: File | null;
+  setFile: (file: File | null) => void;
+  pdfUrl: string | null;
+  setPdfUrl: (url: string | null) => void;
+  belopp: number | undefined;
+  setBelopp: (amount: number | undefined) => void;
+  land: string;
+  setLand: (country: string) => void;
+  datum: string;
+  setDatum: (date: string) => void;
+  kommentar: string;
+  setKommentar: (comment: string) => void;
+};
+
+type Step3Props = {
+  kontonummer: number;
+  kontonamn: string | undefined;
+  kontotyp: string | undefined;
+  file: File | null;
+  belopp: number | undefined;
+  land: string;
+  datum: string;
+  kommentar: string;
+};
 
 type FileUploadProps = {
   setFile: (file: File | null) => void;
@@ -76,7 +99,7 @@ type InformationProps = {
   setDatum: (datum: string) => void;
 };
 
-type TitleAndCommentProps = {
+type CommentProps = {
   kommentar: string;
   setKommentar: (value: string) => void;
 };

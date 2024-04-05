@@ -19,8 +19,7 @@ export default function Ny() {
   const [datum, setDatum] = useState("");
   const [kommentar, setKommentar] = useState("");
 
-  console.log(currentStep);
-  /* Tror  måste forcee lowercase steg 1, eller nåt */
+  /* Tror måste force lowercase steg 1, eller nåt */
 
   return (
     <main className="items-center text-center bg-slate-950 min-h-screen pt-10">
@@ -36,8 +35,37 @@ export default function Ny() {
           />
         </div>
       )}
-      {currentStep === 2 && <Step2 setCurrentStep={setCurrentStep} />}
-      {currentStep === 3 && <Step3 />}
+
+      {currentStep === 2 && (
+        <Step2
+          setCurrentStep={setCurrentStep}
+          file={file}
+          setFile={setFile}
+          pdfUrl={pdfUrl}
+          setPdfUrl={setPdfUrl}
+          belopp={belopp}
+          setBelopp={setBelopp}
+          land={land}
+          setLand={setLand}
+          datum={datum}
+          setDatum={setDatum}
+          kommentar={kommentar}
+          setKommentar={setKommentar}
+        />
+      )}
+
+      {currentStep === 3 && (
+        <Step3
+          kontonummer={kontonummer}
+          kontonamn={kontonamn}
+          kontotyp={kontotyp}
+          file={file}
+          belopp={belopp}
+          land={land}
+          datum={datum}
+          kommentar={kommentar}
+        />
+      )}
     </main>
   );
 }
