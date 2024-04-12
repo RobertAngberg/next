@@ -5,11 +5,11 @@ import Tesseract from "tesseract.js";
 import { ChatGPTAPI } from "chatgpt";
 
 const FileUpload: React.FC<FileUploadProps> = ({
-  setFile,
+  setFil,
   setPdfUrl,
-  setDatum,
+  setTransaktionsdatum,
   setBelopp,
-  file,
+  fil,
 }) => {
   const [recognizedText, setRecognizedText] = useState("");
 
@@ -21,30 +21,29 @@ const FileUpload: React.FC<FileUploadProps> = ({
       if (file && file.type === "application/pdf") {
         const fileUrl = URL.createObjectURL(file);
         setPdfUrl(fileUrl);
-      } else if (
         // Bild
+      } else if (
         file &&
         (file.type === "image/jpeg" || file.type === "image/png")
       ) {
-        setFile(file);
+        setFil(fil);
       }
     }
   };
 
   useEffect(() => {
     const scanImage = async () => {
-      if (file) {
-        const result = await Tesseract.recognize(file, "swe");
+      if (fil) {
+        const result = await Tesseract.recognize(fil, "swe");
         setRecognizedText(result.data.text);
       }
     };
     scanImage();
-  }, [file]);
+  }, [fil]);
 
   useEffect(() => {
     const chatGPT = async () => {
       if (recognizedText) {
-        console.log("recognizedText", recognizedText);
         const apiKey = process.env.OPENAI_API_KEY || "";
         const api = new ChatGPTAPI({
           apiKey: apiKey,
@@ -63,10 +62,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
         // Validate and set datum
         const parsedDate = new Date(data.datum);
+
         if (!isNaN(parsedDate.getTime())) {
-          setDatum(data.datum);
+          setTransaktionsdatum(data.datum);
         } else {
-          setDatum("");
+          setTransaktionsdatum("");
         }
 
         // Validate and set belopp

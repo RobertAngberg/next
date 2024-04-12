@@ -23,7 +23,7 @@ export default function Navbar() {
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
-        <Link href="/bookkeep">Bokför</Link>
+        <Link href="/ny">Bokför</Link>
       </li>
       <li
         onClick={closeMenu}

@@ -10,16 +10,19 @@ export async function GET(request: Request) {
     // Extract är för att få ut året "YYYY" från "datum"
     // så att man kan jämföra med "params"
     const yearQuery = await sql`
-      SELECT * FROM transactions 
-      WHERE EXTRACT(year FROM TO_TIMESTAMP(verifikationsdatum, 'YYYY-MM-DD')) = ${params} 
-      ORDER BY id ASC;`;
+    SELECT * FROM transaktioner
+    WHERE EXTRACT(year FROM datum) = ${params} 
+    ORDER BY transaktions_id ASC;`;
     yearData = yearQuery.rows;
 
-    // Alla rows som finns i table, sorterat efter datum
-    const query = await sql`
-      SELECT * FROM transactions ORDER BY verifikationsdatum DESC;`;
-    const allRows: QueryResultRow[] = query.rows;
+    console.log(yearData);
 
-    return NextResponse.json({ allRows, yearData }, { status: 200 });
+    // Alla rows som finns i table, sorterat efter datum
+    // const query = await sql`
+    //   SELECT * FROM transaktioner ORDER BY datum DESC;`;
+    // const allRows: QueryResultRow[] = query.rows;
+
+    // allrows måste vara nedan innan yeardata
+    return NextResponse.json({ yearData }, { status: 200 });
   }
 }

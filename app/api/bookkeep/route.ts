@@ -10,16 +10,16 @@ export async function POST(request: Request) {
   let {
     fil,
     verifikationsdatum,
-    radioInkomstUtgift,
-    företagsKonto,
-    motkonto,
-    momsKonto,
     belopp,
     land,
     kommentar,
+    kontotyp,
+    kontonummer,
+    moms,
+    beloppUtanMoms,
   } = Object.fromEntries(data);
 
-  // TS - Detta för att file kan vara string eller File
+  // Spara filen
   if (fil instanceof File) {
     // Ladda upp filen till servern inuti public/assets
     const uploadsDir = path.join(process.cwd(), "public", "assets");
@@ -29,34 +29,58 @@ export async function POST(request: Request) {
     fs.writeFileSync(targetPath, Buffer.from(fileData));
   }
 
-  ////////////////////////////////////////////////
   try {
     await sql`BEGIN;`;
 
-    // WTF med beskrivning? Ta det senare, gör nu debet och kredit, hur fan det nu ska funka
-    // Det måste avgöras på frontend och sen ta det med ${String(debet)} och ${String(kredit)}
-    // ATM har jag inget som typ avgör debet och kredit på frontend
-    // Talar för att göra det med mallar/förval tror jag
-
     const result = await sql`
-        INSERT INTO Transaktioner (datum, beskrivning, fil, kommentar)
-        VALUES (${String(verifikationsdatum)}, 'asdffff', ${(fil as File).name}, ${String(kommentar)})
+        INSERT INTO Transaktioner (datum, fil, kommentar)
+        VALUES (${String(verifikationsdatum)}, ${(fil as File).name}, ${String(kommentar)})
         RETURNING transaktions_id;
     `;
 
     const transaktionsId = result.rows[0].transaktions_id;
 
-    // Hämta konto_id baserat på ${String(motkonto)}, det behövs för att kunna skapa en transaktionspost
+    // Hämta konto_id baserat på ${String(kontonummer)} för att kunna skapa en transaktionspost
     const kontoResult = await sql`
-        SELECT konto_id FROM Konton WHERE konto_nummer = ${String(motkonto)};
+        SELECT konto_id FROM Konton WHERE konto_nummer = ${String(kontonummer)};
     `;
-    // Exempel: Om ${String(motkonto)} är 6230 så kommer kontoResult.rows[0].konto_id vara 1
+
+    // Exempel: Om ${String(kontonummer)} är 6230 så kommer kontoResult.rows[0].konto_id vara 1
     const kontoId = kontoResult.rows[0].konto_id;
 
-    await sql`
-        INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
-        VALUES (${transaktionsId}, ${kontoId}, 1000.00, 0.00);
-    `;
+    if (kontotyp === "Kostnad") {
+      // Rad 1, Företagskontot
+      await sql`
+    INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
+    VALUES (${transaktionsId}, 5, 0.00, ${Number(belopp)});
+  `;
+      // Rad 2, Momskontot
+      await sql`
+    INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
+    VALUES (${transaktionsId}, 4, ${Number(moms)}, 0.00);
+  `;
+      // Rad 3, Kostnadskontot
+      await sql`
+    INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
+    VALUES (${transaktionsId}, ${kontoId}, ${Number(beloppUtanMoms)}, 0.00);
+  `;
+    } else if (kontotyp === "Intäkt") {
+      // Rad 1, Företagskontot
+      await sql`
+    INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
+    VALUES (${transaktionsId}, 5, ${Number(belopp)}, 0.00);
+  `;
+      // Rad 2, Momskontot
+      await sql`
+    INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
+    VALUES (${transaktionsId}, 6, ${Number(moms)}, 0.00);
+  `;
+      // Rad 3, Intäktskontot
+      await sql`
+    INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
+    VALUES (${transaktionsId}, ${kontoId}, 0.00, ${Number(beloppUtanMoms)});
+  `;
+    }
 
     await sql`COMMIT;`;
   } catch (error) {
@@ -67,29 +91,6 @@ export async function POST(request: Request) {
   return NextResponse.json({
     message: "Data received successfully",
   });
-
-  ////////////////////////////////////////////////
-
-  // try {
-  //   await sql`
-  //       INSERT INTO transactions (Fil, Verifikationsdatum, Inkomst_utgift,
-  //         Företagskonto, Motkonto, Momskonto, Belopp, Land, Kommentar)
-  //         VALUES (${fil instanceof File ? (fil as File).name : null},
-  //       ${String(verifikationsdatum)},
-  //       ${String(radioInkomstUtgift)},
-  //       ${String(företagsKonto)},
-  //       ${String(motkonto)},
-  //       ${String(momsKonto)},
-  //       ${String(belopp)},
-  //       ${String(land)},
-  //       ${String(kommentar)})`;
-  // } catch (error) {
-  //   console.error("Fel:", error);
-  // }
-
-  // return NextResponse.json({
-  //   message: "Data received successfully",
-  // });
 }
 
 ////////////////////////////////////////////////////////

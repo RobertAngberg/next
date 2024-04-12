@@ -21,37 +21,37 @@ type HomeChartProps = {
 
 type Step2Props = {
   setCurrentStep: (stepNumber: number) => void;
-  file: File | null;
-  setFile: (file: File | null) => void;
+  fil: File | null;
+  setFil: (fil: File | null) => void;
   pdfUrl: string | null;
   setPdfUrl: (url: string | null) => void;
   belopp: number | undefined;
   setBelopp: (amount: number | undefined) => void;
   land: string;
   setLand: (country: string) => void;
-  datum: string;
-  setDatum: (date: string) => void;
+  transaktionsdatum: string;
+  setTransaktionsdatum: (date: string) => void;
   kommentar: string;
   setKommentar: (comment: string) => void;
 };
 
 type Step3Props = {
   kontonummer: number;
-  kontonamn: string | undefined;
+  kontobeskrivning: string | undefined;
   kontotyp: string | undefined;
-  file: File | null;
+  fil: File | null;
   belopp: number | undefined;
   land: string;
-  datum: string;
+  transaktionsdatum: string;
   kommentar: string;
 };
 
 type FileUploadProps = {
-  setFile: (file: File | null) => void;
+  setFil: (fil: File | null) => void;
   setPdfUrl: (url: string | null) => void;
   setBelopp: (number: number) => void;
-  setDatum: (datum: string) => void;
-  file: File | null;
+  setTransaktionsdatum: (datum: string) => void;
+  fil: File | null;
 };
 
 type TextRecognitionProps = {
@@ -65,26 +65,25 @@ type InkomstUtgiftProps = {
 };
 
 type AccountSearchProps = {
-  // radioInkomstUtgift: string;
   searchText: string;
-  setCurrentStep: (value: number) => void;
   setSearchText: (value: string) => void;
   setKontonummer: (value: number) => void;
   setKontotyp: (value: string) => void;
-  setKontonamn: (value: string) => void;
+  setKontobeskrivning: (value: string) => void;
+  setCurrentStep: (value: number) => void;
 };
 
 type FetchDataItem = {
-  konto_nummer: number;
-  konto_typ: string;
-  konto_namn: string;
+  kontonummer: number;
+  kontotyp: string;
+  kontobeskrivning: string;
 };
 
 type AccountsProps = {
   företagsKonto: string;
   setFöretagsKonto: (value: string) => void;
-  motkonto: string | undefined;
-  setMotkonto: (value: string) => void;
+  motkonto: number | undefined;
+  setMotkonto: (value: number) => void;
   momsKonto: string | undefined;
   setMomsKonto: (value: string) => void;
   radioInkomstUtgift: string;
@@ -93,10 +92,8 @@ type AccountsProps = {
 type InformationProps = {
   belopp: number | undefined;
   setBelopp: (belopp: number) => void;
-  land: string;
-  setLand: (land: string) => void;
-  datum: string;
-  setDatum: (datum: string) => void;
+  transaktionsdatum: string;
+  setTransaktionsdatum: (datum: string) => void;
 };
 
 type CommentProps = {
@@ -107,11 +104,11 @@ type CommentProps = {
 // ---- HISTORY ----
 
 type HistoryItem = {
-  id: string;
-  verifikationsdatum: string;
+  transaktions_id: number;
+  bokföringstidspunkt: string;
   fil: string;
   företagskonto: number;
-  motkonto: number;
+  beskrivning: number;
   momskonto: number;
   belopp: number;
   land: string;

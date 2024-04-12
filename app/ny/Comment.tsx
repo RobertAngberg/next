@@ -8,7 +8,7 @@ const Comment: React.FC<CommentProps> = ({ kommentar, setKommentar }) => {
         className="w-full p-2 mb-4 text-black border-2 border-gray-600 border-solid rounded"
         id="kommentar"
         name="kommentar"
-        maxLength={250}
+        maxLength={500}
         placeholder="Valfritt"
         value={kommentar}
         onChange={(e) => setKommentar(e.target.value)}

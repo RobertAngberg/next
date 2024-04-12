@@ -9,14 +9,13 @@ export default function Ny() {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [searchText, setSearchText] = useState("");
   const [kontonummer, setKontonummer] = useState<number>(0);
-  const [kontonamn, setKontonamn] = useState<string>();
+  const [kontobeskrivning, setKontobeskrivning] = useState<string>();
   const [kontotyp, setKontotyp] = useState<string>();
-  const [file, setFile] = useState<File | null>(null);
+  const [fil, setFil] = useState<File | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [företagskonto, setFöretagskonto] = useState("1930 - Företagskonto");
   const [belopp, setBelopp] = useState<number | undefined>(undefined);
   const [land, setLand] = useState("Sverige");
-  const [datum, setDatum] = useState("");
+  const [transaktionsdatum, setTransaktionsdatum] = useState("");
   const [kommentar, setKommentar] = useState("");
 
   /* Tror måste force lowercase steg 1, eller nåt */
@@ -29,7 +28,7 @@ export default function Ny() {
             searchText={searchText}
             setSearchText={setSearchText}
             setKontonummer={setKontonummer}
-            setKontonamn={setKontonamn}
+            setKontobeskrivning={setKontobeskrivning}
             setKontotyp={setKontotyp}
             setCurrentStep={setCurrentStep}
           />
@@ -39,16 +38,16 @@ export default function Ny() {
       {currentStep === 2 && (
         <Step2
           setCurrentStep={setCurrentStep}
-          file={file}
-          setFile={setFile}
+          fil={fil}
+          setFil={setFil}
           pdfUrl={pdfUrl}
           setPdfUrl={setPdfUrl}
           belopp={belopp}
           setBelopp={setBelopp}
           land={land}
           setLand={setLand}
-          datum={datum}
-          setDatum={setDatum}
+          transaktionsdatum={transaktionsdatum}
+          setTransaktionsdatum={setTransaktionsdatum}
           kommentar={kommentar}
           setKommentar={setKommentar}
         />
@@ -57,12 +56,12 @@ export default function Ny() {
       {currentStep === 3 && (
         <Step3
           kontonummer={kontonummer}
-          kontonamn={kontonamn}
+          kontobeskrivning={kontobeskrivning}
           kontotyp={kontotyp}
-          file={file}
+          fil={fil}
           belopp={belopp}
           land={land}
-          datum={datum}
+          transaktionsdatum={transaktionsdatum}
           kommentar={kommentar}
         />
       )}

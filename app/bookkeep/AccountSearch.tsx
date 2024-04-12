@@ -4,7 +4,6 @@ import { useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
 
 const AccountSearch: React.FC<AccountSearchProps> = ({
-  radioInkomstUtgift,
   searchText,
   setSearchText,
   setMotkonto,

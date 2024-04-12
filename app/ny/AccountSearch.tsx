@@ -9,7 +9,7 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
   setSearchText,
   setKontonummer,
   setKontotyp,
-  setKontonamn,
+  setKontobeskrivning,
 }) => {
   const [showSearchResults, setShowSearchResults] = useState(true);
 
@@ -21,9 +21,9 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
   };
 
   function searchResultClick(item: FetchDataItem): void {
-    setKontonummer(item.konto_nummer);
-    setKontotyp(item.konto_typ);
-    setKontonamn(item.konto_namn);
+    setKontonummer(item.kontonummer);
+    setKontotyp(item.kontotyp);
+    setKontobeskrivning(item.kontobeskrivning);
     setCurrentStep(2);
     setShowSearchResults(false);
   }
@@ -51,8 +51,8 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
               className="rounded mt-2 text-xl bg-white w-full text-black font-bold py-3 px-4 mb-4 hover:bg-gray-300 hover:cursor-pointer text-xl"
               onClick={() => searchResultClick(fetchData.data)}
             >
-              &#10003; &nbsp; &nbsp; {fetchData.data.konto_nummer} -{" "}
-              {fetchData.data.konto_namn}
+              &#10003; &nbsp; {fetchData.data.kontonummer} -{" "}
+              {fetchData.data.kontobeskrivning}
               <p className="p-2 text-base">Sökord:</p>
               <div className="font-normal text-base">
                 {fetchData.data.sökord}

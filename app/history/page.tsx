@@ -28,6 +28,8 @@ export default function History() {
             <option value="2024">2024</option>
             <option value="2023">2023</option>
             <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
           </select>
         </div>
       </div>
@@ -39,7 +41,6 @@ export default function History() {
             <th className="p-5 hidden md:table-cell">Fil</th>
             <th className="p-5">Konto</th>
             <th className="p-5">Belopp</th>
-            <th className="p-5 hidden md:table-cell">Ink/Utg</th>
             <th className="p-5 hidden md:table-cell pr-10 rounded-tr-lg">
               Kommentar
             </th>
@@ -48,17 +49,14 @@ export default function History() {
         <tbody>
           {historyData.map((item: HistoryItem) => (
             <tr
-              key={item.id}
+              key={item.transaktions_id}
               className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
             >
-              <td className="p-5">{item.id}</td>
-              <td className="p-5">{item.verifikationsdatum}</td>
+              <td className="p-5">{item.transaktions_id}</td>
+              <td className="p-5">{item.bokföringstidspunkt.slice(0, 10)}</td>
               <td className="p-5 hidden md:table-cell">{item.fil}</td>
-              <td className="p-5">{item.motkonto}</td>
+              <td className="p-5">{item.beskrivning}</td>
               <td className="p-5">{item.belopp}</td>
-              <td className="p-5 hidden md:table-cell">
-                {item.inkomst_utgift}
-              </td>
               <td className="p-5 hidden md:table-cell">{item.kommentar}</td>
             </tr>
           ))}

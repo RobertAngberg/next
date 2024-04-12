@@ -4,16 +4,16 @@ import Comment from "./Comment";
 
 const Step2: React.FC<Step2Props> = ({
   setCurrentStep,
-  file,
-  setFile,
+  fil,
+  setFil,
   pdfUrl,
   setPdfUrl,
   belopp,
   setBelopp,
   land,
   setLand,
-  datum,
-  setDatum,
+  transaktionsdatum,
+  setTransaktionsdatum,
   kommentar,
   setKommentar,
 }) => {
@@ -25,20 +25,18 @@ const Step2: React.FC<Step2Props> = ({
     <main className="flex flex-col flex-col-reverse justify-center p-10 pt-0 text-white md:flex-row bg-slate-950 text-left">
       <div className="w-full mb-10 md:w-1/4 md:mb-0">
         <FileUpload
-          file={file}
-          setFile={setFile}
+          fil={fil}
+          setFil={setFil}
           setPdfUrl={setPdfUrl}
           setBelopp={setBelopp}
-          setDatum={setDatum}
+          setTransaktionsdatum={setTransaktionsdatum}
         />
 
         <Information
           belopp={belopp}
           setBelopp={setBelopp}
-          land={land}
-          setLand={setLand}
-          datum={datum}
-          setDatum={setDatum}
+          transaktionsdatum={transaktionsdatum}
+          setTransaktionsdatum={setTransaktionsdatum}
         />
 
         <Comment kommentar={kommentar} setKommentar={setKommentar} />
@@ -52,8 +50,8 @@ const Step2: React.FC<Step2Props> = ({
         </button>
       </div>
 
-      {/* Visa PDF */}
       <div className="flex flex-col items-center w-full border md:w-2/4 md:ml-10 md:items-start">
+        {/* Visa PDF */}
         {pdfUrl && (
           <iframe
             src={pdfUrl}
@@ -64,7 +62,7 @@ const Step2: React.FC<Step2Props> = ({
         )}
 
         {/* Visa bild */}
-        {file && <img src={URL.createObjectURL(file)} />}
+        {fil && <img src={URL.createObjectURL(fil)} />}
       </div>
     </main>
   );

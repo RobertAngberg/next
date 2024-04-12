@@ -17,7 +17,7 @@ const Bookkeep: React.FC = () => {
   const [företagsKonto, setFöretagsKonto] = useState<string>(
     "1930 - Företagskonto"
   );
-  const [motkonto, setMotkonto] = useState<string | undefined>(undefined);
+  const [motkonto, setMotkonto] = useState<number | undefined>(undefined);
   const [momsKonto, setMomsKonto] = useState<string | undefined>(undefined);
   const [belopp, setBelopp] = useState<number | undefined>(undefined);
   const [land, setLand] = useState("Sverige");
@@ -72,7 +72,6 @@ const Bookkeep: React.FC = () => {
           setRadioInkomstUtgift={setRadioInkomstUtgift}
         />
         <AccountSearch
-          // radioInkomstUtgift={radioInkomstUtgift}
           searchText={searchText}
           setSearchText={setSearchText}
           setMotkonto={setMotkonto}

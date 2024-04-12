@@ -9,10 +9,8 @@ import "react-datepicker/dist/react-datepicker.css";
 const Information: React.FC<InformationProps> = ({
   belopp,
   setBelopp,
-  land,
-  setLand,
-  datum,
-  setDatum,
+  transaktionsdatum,
+  setTransaktionsdatum,
 }) => {
   return (
     <div className="padder">
@@ -46,9 +44,9 @@ const Information: React.FC<InformationProps> = ({
         <DatePicker
           className="w-full p-2 text-black border-2 border-gray-600 border-solid rounded mb-4"
           id="datum"
-          selected={datum ? new Date(datum) : null} // String till Date
+          selected={transaktionsdatum ? new Date(transaktionsdatum) : null} // String till Date
           onChange={(date) => {
-            setDatum(date ? date.toISOString() : ""); // Date till String
+            setTransaktionsdatum(date ? date.toISOString() : ""); // Date till String
           }}
           dateFormat="yyyy-MM-dd"
           locale="sv"
