@@ -102,10 +102,10 @@ type CommentProps = {
 
 type HistoryItem = {
   transaktions_id: number;
-  bokföringstidspunkt: string;
+  transaktionsdatum: string;
   fil: string;
   företagskonto: number;
-  beskrivning: number;
+  kontobeskrivning: number;
   momskonto: number;
   belopp: number;
   inkomst_utgift: string;

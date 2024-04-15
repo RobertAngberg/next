@@ -5,7 +5,7 @@ import useFetchGet from "../hooks/useFetchGet";
 
 export default function History() {
   const [historyData, setHistoryData] = useState([]);
-  const [year, setYear] = useState("2024");
+  const [year, setYear] = useState("");
   const { fetchData } = useFetchGet(`api/history/?q=${year}`);
 
   useEffect(() => {
@@ -13,6 +13,8 @@ export default function History() {
       setHistoryData(fetchData.yearData);
     }
   }, [fetchData]);
+
+  console.log(year);
 
   return (
     <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950">
@@ -53,9 +55,9 @@ export default function History() {
               className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
             >
               <td className="p-5">{item.transaktions_id}</td>
-              <td className="p-5">{item.bokföringstidspunkt.slice(0, 10)}</td>
+              <td className="p-5">{item.transaktionsdatum.slice(0, 10)}</td>
               <td className="p-5 hidden md:table-cell">{item.fil}</td>
-              <td className="p-5">{item.beskrivning}</td>
+              <td className="p-5">{item.kontobeskrivning}</td>
               <td className="p-5">{item.belopp}</td>
               <td className="p-5 hidden md:table-cell">{item.kommentar}</td>
             </tr>
