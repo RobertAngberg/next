@@ -26,7 +26,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         file &&
         (file.type === "image/jpeg" || file.type === "image/png")
       ) {
-        setFil(fil);
+        setFil(file);
       }
     }
   };

@@ -6,7 +6,6 @@ const Step3: React.FC<Step3Props> = ({
   kontotyp,
   fil,
   belopp,
-  land,
   transaktionsdatum,
   kommentar,
 }) => {
@@ -23,8 +22,7 @@ const Step3: React.FC<Step3Props> = ({
 
     const formFields = {
       fil: fil || "",
-      verifikationsdatum: datum10First,
-      land,
+      transaktionsdatum: datum10First,
       kommentar,
       kontonummer,
       kontobeskrivning,

@@ -7,7 +7,7 @@ type FrontCardProps = {
 
 type RowData = {
   id: number;
-  verifikationsdatum: string;
+  transaktionsdatum: string;
   belopp: number;
 };
 
@@ -27,8 +27,6 @@ type Step2Props = {
   setPdfUrl: (url: string | null) => void;
   belopp: number | undefined;
   setBelopp: (amount: number | undefined) => void;
-  land: string;
-  setLand: (country: string) => void;
   transaktionsdatum: string;
   setTransaktionsdatum: (date: string) => void;
   kommentar: string;
@@ -41,7 +39,6 @@ type Step3Props = {
   kontotyp: string | undefined;
   fil: File | null;
   belopp: number | undefined;
-  land: string;
   transaktionsdatum: string;
   kommentar: string;
 };
@@ -111,7 +108,6 @@ type HistoryItem = {
   beskrivning: number;
   momskonto: number;
   belopp: number;
-  land: string;
   inkomst_utgift: string;
   kommentar: string;
 };

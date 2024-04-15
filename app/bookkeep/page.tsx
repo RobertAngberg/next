@@ -33,7 +33,7 @@ const Bookkeep: React.FC = () => {
 
     const formFields = {
       fil: file || "",
-      verifikationsdatum: datum10First,
+      transaktionsdatum: datum10First,
       radioInkomstUtgift,
       företagsKonto,
       motkonto,
@@ -61,8 +61,8 @@ const Bookkeep: React.FC = () => {
     <main className="flex flex-col flex-col-reverse justify-center p-10 text-white md:flex-row bg-slate-950">
       <div className="w-full mb-10 md:w-1/4 md:mb-0 md:items-center md:justify-center">
         <FileUpload
-          file={file}
-          setFile={setFile}
+          fil={fil}
+          setFil={setFile}
           setPdfUrl={setPdfUrl}
           setBelopp={setBelopp}
           setDatum={setDatum}

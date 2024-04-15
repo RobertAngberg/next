@@ -11,7 +11,7 @@ export async function GET(request: Request) {
             json_build_object(
                 'id', id,
                 'timestamp', timestamp,
-                'verifikationsdatum', verifikationsdatum,
+                'transaktionsdatum', transaktionsdatum,
                 'fil', fil,
                 'inkomst_utgift', inkomst_utgift,
                 'företagskonto', företagskonto,

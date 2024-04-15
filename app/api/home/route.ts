@@ -11,8 +11,8 @@ export async function GET(request: Request) {
     // så att man kan jämföra med "params"
     const yearQuery = await sql`
       SELECT * FROM transactions 
-      WHERE EXTRACT(YEAR FROM TO_DATE(verifikationsdatum, 'YYYY-MM-DD')) = ${params} 
-      ORDER BY verifikationsdatum DESC;`;
+      WHERE EXTRACT(YEAR FROM TO_DATE(transaktionsdatum, 'YYYY-MM-DD')) = ${params} 
+      ORDER BY transaktionsdatum DESC;`;
     yearData = yearQuery.rows;
 
     // Alla inkomster summerat
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
 
     // Alla rows som finns i table, sorterat efter datum
     const query = await sql`
-      SELECT * FROM transactions ORDER BY verifikationsdatum DESC;`;
+      SELECT * FROM Transaktioner ORDER BY transaktionsdatum DESC;`;
     const allRows: QueryResultRow[] = query.rows;
 
     return NextResponse.json(

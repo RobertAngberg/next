@@ -10,8 +10,6 @@ const Step2: React.FC<Step2Props> = ({
   setPdfUrl,
   belopp,
   setBelopp,
-  land,
-  setLand,
   transaktionsdatum,
   setTransaktionsdatum,
   kommentar,

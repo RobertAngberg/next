@@ -9,12 +9,12 @@ export async function POST(request: Request) {
   // Skapar key-value pairs från FormData
   let {
     fil,
-    verifikationsdatum,
-    belopp,
-    land,
+    transaktionsdatum,
     kommentar,
-    kontotyp,
     kontonummer,
+    kontobeskrivning,
+    kontotyp,
+    belopp,
     moms,
     beloppUtanMoms,
   } = Object.fromEntries(data);
@@ -31,10 +31,14 @@ export async function POST(request: Request) {
 
   try {
     await sql`BEGIN;`;
-
     const result = await sql`
-        INSERT INTO Transaktioner (datum, fil, kommentar)
-        VALUES (${String(verifikationsdatum)}, ${(fil as File).name}, ${String(kommentar)})
+        INSERT INTO Transaktioner (transaktionsdatum, kontobeskrivning, kontotyp, belopp, fil, kommentar)
+        VALUES (${String(transaktionsdatum)}, 
+        ${String(kontobeskrivning)}, 
+        ${String(kontotyp)}, 
+        ${String(belopp)}, 
+        ${(fil as File).name}, 
+        ${String(kommentar)})
         RETURNING transaktions_id;
     `;
 
@@ -42,19 +46,22 @@ export async function POST(request: Request) {
 
     // Hämta konto_id baserat på ${String(kontonummer)} för att kunna skapa en transaktionspost
     const kontoResult = await sql`
-        SELECT konto_id FROM Konton WHERE konto_nummer = ${String(kontonummer)};
+        SELECT konto_id FROM Konton WHERE kontonummer = ${String(kontonummer)};
     `;
 
-    // Exempel: Om ${String(kontonummer)} är 6230 så kommer kontoResult.rows[0].konto_id vara 1
+    // Exempel: Om ${String(kontonummer)} är 6230 så kommer kontoResult.rows[0].konto_id vara 2
     const kontoId = kontoResult.rows[0].konto_id;
 
+    ////////////////////////////////////////////////
+    //  Kostnad
+    ////////////////////////////////////////////////
     if (kontotyp === "Kostnad") {
-      // Rad 1, Företagskontot
+      // Rad 1, Företagskontot - konto 5 är ju nu 1930 företagskonto
       await sql`
     INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
     VALUES (${transaktionsId}, 5, 0.00, ${Number(belopp)});
   `;
-      // Rad 2, Momskontot
+      // Rad 2, Momskontot - konto 4 är just nu 2610 utgående moms 25%
       await sql`
     INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
     VALUES (${transaktionsId}, 4, ${Number(moms)}, 0.00);
@@ -64,6 +71,9 @@ export async function POST(request: Request) {
     INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
     VALUES (${transaktionsId}, ${kontoId}, ${Number(beloppUtanMoms)}, 0.00);
   `;
+      ////////////////////////////////////////////////
+      //  Intäkt
+      ////////////////////////////////////////////////
     } else if (kontotyp === "Intäkt") {
       // Rad 1, Företagskontot
       await sql`
@@ -73,7 +83,7 @@ export async function POST(request: Request) {
       // Rad 2, Momskontot
       await sql`
     INSERT INTO Transaktionsposter (transaktions_id, konto_id, debet, kredit)
-    VALUES (${transaktionsId}, 6, ${Number(moms)}, 0.00);
+    VALUES (${transaktionsId}, 4, 0.00, ${Number(moms)});
   `;
       // Rad 3, Intäktskontot
       await sql`

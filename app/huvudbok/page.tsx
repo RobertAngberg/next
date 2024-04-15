@@ -6,7 +6,7 @@ import useFetchGet from "../hooks/useFetchGet";
 type HuvudbokRad = {
   id: number;
   timestamp: string;
-  verifikationsdatum: string;
+  transaktionsdatum: string;
   fil: string;
   inkomst_utgift: string;
   företagskonto: string;
@@ -76,7 +76,7 @@ export default function Huvudbok() {
                       {row.id}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {row.verifikationsdatum}
+                      {row.transaktionsdatum}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
                       {row.fil}
