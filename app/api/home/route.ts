@@ -7,24 +7,24 @@ export async function GET(request: Request) {
   if (params !== null && typeof Number) {
     let yearData: QueryResultRow[] | null;
 
-    // Extract är för att få ut året "YYYY" från "datum"
-    // så att man kan jämföra med "params"
     const yearQuery = await sql`
-      SELECT * FROM transactions 
-      WHERE EXTRACT(YEAR FROM TO_DATE(transaktionsdatum, 'YYYY-MM-DD')) = ${params} 
+      SELECT * FROM transaktioner 
+      WHERE EXTRACT(YEAR FROM transaktionsdatum) = ${params}
       ORDER BY transaktionsdatum DESC;`;
     yearData = yearQuery.rows;
 
+    console.log(yearData);
+
     // Alla inkomster summerat
     const dataInkomst = await sql`
-      SELECT SUM(belopp) AS totalBelopp FROM transactions 
-      WHERE Inkomst_utgift = 'inkomst';`;
+      SELECT SUM(belopp) AS totalBelopp FROM transaktioner 
+      WHERE kontotyp = 'Intäkt';`;
     const totalInkomst: number = dataInkomst.rows[0].totalbelopp;
 
     // Alla utgifter summerat
     const dataUtgift = await sql`
-      SELECT SUM(belopp) AS totalBelopp FROM transactions 
-      WHERE Inkomst_utgift = 'utgift';`;
+      SELECT SUM(belopp) AS totalBelopp FROM transaktioner 
+      WHERE kontotyp = 'Kostnad';`;
     const totalUtgift: number = dataUtgift.rows[0].totalbelopp;
 
     // Resultat = inkomst - utgift
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
 
     // Alla rows som finns i table, sorterat efter datum
     const query = await sql`
-      SELECT * FROM Transaktioner ORDER BY transaktionsdatum DESC;`;
+      SELECT * FROM transaktioner ORDER BY transaktionsdatum DESC;`;
     const allRows: QueryResultRow[] = query.rows;
 
     return NextResponse.json(

@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
 
 export default function History() {
-  const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
   const [year, setYear] = useState("");
+  const [activeTransId, setActiveTransId] = useState<number | null>(null);
+  const [details, setDetails] = useState<TransactionDetail[]>([]);
   const { fetchData } = useFetchGet(`api/history/?q=${year}`);
 
   useEffect(() => {
@@ -14,14 +16,30 @@ export default function History() {
     }
   }, [fetchData]);
 
-  console.log(year);
+  const handleRowClick = async (transaktionsId: number) => {
+    if (transaktionsId === activeTransId) {
+      setActiveTransId(null); // Göm
+      setDetails([]);
+    } else {
+      try {
+        const response = await fetch(`api/history/?q=row${transaktionsId}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setDetails(data);
+        setActiveTransId(transaktionsId);
+      } catch (error) {
+        console.error("Failed to fetch detailed data:", error);
+      }
+    }
+  };
 
   return (
     <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950">
       <div className="flex flex-col items-center justify-center p-10 text-center md:flex-row md:text-left">
-        <h1 className="mb-4 text-4xl font-bold md:mb-0">Bokföringshistorik</h1>
+        <h1 className="mb-4 text-4xl font-bold md:mb-0 md:mr-4">Bokföringshistorik</h1>
         <div>
-          <label className="p-3 text-white" htmlFor="year"></label>
           <select
             className="px-4 py-2 font-bold text-white rounded cursor-pointer bg-cyan-600 hover:bg-cyan-700"
             id="year"
@@ -49,18 +67,47 @@ export default function History() {
           </tr>
         </thead>
         <tbody>
-          {historyData.map((item: HistoryItem) => (
-            <tr
-              key={item.transaktions_id}
-              className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
-            >
-              <td className="p-5">{item.transaktions_id}</td>
-              <td className="p-5">{item.transaktionsdatum.slice(0, 10)}</td>
-              <td className="p-5 hidden md:table-cell">{item.fil}</td>
-              <td className="p-5">{item.kontobeskrivning}</td>
-              <td className="p-5">{item.belopp}</td>
-              <td className="p-5 hidden md:table-cell">{item.kommentar}</td>
-            </tr>
+          {historyData.map((item) => (
+            <>
+              <tr
+                key={item.transaktions_id}
+                onClick={() => handleRowClick(item.transaktions_id)}
+                className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700 cursor-pointer"
+              >
+                <td className="p-5">{item.transaktions_id}</td>
+                <td className="p-5">{item.transaktionsdatum.slice(0, 10)}</td>
+                <td className="p-5 hidden md:table-cell">{item.fil}</td>
+                <td className="p-5">{item.kontobeskrivning}</td>
+                <td className="p-5">{item.belopp}</td>
+                <td className="p-5 hidden md:table-cell">{item.kommentar}</td>
+              </tr>
+              {activeTransId === item.transaktions_id && (
+                <tr className="bg-gray-800 text-left">
+                  <td colSpan={6}>
+                    <div className="flex justify-center items-center p-5">
+                      <table className="w-full">
+                        <thead>
+                          <tr>
+                            <th className="w-1/3">Konto</th>{" "}
+                            <th className="w-1/3">Debet</th>
+                            <th className="w-1/3">Kredit</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {details.map((detail) => (
+                            <tr key={detail.transaktionspost_id}>
+                              <td>{detail.kontobeskrivning}</td>
+                              <td>{detail.debet}</td>
+                              <td>{detail.kredit}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </>
           ))}
         </tbody>
       </table>

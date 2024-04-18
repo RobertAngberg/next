@@ -5,7 +5,6 @@ import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
-
   const data = {
     labels: chartData?.map((row) => row.transaktionsdatum) || [],
     datasets: [
@@ -59,9 +58,11 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         onChange={(e) => setYear(e.target.value)}
       >
         <option value="">Välj</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
         <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
       </select>
       <Bar
         datasetIdKey="id"

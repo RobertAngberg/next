@@ -14,7 +14,6 @@ export default function Ny() {
   const [fil, setFil] = useState<File | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [belopp, setBelopp] = useState<number | undefined>(undefined);
-  const [land, setLand] = useState("Sverige");
   const [transaktionsdatum, setTransaktionsdatum] = useState("");
   const [kommentar, setKommentar] = useState("");
 
@@ -44,8 +43,6 @@ export default function Ny() {
           setPdfUrl={setPdfUrl}
           belopp={belopp}
           setBelopp={setBelopp}
-          land={land}
-          setLand={setLand}
           transaktionsdatum={transaktionsdatum}
           setTransaktionsdatum={setTransaktionsdatum}
           kommentar={kommentar}
@@ -60,7 +57,6 @@ export default function Ny() {
           kontotyp={kontotyp}
           fil={fil}
           belopp={belopp}
-          land={land}
           transaktionsdatum={transaktionsdatum}
           kommentar={kommentar}
         />

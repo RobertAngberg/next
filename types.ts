@@ -112,6 +112,15 @@ type HistoryItem = {
   kommentar: string;
 };
 
+type TransactionDetail = {
+  transaktionspost_id: number;
+  transaktions_id: number;
+  konto_id: number;
+  debet: number;
+  kredit: number;
+  kontobeskrivning: string;
+}
+
 // ---- INVOICE ----
 
 type Group =
