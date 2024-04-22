@@ -13,6 +13,7 @@ SELECT
     t.transaktionsdatum,
     t.kontobeskrivning AS trans_kontobeskrivning,
     t.belopp,
+    t.fil,
     t.kommentar,
     tp.transaktionspost_id,
     tp.debet,

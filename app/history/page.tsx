@@ -24,13 +24,13 @@ export default function History() {
       try {
         const response = await fetch(`api/history/?q=row${transaktionsId}`);
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Fel. Försök igen.");
         }
         const data = await response.json();
         setDetails(data);
         setActiveTransId(transaktionsId);
       } catch (error) {
-        console.error("Failed to fetch detailed data:", error);
+        console.error("Fel:", error);
       }
     }
   };
@@ -74,7 +74,7 @@ export default function History() {
               <tr
                 key={item.transaktions_id}
                 onClick={() => handleRowClick(item.transaktions_id)}
-                className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700 cursor-pointer"
+                className="even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700 cursor-pointer"
               >
                 <td className="p-5">{item.transaktions_id}</td>
                 <td className="p-5">{item.transaktionsdatum.slice(0, 10)}</td>

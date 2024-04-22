@@ -18,6 +18,8 @@ export default function Ny() {
   const [transaktionsdatum, setTransaktionsdatum] = useState("");
   const [kommentar, setKommentar] = useState("");
 
+  console.log("transaktionsdatum: ", transaktionsdatum);
+
   /* Tror måste force lowercase steg 1, eller nåt */
 
   return (

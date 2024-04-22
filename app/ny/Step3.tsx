@@ -10,20 +10,18 @@ const Step3: React.FC<Step3Props> = ({
   kommentar,
   setCurrentStep,
 }) => {
-  // Om null eller undefined, sätt till 0
-  const moms = (belopp ?? 0) * 0.2;
-  const beloppUtanMoms = (belopp ?? 0) * 0.8;
+  const moms = parseFloat(((belopp ?? 0) * 0.2).toFixed(2));
+  const beloppUtanMoms = parseFloat(((belopp ?? 0) * 0.8).toFixed(2));
 
   // Fattar fortfarande inte helt
   const postFormData = useFetchPost();
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    const datum10First = transaktionsdatum.slice(0, 10);
 
     const formFields = {
       fil: fil || "",
-      transaktionsdatum: datum10First,
+      transaktionsdatum,
       kommentar,
       kontonummer,
       kontobeskrivning,
@@ -34,13 +32,12 @@ const Step3: React.FC<Step3Props> = ({
     };
 
     // Loopar igenom alla värden i formFields och lägger till dem i formData
-    // Ehh, sista steget... ta bort?
     Object.entries(formFields).forEach(([key, value]) => {
       if (value instanceof File) {
-        // Om det är en fil, lägg till filen i formData, tredje param är filens namn
+        // Om det är en fil, lägg till filen i formData, tredje param är filens namn, sist append
         formData.append(key, value, value.name);
       } else {
-        // Konverterar värdet till en sträng, detta om det är en siffra
+        // Om ej fil, konverterar värdet till en sträng och sen append
         formData.append(key, value !== undefined ? String(value) : "");
       }
     });

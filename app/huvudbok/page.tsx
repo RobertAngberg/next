@@ -45,43 +45,41 @@ export default function Huvudbok() {
           <div key={index} className="mb-4">
             <h3
               onClick={() => toggleDescription(description)}
-              className="text-white flex justify-between items-center cursor-pointer py-2 mb-2 bg-cyan-950 rounded-tl-lg pr-10 rounded-tr-lg "
+              className="text-white flex justify-between items-center cursor-pointer py-2 bg-cyan-950 rounded-tl-lg pr-10 rounded-tr-lg "
             >
-              <span className="text-white flex justify-between items-center cursor-pointer py-2 bg-cyan-950 p-5 pl-10 p-20 font-bold">
+              <span className="text-white text-lg flex justify-between items-center cursor-pointer bg-cyan-950 p-5 pl-10 font-bold">
                 {groupedData[description][0].kontonummer} - {description}
               </span>
               <span>{expandedDescription === description ? "▼" : "▶"}</span>
             </h3>
             {expandedDescription === description && (
-              <div className="py-2">
-                <table className="w-full text-white">
-                  <thead className="bg-gray-700">
-                    <tr>
-                      <th className="p-1 pl-4 py-2">Datum</th>
-                      <th>Konto</th>
-                      <th className="hidden md:table-cell">Fil</th>
-                      <th>Debet</th>
-                      <th>Kredit</th>
+              <table className="w-full text-white">
+                <thead className="bg-gray-700">
+                  <tr>
+                    <th className="p-1 pl-8 py-3">Datum</th>
+                    <th>Konto</th>
+                    <th className="hidden md:table-cell">Fil</th>
+                    <th>Debet</th>
+                    <th>Kredit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupedData[description].map((item, index) => (
+                    <tr
+                      className="even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
+                      key={index}
+                    >
+                      <td className="pl-8 py-2">
+                        {item.transaktionsdatum.slice(0, 10)}
+                      </td>
+                      <td>{item.kontobeskrivning}</td>
+                      <td>{item.fil}</td>
+                      <td>{item.debet}</td>
+                      <td>{item.kredit}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {groupedData[description].map((item, index) => (
-                      <tr
-                        className="border-t border-b border-gray-700 even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
-                        key={index}
-                      >
-                        <td className="pl-4 py-2">
-                          {item.transaktionsdatum.slice(0, 10)}
-                        </td>
-                        <td>{item.kontobeskrivning}</td>
-                        <td>{item.fil}</td>
-                        <td>{item.debet}</td>
-                        <td>{item.kredit}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             )}
           </div>
         ))}
