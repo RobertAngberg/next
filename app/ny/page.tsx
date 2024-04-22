@@ -4,6 +4,7 @@ import { useState } from "react";
 import AccountSearch from "./AccountSearch";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
+import Step4 from "./Step4";
 
 export default function Ny() {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -59,8 +60,11 @@ export default function Ny() {
           belopp={belopp}
           transaktionsdatum={transaktionsdatum}
           kommentar={kommentar}
+          setCurrentStep={setCurrentStep}
         />
       )}
+
+      {currentStep === 4 && <Step4 />}
     </main>
   );
 }

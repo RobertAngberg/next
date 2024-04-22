@@ -38,7 +38,9 @@ export default function History() {
   return (
     <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950">
       <div className="flex flex-col items-center justify-center p-10 text-center md:flex-row md:text-left">
-        <h1 className="mb-4 text-4xl font-bold md:mb-0 md:mr-4">Bokföringshistorik</h1>
+        <h1 className="mb-4 text-4xl font-bold md:mb-0 md:mr-4">
+          Bokföringshistorik
+        </h1>
         <div>
           <select
             className="px-4 py-2 font-bold text-white rounded cursor-pointer bg-cyan-600 hover:bg-cyan-700"
@@ -88,7 +90,7 @@ export default function History() {
                       <table className="w-full">
                         <thead>
                           <tr>
-                            <th className="w-1/3">Konto</th>{" "}
+                            <th className="w-1/3">Konto</th>
                             <th className="w-1/3">Debet</th>
                             <th className="w-1/3">Kredit</th>
                           </tr>

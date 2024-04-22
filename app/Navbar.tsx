@@ -29,19 +29,19 @@ export default function Navbar() {
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
-        <Link href="/history">Historik</Link>
-      </li>
-      <li
-        onClick={closeMenu}
-        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
-      >
-        <Link href="/invoice">Faktura</Link>
+        <Link href="/history">Grundbok</Link>
       </li>
       <li
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
         <Link href="/huvudbok">Huvudbok</Link>
+      </li>
+      <li
+        onClick={closeMenu}
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
+        <Link href="/invoice">Faktura</Link>
       </li>
       <li className="mt-20 md:hidden">
         <LogoutButton />

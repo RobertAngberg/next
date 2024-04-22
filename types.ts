@@ -41,6 +41,7 @@ type Step3Props = {
   belopp: number | undefined;
   transaktionsdatum: string;
   kommentar: string;
+  setCurrentStep: (currentStep: number) => void;
 };
 
 type FileUploadProps = {
@@ -119,9 +120,9 @@ type TransactionDetail = {
   debet: number;
   kredit: number;
   kontobeskrivning: string;
-}
+};
 
-// ---- INVOICE ----
+// ---- Faktura ----
 
 type Group =
   | "first4"
@@ -157,4 +158,20 @@ type InputComponentProps = {
 
 type LogoUploadProps = {
   handleFileUpload: (logoImage: HTMLImageElement) => void;
+};
+
+type HuvudbokProps = {
+  toggleGroup: Group;
+  buttonText: string;
+  fieldGroupVisible: boolean;
+};
+
+type TransactionItem = {
+  transaktionsdatum: string;
+  fil: string;
+  kontobeskrivning: string;
+  debet: number;
+  kredit: number;
+  transaktions_id: string;
+  kontonummer: number;
 };

@@ -13,8 +13,6 @@ export async function GET(request: Request) {
       ORDER BY transaktionsdatum DESC;`;
     yearData = yearQuery.rows;
 
-    console.log(yearData);
-
     // Alla inkomster summerat
     const dataInkomst = await sql`
       SELECT SUM(belopp) AS totalBelopp FROM transaktioner 

@@ -44,7 +44,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
   useEffect(() => {
     const chatGPT = async () => {
       if (recognizedText) {
-        console.log("recognizedText", recognizedText);
         const apiKey = process.env.OPENAI_API_KEY || "";
         const api = new ChatGPTAPI({
           apiKey: apiKey,

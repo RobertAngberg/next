@@ -58,6 +58,7 @@
     "public/assets",
     "public",
     "package.json",
-    "SessionProvider.tsx"
+    "SessionProvider.tsx",
+    "package-lock.json"
   ]
 }

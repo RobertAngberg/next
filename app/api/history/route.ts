@@ -24,8 +24,6 @@ export async function GET(request: Request) {
 
       const data = postDataQuery.rows;
 
-      console.log(data);
-
       return NextResponse.json(data);
     }
   }

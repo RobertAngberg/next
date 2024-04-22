@@ -15,7 +15,6 @@ const TextRecognition: React.FC<TextRecognitionProps> = ({
     const chatGPT = async () => {
       if (recognizedText) {
         const apiKey = process.env.OPENAI_API_KEY || "";
-        console.log(apiKey);
         const api = new ChatGPTAPI({
           apiKey: apiKey,
           fetch: self.fetch.bind(self),

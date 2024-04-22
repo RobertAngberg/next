@@ -5,29 +5,30 @@ export async function GET(request: Request) {
   let data: QueryResultRow[];
 
   const query = await sql`
-    SELECT 
-        motkonto,
-        json_agg(
-            json_build_object(
-                'id', id,
-                'timestamp', timestamp,
-                'transaktionsdatum', transaktionsdatum,
-                'fil', fil,
-                'inkomst_utgift', inkomst_utgift,
-                'företagskonto', företagskonto,
-                'momskonto', momskonto,
-                'belopp', belopp,
-                'land', land,
-                'kommentar', kommentar
-            )
-        ) AS grupperade_rader
-    FROM 
-        transactions
-    GROUP BY 
-        motkonto;
+SELECT
+    k.konto_id,
+    k.kontonummer,
+    k.kontobeskrivning,
+    t.transaktions_id,
+    t.transaktionsdatum,
+    t.kontobeskrivning AS trans_kontobeskrivning,
+    t.belopp,
+    t.kommentar,
+    tp.transaktionspost_id,
+    tp.debet,
+    tp.kredit
+FROM
+    konton k
+JOIN
+    transaktionsposter tp ON k.konto_id = tp.konto_id
+JOIN
+    transaktioner t ON tp.transaktions_id = t.transaktions_id
+ORDER BY
+    k.konto_id,
+    t.transaktionsdatum;
 `;
 
   data = query.rows;
 
-  return NextResponse.json({ data }, { status: 200 });
+  return NextResponse.json(data);
 }

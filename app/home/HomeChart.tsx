@@ -6,7 +6,7 @@ import { Bar } from "react-chartjs-2";
 
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
   const data = {
-    labels: chartData?.map((row) => row.transaktionsdatum) || [],
+    labels: chartData?.map((row) => row.transaktionsdatum.slice(0, 10)) || [],
     datasets: [
       {
         label: "Belopp",

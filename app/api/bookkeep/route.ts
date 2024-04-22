@@ -93,14 +93,18 @@ export async function POST(request: Request) {
     }
 
     await sql`COMMIT;`;
+
+    return NextResponse.json({
+      message: "Data received successfully",
+    });
   } catch (error) {
     console.error("Fel:", error);
     await sql`ROLLBACK;`;
-  }
 
-  return NextResponse.json({
-    message: "Data received successfully",
-  });
+    return NextResponse.json({
+      message: "Data received successfully",
+    });
+  }
 }
 
 ////////////////////////////////////////////////////////
@@ -118,4 +122,11 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ data }, { status: 200 });
   }
+
+  return NextResponse.json(
+    {
+      message: "Ohanterat fel, försök igen.",
+    },
+    { status: 500 }
+  );
 }

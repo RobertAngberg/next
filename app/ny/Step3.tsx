@@ -8,6 +8,7 @@ const Step3: React.FC<Step3Props> = ({
   belopp,
   transaktionsdatum,
   kommentar,
+  setCurrentStep,
 }) => {
   // Om null eller undefined, sätt till 0
   const moms = (belopp ?? 0) * 0.2;
@@ -45,6 +46,8 @@ const Step3: React.FC<Step3Props> = ({
     });
 
     await postFormData("api/bookkeep/", formData);
+
+    setCurrentStep(4);
   };
 
   return (
