@@ -94,7 +94,7 @@ export default function Navbar() {
         </svg>
       </div>
       <div className="hidden md:block">
-        <LogoutButton />
+        {/* <LogoutButton /> */}
       </div>
     </div>
   );
