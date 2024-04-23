@@ -6,7 +6,7 @@ const Step3: React.FC<Step3Props> = ({
   kontotyp,
   fil,
   belopp,
-  transaktionsdatum,
+  transaktionsdatum,  
   kommentar,
   setCurrentStep,
 }) => {
