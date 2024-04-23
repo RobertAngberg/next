@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import LogoutButton from "./LogoutButton";
+// import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
         <Link href="/invoice">Faktura</Link>
       </li>
       <li className="mt-20 md:hidden">
-        <LogoutButton />
+        {/* <LogoutButton /> */}
       </li>
     </>
   );
