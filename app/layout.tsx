@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import SessionProvider from "../SessionProvider";
 import { redirect } from "next/navigation";
 // import { getServerSession } from "next-auth";
