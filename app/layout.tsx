@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import Navbar from "./Navbar";
+import Navbar from "./Navbar";
 import SessionProvider from "../SessionProvider";
 import { redirect } from "next/navigation";
 // import { getServerSession } from "next-auth";
@@ -27,10 +27,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <SessionProvider session={session}>
+        {/* <SessionProvider session={session}> */}
         <Navbar />
         {children}
-        </SessionProvider> */}
+        {/* </SessionProvider> */}
       </body>
     </html>
   );
