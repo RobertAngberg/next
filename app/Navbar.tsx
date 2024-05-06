@@ -23,13 +23,13 @@ export default function Navbar() {
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
-        <Link href="/ny">Bokför</Link>
+        <Link href="/bokfor">Bokför</Link>
       </li>
       <li
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
-        <Link href="/history">Grundbok</Link>
+        <Link href="/grundbok">Grundbok</Link>
       </li>
       <li
         onClick={closeMenu}
@@ -41,7 +41,7 @@ export default function Navbar() {
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
-        <Link href="/invoice">Faktura</Link>
+        <Link href="/faktura">Faktura</Link>
       </li>
       <li
         onClick={closeMenu}

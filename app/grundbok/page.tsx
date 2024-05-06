@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
+import React from "react";
 
-export default function History() {
+export default function Grundbok() {
   const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
   const [year, setYear] = useState("");
   const [activeTransId, setActiveTransId] = useState<number | null>(null);
   const [details, setDetails] = useState<TransactionDetail[]>([]);
-  const { fetchData } = useFetchGet(`api/history/?q=${year}`);
+  const { fetchData } = useFetchGet(`api/grundbok/?q=${year}`);
 
   useEffect(() => {
     if (fetchData) {
@@ -22,7 +23,7 @@ export default function History() {
       setDetails([]);
     } else {
       try {
-        const response = await fetch(`api/history/?q=row${transaktionsId}`);
+        const response = await fetch(`api/grundbok/?q=row${transaktionsId}`);
         if (!response.ok) {
           throw new Error("Fel. Försök igen.");
         }
@@ -70,7 +71,7 @@ export default function History() {
         </thead>
         <tbody>
           {historyData.map((item) => (
-            <>
+            <React.Fragment key={item.transaktions_id}>
               <tr
                 key={item.transaktions_id}
                 onClick={() => handleRowClick(item.transaktions_id)}
@@ -109,7 +110,7 @@ export default function History() {
                   </td>
                 </tr>
               )}
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>

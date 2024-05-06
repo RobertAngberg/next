@@ -13,10 +13,10 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
 }) => {
   const [showSearchResults, setShowSearchResults] = useState(true);
 
-  const { fetchData } = useFetchGet(`api/bookkeep?q=${searchText}`);
+  const { fetchData } = useFetchGet(`api/bokfor?q=${searchText}`);
 
   const handleSearchAccNum = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.trim();
+    const inputValue = e.target.value.trim().toLowerCase();
     setSearchText(inputValue);
   };
 

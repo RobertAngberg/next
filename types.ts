@@ -1,4 +1,4 @@
-// ---- HOME ----
+// ---- HEM ----
 
 type FrontCardProps = {
   title: string;
@@ -17,7 +17,7 @@ type HomeChartProps = {
   chartData: RowData[] | undefined;
 };
 
-// ---- BOOKKEEP ----
+// ---- BOKFÖR ----
 
 type Step2Props = {
   setCurrentStep: (stepNumber: number) => void;
@@ -99,7 +99,7 @@ type CommentProps = {
   setKommentar: (value: string) => void;
 };
 
-// ---- HISTORY ----
+// ---- GRUNDBOKS ----
 
 type HistoryItem = {
   transaktions_id: number;

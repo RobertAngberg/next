@@ -6,7 +6,7 @@ const Step3: React.FC<Step3Props> = ({
   kontotyp,
   fil,
   belopp,
-  transaktionsdatum,  
+  transaktionsdatum,
   kommentar,
   setCurrentStep,
 }) => {
@@ -42,7 +42,7 @@ const Step3: React.FC<Step3Props> = ({
       }
     });
 
-    await postFormData("api/bookkeep/", formData);
+    await postFormData("api/bokfor/", formData);
 
     setCurrentStep(4);
   };

@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import Card from "./home/Card";
-import HomeChart from "./home/HomeChart";
+import Card from "./start/Card";
+import HomeChart from "./start/HomeChart";
 import useFetchGet from "./hooks/useFetchGet";
 
 export default function Home() {
   const [year, setYear] = useState("2024");
-  const { fetchData } = useFetchGet(`api/home?q=${year}`);
+  const { fetchData } = useFetchGet(`api/hem?q=${year}`);
 
   return (
     <main className="items-center text-center bg-slate-950">
