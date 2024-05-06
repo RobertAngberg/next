@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-// import LogoutButton from "./LogoutButton";
+import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,8 +43,11 @@ export default function Navbar() {
       >
         <Link href="/invoice">Faktura</Link>
       </li>
-      <li className="mt-20 md:hidden">
-        {/* <LogoutButton /> */}
+      <li
+        onClick={closeMenu}
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
+        <LogoutButton />
       </li>
     </>
   );
@@ -93,9 +96,7 @@ export default function Navbar() {
           )}
         </svg>
       </div>
-      <div className="hidden md:block">
-        {/* <LogoutButton /> */}
-      </div>
+      <div className="hidden md:block">{/* <LogoutButton /> */}</div>
     </div>
   );
 }
