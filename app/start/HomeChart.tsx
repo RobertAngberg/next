@@ -1,17 +1,65 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
+interface HomeChartProps {
+  setYear: (year: string) => void;
+  chartData: Array<{
+    transaktionsdatum: string;
+    kontotyp: string;
+    belopp: number;
+  }>;
+}
+
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
+  const [labels, setLabels] = useState<string[]>([]);
+  const [inkomsterData, setInkomsterData] = useState<number[]>([]);
+  const [kostnadData, setKostnadData] = useState<number[]>([]);
+
+  useEffect(() => {
+    const tempGroupedData: {
+      [date: string]: { inkomst: number; kostnad: number };
+    } = {};
+
+    chartData?.forEach((row) => {
+      const date = row.transaktionsdatum.slice(0, 10);
+      if (!tempGroupedData[date]) {
+        tempGroupedData[date] = { inkomst: 0, kostnad: 0 };
+      }
+      if (row.kontotyp === "Intäkt") {
+        tempGroupedData[date].inkomst += row.belopp;
+      } else if (row.kontotyp === "Kostnad") {
+        tempGroupedData[date].kostnad += row.belopp;
+      }
+    });
+
+    const tempLabels = Object.keys(tempGroupedData).sort();
+    const tempInkomsterData = tempLabels.map(
+      (date) => tempGroupedData[date].inkomst
+    );
+    const tempKostnadData = tempLabels.map(
+      (date) => -tempGroupedData[date].kostnad
+    ); // Negate costs to go downward
+
+    setLabels(tempLabels);
+    setInkomsterData(tempInkomsterData);
+    setKostnadData(tempKostnadData);
+  }, [chartData]);
+
   const data = {
-    labels: chartData?.map((row) => row.transaktionsdatum.slice(0, 10)) || [],
+    labels,
     datasets: [
       {
-        label: "Belopp",
-        data: chartData?.map((row) => row.belopp) || [],
-        backgroundColor: "rgb(8, 51, 68)",
+        label: "Inkomster",
+        data: inkomsterData,
+        backgroundColor: "rgb(0, 128, 128)",
+      },
+      {
+        label: "Kostnad",
+        data: kostnadData,
+        backgroundColor: "rgb(255, 99, 132)",
       },
     ],
   };
@@ -19,6 +67,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
   const options = {
     scales: {
       x: {
+        stacked: true,
         ticks: {
           color: "white",
           font: {
@@ -27,6 +76,8 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         },
       },
       y: {
+        beginAtZero: true,
+        stacked: true,
         ticks: {
           color: "white",
           font: {
@@ -45,6 +96,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         },
       },
     },
+    maintainAspectRatio: false,
   };
 
   return (
@@ -64,12 +116,14 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         <option value="2021">2021</option>
         <option value="2020">2020</option>
       </select>
-      <Bar
-        datasetIdKey="id"
-        options={options}
-        data={data}
-        className="p-10 h-60"
-      />
+      <div className="relative p-10" style={{ height: "80vh" }}>
+        <Bar
+          datasetIdKey="id"
+          options={options}
+          data={data}
+          className="h-full"
+        />
+      </div>
     </div>
   );
 }

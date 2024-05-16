@@ -9,8 +9,8 @@ import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "I'm gay",
-  description: "",
+  title: "Bokföringssystem, Robert Angberg",
+  description: "Bokföringssystem, Robert Angberg",
 };
 
 export default async function RootLayout({
@@ -28,8 +28,8 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider session={session}>
-        <Navbar />
-        {children}
+          <Navbar />
+          {children}
         </SessionProvider>
       </body>
     </html>

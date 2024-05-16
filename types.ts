@@ -12,9 +12,12 @@ type RowData = {
 };
 
 type HomeChartProps = {
-  year: string;
-  setYear: (year: string) => void;
-  chartData: RowData[] | undefined;
+  setYear: React.Dispatch<React.SetStateAction<string>>;
+  chartData?: Array<{
+    transaktionsdatum: string;
+    belopp: number;
+    kontotyp: string;
+  }>;
 };
 
 // ---- BOKFÖR ----
