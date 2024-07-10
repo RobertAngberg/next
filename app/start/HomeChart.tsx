@@ -24,7 +24,11 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
     } = {};
 
     chartData?.forEach((row) => {
-      const date = row.transaktionsdatum.slice(0, 10);
+      // Justera datum...
+      const adjustedDate = new Date(row.transaktionsdatum);
+      adjustedDate.setDate(adjustedDate.getDate() + 1); // +1 dag
+      const date = adjustedDate.toISOString().slice(0, 10);
+
       if (!tempGroupedData[date]) {
         tempGroupedData[date] = { inkomst: 0, kostnad: 0 };
       }

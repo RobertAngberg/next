@@ -21,6 +21,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       if (file && file.type === "application/pdf") {
         const fileUrl = URL.createObjectURL(file);
         setPdfUrl(fileUrl);
+
         // Bild
       } else if (
         file &&
@@ -45,12 +46,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
     const chatGPT = async () => {
       if (recognizedText) {
         const apiKey = process.env.OPENAI_API_KEY || "";
-        const api = new ChatGPTAPI({
+        const ChatGPTApi = new ChatGPTAPI({
           apiKey: apiKey,
           fetch: self.fetch.bind(self),
         });
 
-        const res = await api.sendMessage(
+        const res = await ChatGPTApi.sendMessage(
           `Please extract the datum and the summa or belopp from this text: ${recognizedText}.
           Make the date in format YYYY-MM-DD. Belopp must be only a number. Strip any trailing zeroes.
           Make it a JSON object with the keys "datum" and "belopp". 
