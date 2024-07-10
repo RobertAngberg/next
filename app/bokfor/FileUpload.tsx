@@ -47,7 +47,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       if (recognizedText) {
         const apiKey = process.env.OPENAI_API_KEY || "";
         const ChatGPTApi = new ChatGPTAPI({
-          apiKey: apiKey,
+          apiKey: "sk-proj-icVzU3rTAf2qhgFw5zfDT3BlbkFJ6ddTvcbVx0zhpZ6CxEFQ",
           fetch: self.fetch.bind(self),
         });
 
