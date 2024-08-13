@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import useFetchGet from "../hooks/useFetchGet";
+import { useFetchGet } from "../hooks/useFetchGet";
 
-export default function Huvudbok() {
+function Huvudbok() {
   const { fetchData } = useFetchGet("api/huvudbok");
   const [groupedData, setGroupedData] = useState<GroupedTransactions>({});
   const [expandedAccInfo, setExpandedAccInfo] = useState<string | null>(null);
@@ -81,3 +81,5 @@ export default function Huvudbok() {
     </main>
   );
 }
+
+export default Huvudbok;

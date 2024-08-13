@@ -4,13 +4,7 @@ import React, { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 import { ChatGPTAPI } from "chatgpt";
 
-const FileUpload: React.FC<FileUploadProps> = ({
-  setFil,
-  setPdfUrl,
-  setTransaktionsdatum,
-  setBelopp,
-  fil,
-}) => {
+function FileUpload({ setFil, setPdfUrl, setTransaktionsdatum, setBelopp, fil }: FileUploadProps) {
   const [recognizedText, setRecognizedText] = useState("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,6 +91,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
       </label>
     </>
   );
-};
+}
 
-export default FileUpload;
+export { FileUpload };

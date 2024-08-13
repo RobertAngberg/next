@@ -1,8 +1,8 @@
-import FileUpload from "./FileUpload";
-import Information from "./Information";
-import Comment from "./Comment";
+import { FileUpload } from "./FileUpload";
+import { Information } from "./Information";
+import { Comment } from "./Comment";
 
-const Step2: React.FC<Step2Props> = ({
+function Step2({
   setCurrentStep,
   fil,
   setFil,
@@ -14,7 +14,7 @@ const Step2: React.FC<Step2Props> = ({
   setTransaktionsdatum,
   kommentar,
   setKommentar,
-}) => {
+}: Step2Props) {
   function handleSubmit1() {
     setCurrentStep(3);
   }
@@ -50,20 +50,13 @@ const Step2: React.FC<Step2Props> = ({
 
       <div className="flex flex-col items-center w-full border md:w-2/4 md:ml-10 md:items-start">
         {/* Visa PDF */}
-        {pdfUrl && (
-          <iframe
-            src={pdfUrl}
-            width="100%"
-            height="100%"
-            title="PDF Viewer"
-          ></iframe>
-        )}
+        {pdfUrl && <iframe src={pdfUrl} width="100%" height="100%" title="PDF Viewer"></iframe>}
 
         {/* Visa bild */}
         {fil && <img src={URL.createObjectURL(fil)} />}
       </div>
     </main>
   );
-};
+}
 
-export default Step2;
+export { Step2 };

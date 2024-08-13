@@ -13,7 +13,7 @@ interface Props {
   };
 }
 
-const DownloadXML: React.FC<Props> = ({ data }) => {
+function DownloadXML({ data }: Props) {
   const generateXml = (data: Props["data"]) => {
     return `<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eSKDUpload PUBLIC "-//Skatteverket, Sweden//DTD Skatteverket eSKDUpload-DTD Version 6.0//SV" "https://www.skatteverket.se/download/18.3f4496fd14864cc5ac99cb1/1415022101213/eSKDUpload_6p0.dtd">
@@ -48,6 +48,6 @@ const DownloadXML: React.FC<Props> = ({ data }) => {
   };
 
   return <button onClick={handleDownload}>Download XML</button>;
-};
+}
 
-export default DownloadXML;
+export { DownloadXML };

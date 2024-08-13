@@ -1,6 +1,6 @@
-import GrundbokTableRow from "./TableRow";
+import { TableRow } from "./TableRow";
 
-export default function Table({ historyData, handleRowClick, activeId, details }: TableProps) {
+function Table({ historyData, handleRowClick, activeId, details }: TableProps) {
   return (
     <table className="w-full m-auto md:w-3/4">
       <thead className="text-lg bg-cyan-950">
@@ -15,7 +15,7 @@ export default function Table({ historyData, handleRowClick, activeId, details }
       </thead>
       <tbody>
         {historyData.map((item) => (
-          <GrundbokTableRow
+          <TableRow
             key={item.transaktions_id}
             item={item}
             handleRowClick={handleRowClick}
@@ -27,3 +27,5 @@ export default function Table({ historyData, handleRowClick, activeId, details }
     </table>
   );
 }
+
+export { Table };

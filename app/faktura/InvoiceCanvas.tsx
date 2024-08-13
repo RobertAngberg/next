@@ -2,12 +2,7 @@
 
 import React, { useEffect } from "react";
 
-const InvoiceCanvas: React.FC<InvoiceCanvasProps> = ({
-  canvasRef,
-  textFields,
-  logoImage,
-  saveAsJPG,
-}) => {
+function InvoiceCanvas({ canvasRef, textFields, logoImage, saveAsJPG }: InvoiceCanvasProps) {
   useEffect(() => {
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext("2d");
@@ -138,6 +133,6 @@ const InvoiceCanvas: React.FC<InvoiceCanvasProps> = ({
       <canvas ref={canvasRef} width="715" height="1011" className="bg-white" />
     </>
   );
-};
+}
 
-export default InvoiceCanvas;
+export { InvoiceCanvas };

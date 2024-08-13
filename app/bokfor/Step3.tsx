@@ -1,6 +1,6 @@
-import useFetchPost from "../hooks/useFetchPost";
+import { useFetchPost } from "../hooks/useFetchPost";
 
-const Step3: React.FC<Step3Props> = ({
+function Step3({
   kontonummer,
   kontobeskrivning,
   kontotyp,
@@ -9,7 +9,7 @@ const Step3: React.FC<Step3Props> = ({
   transaktionsdatum,
   kommentar,
   setCurrentStep,
-}) => {
+}: Step3Props) {
   const moms = parseFloat(((belopp ?? 0) * 0.2).toFixed(2));
   const beloppUtanMoms = parseFloat(((belopp ?? 0) * 0.8).toFixed(2));
 
@@ -68,20 +68,14 @@ const Step3: React.FC<Step3Props> = ({
               <td className="p-4">{kontotyp === "Kostnad" ? belopp : 0}</td>
             </tr>
             <tr>
-              <td className="p-4">
-                {kontotyp === "Kostnad" ? "Ingående moms" : "Utgående moms"}
-              </td>
+              <td className="p-4">{kontotyp === "Kostnad" ? "Ingående moms" : "Utgående moms"}</td>
               <td className="p-4">{kontotyp === "Kostnad" ? moms : 0}</td>
               <td className="p-4">{kontotyp === "Intäkt" ? moms : 0}</td>
             </tr>
             <tr>
               <td className="p-4">{kontonummer}</td>
-              <td className="p-4">
-                {kontotyp === "Kostnad" ? beloppUtanMoms : 0}
-              </td>
-              <td className="p-4">
-                {kontotyp === "Intäkt" ? beloppUtanMoms : 0}
-              </td>
+              <td className="p-4">{kontotyp === "Kostnad" ? beloppUtanMoms : 0}</td>
+              <td className="p-4">{kontotyp === "Intäkt" ? beloppUtanMoms : 0}</td>
             </tr>
           </tbody>
         </table>
@@ -96,6 +90,6 @@ const Step3: React.FC<Step3Props> = ({
       </div>
     </main>
   );
-};
+}
 
-export default Step3;
+export { Step3 };

@@ -2,12 +2,12 @@
 import { jsPDF } from "jspdf";
 
 import { useState, ChangeEvent, useRef } from "react";
-import TextField from "./Textfield";
-import ToggleButton from "./ToggleButton";
-import InvoiceCanvas from "./InvoiceCanvas";
-import LogoUpload from "./LogoUpload";
+import { TextField } from "./Textfield";
+import { ToggleButton } from "./ToggleButton";
+import { InvoiceCanvas } from "./InvoiceCanvas";
+import { LogoUpload } from "./LogoUpload";
 
-const Invoice: React.FC = () => {
+function Invoice() {
   const [activeToggleBtn, setActiveToggleBtn] = useState<Group | null>(null);
   const [logoImage, setLogoImage] = useState<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -140,27 +140,13 @@ const Invoice: React.FC = () => {
                 {activeToggleBtn === button.group &&
                   Object.keys(textFields).map((labelText, fieldIndex) => {
                     if (
-                      (button.group === "first4" &&
-                        fieldIndex >= 0 &&
-                        fieldIndex < 5) ||
-                      (button.group === "second4" &&
-                        fieldIndex >= 5 &&
-                        fieldIndex < 9) ||
-                      (button.group === "third4" &&
-                        fieldIndex >= 9 &&
-                        fieldIndex < 13) ||
-                      (button.group === "fourth4" &&
-                        fieldIndex >= 13 &&
-                        fieldIndex < 18) ||
-                      (button.group === "fifth4" &&
-                        fieldIndex >= 18 &&
-                        fieldIndex < 21) ||
-                      (button.group === "sixth4" &&
-                        fieldIndex >= 21 &&
-                        fieldIndex < 26) ||
-                      (button.group === "seventh4" &&
-                        fieldIndex >= 26 &&
-                        fieldIndex < 31)
+                      (button.group === "first4" && fieldIndex >= 0 && fieldIndex < 5) ||
+                      (button.group === "second4" && fieldIndex >= 5 && fieldIndex < 9) ||
+                      (button.group === "third4" && fieldIndex >= 9 && fieldIndex < 13) ||
+                      (button.group === "fourth4" && fieldIndex >= 13 && fieldIndex < 18) ||
+                      (button.group === "fifth4" && fieldIndex >= 18 && fieldIndex < 21) ||
+                      (button.group === "sixth4" && fieldIndex >= 21 && fieldIndex < 26) ||
+                      (button.group === "seventh4" && fieldIndex >= 26 && fieldIndex < 31)
                     ) {
                       return (
                         <TextField
@@ -196,6 +182,6 @@ const Invoice: React.FC = () => {
       </div>
     </main>
   );
-};
+}
 
 export default Invoice;

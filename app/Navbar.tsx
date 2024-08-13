@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import LogoutButton from "./LogoutButton";
+import { LogoutButton } from "./LogoutButton";
 
-export default function Navbar() {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeMenu = () => {
@@ -97,3 +97,5 @@ export default function Navbar() {
     </div>
   );
 }
+
+export { Navbar };

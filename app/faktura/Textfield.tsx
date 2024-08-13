@@ -1,10 +1,6 @@
 import React from "react";
 
-const TextField: React.FC<InputComponentProps> = ({
-  labelText,
-  textFields,
-  handleInputChange,
-}) => {
+function TextField({ labelText, textFields, handleInputChange }: InputComponentProps) {
   return (
     <div key={labelText} className="w-full">
       <label htmlFor={labelText}>{labelText}:</label>
@@ -19,6 +15,6 @@ const TextField: React.FC<InputComponentProps> = ({
       />
     </div>
   );
-};
+}
 
-export default TextField;
+export { TextField };

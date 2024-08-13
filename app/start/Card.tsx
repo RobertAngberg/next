@@ -1,4 +1,4 @@
-export default function Card({ title, data }: FrontCardProps) {
+function Card({ title, data }: FrontCardProps) {
   return (
     <div className="mb-4 border-4 bg-cyan-950 rounded-xl sm:w-full sm:mx-0 md:mx-10 md:mb-0">
       <div className="p-5 text-4xl font-bold text-white">{title}</div>
@@ -6,3 +6,5 @@ export default function Card({ title, data }: FrontCardProps) {
     </div>
   );
 }
+
+export { Card };

@@ -1,4 +1,4 @@
-const LogoUpload: React.FC<LogoUploadProps> = ({ handleFileUpload }) => {
+function LogoUpload({ handleFileUpload }: LogoUploadProps) {
   const handleImageUploaded = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
 
@@ -30,6 +30,6 @@ const LogoUpload: React.FC<LogoUploadProps> = ({ handleFileUpload }) => {
       </label>
     </>
   );
-};
+}
 
-export default LogoUpload;
+export { LogoUpload };

@@ -6,12 +6,12 @@ import { sv } from "date-fns/locale/sv";
 registerLocale("sv", sv);
 import "react-datepicker/dist/react-datepicker.css";
 
-const Information: React.FC<InformationProps> = ({
+function Information({
   belopp,
   setBelopp,
   transaktionsdatum,
   setTransaktionsdatum,
-}) => {
+}: InformationProps) {
   return (
     <div className="padder">
       <label htmlFor="belopp">Belopp:</label>
@@ -55,6 +55,6 @@ const Information: React.FC<InformationProps> = ({
       </div>
     </div>
   );
-};
+}
 
-export default Information;
+export { Information };

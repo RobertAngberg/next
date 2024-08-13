@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetchGet = (url: string) => {
+function useFetchGet(url: string) {
   const [fetchData, setFetchData] = useState<any | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
@@ -21,6 +21,6 @@ const useFetchGet = (url: string) => {
   }, [url]); // Glöm ej
 
   return { error, fetchData };
-};
+}
 
-export default useFetchGet;
+export { useFetchGet };

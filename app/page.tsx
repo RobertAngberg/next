@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Card from "./start/Card";
-import HomeChart from "./start/HomeChart";
+import { Card } from "./start/Card";
+import { HomeChart } from "./start/HomeChart";
 import useFetchGet from "./hooks/useFetchGet";
 // import DownloadXML from "./DownloadXML";
 
-export default function Home() {
+function Home() {
   const [year, setYear] = useState<string>("2024");
   const { fetchData } = useFetchGet(`api/hem?q=${year}`);
 
@@ -21,6 +21,8 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;
 
 // interface Data {
 //   period: string;

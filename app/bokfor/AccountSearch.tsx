@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import useFetchGet from "../hooks/useFetchGet";
+import { useFetchGet } from "../hooks/useFetchGet";
 
-const AccountSearch: React.FC<AccountSearchProps> = ({
+function AccountSearch({
   setCurrentStep,
   searchText,
   setSearchText,
   setKontonummer,
   setKontotyp,
   setKontobeskrivning,
-}) => {
+}: AccountSearchProps) {
   const [showSearchResults, setShowSearchResults] = useState(true);
 
   const { fetchData } = useFetchGet(`api/bokfor?q=${searchText}`);
@@ -51,18 +51,15 @@ const AccountSearch: React.FC<AccountSearchProps> = ({
               className="rounded mt-2 text-xl bg-white w-full text-black font-bold py-3 px-4 mb-4 hover:bg-gray-300 hover:cursor-pointer text-xl"
               onClick={() => searchResultClick(fetchData.data)}
             >
-              &#10003; &nbsp; {fetchData.data.kontonummer} -{" "}
-              {fetchData.data.kontobeskrivning}
+              &#10003; &nbsp; {fetchData.data.kontonummer} - {fetchData.data.kontobeskrivning}
               <p className="p-2 text-base">Sökord:</p>
-              <div className="font-normal text-base">
-                {fetchData.data.sökord}
-              </div>
+              <div className="font-normal text-base">{fetchData.data.sökord}</div>
             </div>
           )}
         </div>
       )}
     </div>
   );
-};
+}
 
-export default AccountSearch;
+export { AccountSearch };

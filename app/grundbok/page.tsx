@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
-import GrundbokHeader from "./TopSection";
-import GrundbokTable from "./Table";
+import { TopSection } from "./TopSection";
+import { Table } from "./Table";
 
-export default function Grundbok() {
+function Grundbok() {
   const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
   const [year, setYear] = useState("");
   const [activeTransId, setActiveTransId] = useState<number | null>(null);
@@ -14,7 +14,7 @@ export default function Grundbok() {
 
   // Justera datum +1 dag för att matcha svenska datumformatet
   useEffect(() => {
-    if (fetchData) {
+    if (fetchData && fetchData.yearData) {
       const adjustedData = fetchData.yearData.map((item: HistoryItem) => {
         const adjustedDate = new Date(item.transaktionsdatum);
         adjustedDate.setDate(adjustedDate.getDate() + 1); // +1 dag
@@ -47,8 +47,8 @@ export default function Grundbok() {
 
   return (
     <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950">
-      <GrundbokHeader setYear={setYear} />
-      <GrundbokTable
+      <TopSection setYear={setYear} />
+      <Table
         historyData={historyData}
         handleRowClick={handleRowClick}
         activeId={activeTransId}
@@ -57,3 +57,5 @@ export default function Grundbok() {
     </main>
   );
 }
+
+export default Grundbok;

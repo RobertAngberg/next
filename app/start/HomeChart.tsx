@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-export default function HomeChart({ setYear, chartData }: HomeChartProps) {
+function HomeChart({ setYear, chartData }: HomeChartProps) {
   const [labels, setLabels] = useState<string[]>([]);
   const [inkomsterData, setInkomsterData] = useState<number[]>([]);
   const [kostnadData, setKostnadData] = useState<number[]>([]);
@@ -115,3 +115,5 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
     </div>
   );
 }
+
+export { HomeChart };

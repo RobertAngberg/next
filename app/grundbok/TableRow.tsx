@@ -1,4 +1,4 @@
-export default function TableRow({ item, handleRowClick, activeId, details }: TableRowProps) {
+function TableRow({ item, handleRowClick, activeId, details }: TableRowProps) {
   return (
     <>
       {/* Detta är foldat / minimerat */}
@@ -45,3 +45,5 @@ export default function TableRow({ item, handleRowClick, activeId, details }: Ta
     </>
   );
 }
+
+export { TableRow };

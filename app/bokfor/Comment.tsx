@@ -1,6 +1,6 @@
 "use client";
 
-const Comment: React.FC<CommentProps> = ({ kommentar, setKommentar }) => {
+function Comment({ kommentar, setKommentar }: CommentProps) {
   return (
     <div className="mb-4">
       <label htmlFor="kommentar">Kommentar:</label>
@@ -15,6 +15,6 @@ const Comment: React.FC<CommentProps> = ({ kommentar, setKommentar }) => {
       />
     </div>
   );
-};
+}
 
-export default Comment;
+export { Comment };

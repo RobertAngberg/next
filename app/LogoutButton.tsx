@@ -1,6 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 
-export default function AuthButton() {
+function LogoutButton() {
   const { data: session } = useSession();
 
   return (
@@ -17,3 +17,5 @@ export default function AuthButton() {
     </div>
   );
 }
+
+export { LogoutButton };

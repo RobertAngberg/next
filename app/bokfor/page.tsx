@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import AccountSearch from "./AccountSearch";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import Step4 from "./Step4";
+import { AccountSearch } from "./AccountSearch";
+import { Step2 } from "./Step2";
+import { Step3 } from "./Step3";
+import { Step4 } from "./Step4";
 
-export default function Ny() {
+function Bokför() {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [searchText, setSearchText] = useState("");
   const [kontonummer, setKontonummer] = useState<number>(0);
@@ -68,3 +68,5 @@ export default function Ny() {
     </main>
   );
 }
+
+export default Bokför;

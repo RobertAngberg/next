@@ -1,6 +1,7 @@
+import exp from "constants";
 import Link from "next/link";
 
-export default function Step4() {
+function Step4() {
   return (
     <main className="text-white">
       <h1 className="mb-14 text-4xl font-bold">Bokföring genomförd!</h1>
@@ -14,3 +15,5 @@ export default function Step4() {
     </main>
   );
 }
+
+export { Step4 };
