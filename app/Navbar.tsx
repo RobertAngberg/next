@@ -89,10 +89,7 @@ export default function Navbar() {
             d="M4 18h16"
           />
           {isOpen && (
-            <path
-              className="transition-all duration-300 ease-in-out"
-              d="M6 18L18 6M6 6l12 12"
-            />
+            <path className="transition-all duration-300 ease-in-out" d="M6 18L18 6M6 6l12 12" />
           )}
         </svg>
       </div>

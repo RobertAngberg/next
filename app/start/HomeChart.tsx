@@ -4,48 +4,37 @@ import React, { useEffect, useState } from "react";
 import "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-interface HomeChartProps {
-  setYear: (year: string) => void;
-  chartData: Array<{
-    transaktionsdatum: string;
-    kontotyp: string;
-    belopp: number;
-  }>;
-}
-
 export default function HomeChart({ setYear, chartData }: HomeChartProps) {
   const [labels, setLabels] = useState<string[]>([]);
   const [inkomsterData, setInkomsterData] = useState<number[]>([]);
   const [kostnadData, setKostnadData] = useState<number[]>([]);
 
   useEffect(() => {
-    const tempGroupedData: {
+    // [] runt date = allows you to use any string as a key in groupedData
+    const groupedData: {
       [date: string]: { inkomst: number; kostnad: number };
     } = {};
 
     chartData?.forEach((row) => {
-      // Justera datum...
+      // Justera datum +1
       const adjustedDate = new Date(row.transaktionsdatum);
       adjustedDate.setDate(adjustedDate.getDate() + 1); // +1 dag
       const date = adjustedDate.toISOString().slice(0, 10);
 
-      if (!tempGroupedData[date]) {
-        tempGroupedData[date] = { inkomst: 0, kostnad: 0 };
+      if (!groupedData[date]) {
+        groupedData[date] = { inkomst: 0, kostnad: 0 };
       }
       if (row.kontotyp === "Intäkt") {
-        tempGroupedData[date].inkomst += row.belopp;
+        groupedData[date].inkomst += row.belopp;
       } else if (row.kontotyp === "Kostnad") {
-        tempGroupedData[date].kostnad += row.belopp;
+        groupedData[date].kostnad += row.belopp;
       }
     });
 
-    const tempLabels = Object.keys(tempGroupedData).sort();
-    const tempInkomsterData = tempLabels.map(
-      (date) => tempGroupedData[date].inkomst
-    );
-    const tempKostnadData = tempLabels.map(
-      (date) => -tempGroupedData[date].kostnad
-    ); // Negate costs to go downward
+    const tempLabels = Object.keys(groupedData).sort();
+    const tempInkomsterData = tempLabels.map((date) => groupedData[date].inkomst);
+    // Negate costs to go downwards
+    const tempKostnadData = tempLabels.map((date) => -groupedData[date].kostnad);
 
     setLabels(tempLabels);
     setInkomsterData(tempInkomsterData);
@@ -121,12 +110,7 @@ export default function HomeChart({ setYear, chartData }: HomeChartProps) {
         <option value="2020">2020</option>
       </select>
       <div className="relative p-10" style={{ height: "80vh" }}>
-        <Bar
-          datasetIdKey="id"
-          options={options}
-          data={data}
-          className="h-full"
-        />
+        <Bar datasetIdKey="id" options={options} data={data} className="h-full" />
       </div>
     </div>
   );

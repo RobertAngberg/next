@@ -1,58 +1,57 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useFetchGet from "../hooks/useFetchGet";
 
 export default function Huvudbok() {
   const { fetchData } = useFetchGet("api/huvudbok");
-  const [groupedData, setGroupedData] = useState<
-    Record<string, TransactionItem[]>
-  >({});
-  const [expandedDescription, setExpandedDescription] = useState<string | null>(
-    null
-  );
+  const [groupedData, setGroupedData] = useState<GroupedTransactions>({});
+  const [expandedAccInfo, setExpandedAccInfo] = useState<string | null>(null);
 
+  // Organisera transaktioner efter "kontobeskrivning" in i groupedData (object)
   useEffect(() => {
     if (fetchData) {
-      const grouped = fetchData.reduce(
-        (acc: Record<string, TransactionItem[]>, item: TransactionItem) => {
-          const key = item.kontobeskrivning;
-          if (!acc[key]) {
-            acc[key] = [];
+      // Gruppera och sortera transaktioner efter "kontobeskrivning"
+      const groupedFinished: GroupedTransactions = fetchData.reduce(
+        (groupedTransactions: GroupedTransactions, item: TransactionItem) => {
+          // Använd kontobeskrivning som nyckel för grouping
+          const key: string = item.kontobeskrivning;
+          // Gör ny array om nyckeln inte redan finns
+          if (!groupedTransactions[key]) {
+            groupedTransactions[key] = [];
           }
-          acc[key].push(item);
-          return acc;
+          // Lägg till transaktionen i rätt grupp
+          groupedTransactions[key].push(item);
+          return groupedTransactions;
         },
-        {}
+        {} // Initiera som ett tomt objekt
       );
-      setGroupedData(grouped);
+
+      // Uppdatera state med de grupperade transaktionerna
+      setGroupedData(groupedFinished);
     }
   }, [fetchData]);
 
-  const toggleDescription = (description: string) => {
-    setExpandedDescription((prev) =>
-      prev === description ? null : description
-    );
+  const toggleAccInfo = (description: string) => {
+    setExpandedAccInfo((prev) => (prev === description ? null : description));
   };
 
   return (
     <main className="flex justify-center min-h-screen bg-slate-950">
       <div className="text-left w-full max-w-4xl px-4">
-        <h1 className="text-4xl font-bold text-white py-10 text-center">
-          Huvudbok
-        </h1>
+        <h1 className="text-4xl font-bold text-white py-10 text-center">Huvudbok</h1>
         {Object.keys(groupedData).map((description, index) => (
           <div key={index} className="mb-4">
             <h3
-              onClick={() => toggleDescription(description)}
+              onClick={() => toggleAccInfo(description)}
               className="text-white flex justify-between items-center cursor-pointer py-2 bg-cyan-950 rounded-tl-lg pr-10 rounded-tr-lg "
             >
               <span className="text-white text-lg flex justify-between items-center cursor-pointer bg-cyan-950 p-5 pl-10 font-bold">
                 {groupedData[description][0].kontonummer} - {description}
               </span>
-              <span>{expandedDescription === description ? "▼" : "▶"}</span>
+              <span>{expandedAccInfo === description ? "▽" : "▷"}</span>
             </h3>
-            {expandedDescription === description && (
+            {expandedAccInfo === description && (
               <table className="w-full text-white">
                 <thead className="bg-gray-700">
                   <tr>
@@ -65,13 +64,8 @@ export default function Huvudbok() {
                 </thead>
                 <tbody>
                   {groupedData[description].map((item, index) => (
-                    <tr
-                      className="even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700"
-                      key={index}
-                    >
-                      <td className="pl-8 py-2">
-                        {item.transaktionsdatum.slice(0, 10)}
-                      </td>
+                    <tr className="even:bg-gray-950 odd:bg-gray-900 hover:bg-gray-700" key={index}>
+                      <td className="pl-8 py-2">{item.transaktionsdatum.slice(0, 10)}</td>
                       <td>{item.kontobeskrivning}</td>
                       <td>{item.fil}</td>
                       <td>{item.debet}</td>

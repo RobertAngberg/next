@@ -1,3 +1,14 @@
+type HuvudbokItem = {
+  kontonummer: string;
+  kontobeskrivning: string;
+  transaktionsdatum: string;
+  fil: string;
+  debet: number;
+  kredit: number;
+};
+
+type GroupedTransactions = Record<string, TransactionItem[]>;
+
 // ---- HEM ----
 
 type FrontCardProps = {
@@ -102,7 +113,7 @@ type CommentProps = {
   setKommentar: (value: string) => void;
 };
 
-// ---- GRUNDBOKS ----
+// ---- GRUNDBOK ----
 
 type HistoryItem = {
   transaktions_id: number;
