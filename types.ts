@@ -1,15 +1,6 @@
-type HuvudbokItem = {
-  kontonummer: string;
-  kontobeskrivning: string;
-  transaktionsdatum: string;
-  fil: string;
-  debet: number;
-  kredit: number;
-};
-
-type GroupedTransactions = Record<string, TransactionItem[]>;
-
-// ---- HEM ----
+////////////////////////////////////////
+// FRAMSIDA
+////////////////////////////////////////
 
 type FrontCardProps = {
   title: string;
@@ -31,7 +22,9 @@ type HomeChartProps = {
   }>;
 };
 
-// ---- BOKFÖR ----
+////////////////////////////////////////
+// BOKFÖR
+////////////////////////////////////////
 
 type Step2Props = {
   setCurrentStep: (stepNumber: number) => void;
@@ -113,7 +106,9 @@ type CommentProps = {
   setKommentar: (value: string) => void;
 };
 
-// ---- GRUNDBOK ----
+////////////////////////////////////////
+// GRUNDBOK
+////////////////////////////////////////
 
 type HistoryItem = {
   transaktions_id: number;
@@ -136,16 +131,60 @@ type TransactionDetail = {
   kontobeskrivning: string;
 };
 
-// ---- Faktura ----
+type TableProps = {
+  historyData: HistoryItem[];
+  handleRowClick: (id: number) => void;
+  activeId: number | null;
+  details: TransactionDetail[];
+};
 
-type Group =
-  | "first4"
-  | "second4"
-  | "third4"
-  | "fourth4"
-  | "fifth4"
-  | "sixth4"
-  | "seventh4";
+type TopSectionProps = {
+  setYear: (year: string) => void;
+};
+
+type TableRowProps = {
+  item: HistoryItem;
+  handleRowClick: (id: number) => void;
+  activeId: number | null;
+  details: TransactionDetail[];
+};
+
+////////////////////////////////////////
+// HUVUDBOK
+////////////////////////////////////////
+
+type HuvudbokProps = {
+  toggleGroup: Group;
+  buttonText: string;
+  fieldGroupVisible: boolean;
+};
+
+type TransactionItem = {
+  transaktionsdatum: string;
+  fil: string;
+  kontobeskrivning: string;
+  debet: number;
+  kredit: number;
+  transaktions_id: string;
+  kontonummer: number;
+};
+
+type HuvudbokItem = {
+  kontonummer: string;
+  kontobeskrivning: string;
+  transaktionsdatum: string;
+  fil: string;
+  debet: number;
+  kredit: number;
+};
+
+type GroupedTransactions = Record<string, TransactionItem[]>;
+
+////////////////////////////////////////
+// FAKTURA
+////////////////////////////////////////
+
+type Group = "first4" | "second4" | "third4" | "fourth4" | "fifth4" | "sixth4" | "seventh4";
 
 type TextFields = { [key: string]: string };
 type LogoImage = HTMLImageElement | null;
@@ -172,20 +211,4 @@ type InputComponentProps = {
 
 type LogoUploadProps = {
   handleFileUpload: (logoImage: HTMLImageElement) => void;
-};
-
-type HuvudbokProps = {
-  toggleGroup: Group;
-  buttonText: string;
-  fieldGroupVisible: boolean;
-};
-
-type TransactionItem = {
-  transaktionsdatum: string;
-  fil: string;
-  kontobeskrivning: string;
-  debet: number;
-  kredit: number;
-  transaktions_id: string;
-  kontonummer: number;
 };

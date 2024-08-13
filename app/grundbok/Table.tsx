@@ -1,19 +1,6 @@
-import React from "react";
-import GrundbokTableRow from "./GrundbokTableRow";
+import GrundbokTableRow from "./TableRow";
 
-type GrundbokTableProps = {
-  historyData: HistoryItem[];
-  handleRowClick: (id: number) => void;
-  activeTransId: number | null;
-  details: TransactionDetail[];
-};
-
-export default function GrundbokTable({
-  historyData,
-  handleRowClick,
-  activeTransId,
-  details,
-}: GrundbokTableProps) {
+export default function Table({ historyData, handleRowClick, activeId, details }: TableProps) {
   return (
     <table className="w-full m-auto md:w-3/4">
       <thead className="text-lg bg-cyan-950">
@@ -32,7 +19,7 @@ export default function GrundbokTable({
             key={item.transaktions_id}
             item={item}
             handleRowClick={handleRowClick}
-            activeTransId={activeTransId}
+            activeId={activeId}
             details={details}
           />
         ))}

@@ -1,20 +1,7 @@
-import React from "react";
-
-type GrundbokTableRowProps = {
-  item: HistoryItem;
-  handleRowClick: (id: number) => void;
-  activeTransId: number | null;
-  details: TransactionDetail[];
-};
-
-export default function GrundbokTableRow({
-  item,
-  handleRowClick,
-  activeTransId,
-  details,
-}: GrundbokTableRowProps) {
+export default function TableRow({ item, handleRowClick, activeId, details }: TableRowProps) {
   return (
     <>
+      {/* Detta är foldat / minimerat */}
       <tr
         key={item.transaktions_id}
         onClick={() => handleRowClick(item.transaktions_id)}
@@ -27,7 +14,9 @@ export default function GrundbokTableRow({
         <td className="p-5">{item.belopp}</td>
         <td className="p-5 hidden md:table-cell">{item.kommentar}</td>
       </tr>
-      {activeTransId === item.transaktions_id && (
+
+      {/* Detta är klickat / unfoldat */}
+      {activeId === item.transaktions_id && (
         <tr className="bg-gray-800 text-left">
           <td colSpan={6}>
             <div className="flex justify-center items-center p-5">

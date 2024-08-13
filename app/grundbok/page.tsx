@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useFetchGet from "../hooks/useFetchGet";
-import GrundbokHeader from "./GrundbokHeader";
-import GrundbokTable from "./GrundbokTable";
+import GrundbokHeader from "./TopSection";
+import GrundbokTable from "./Table";
 
 export default function Grundbok() {
   const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
@@ -12,7 +12,7 @@ export default function Grundbok() {
   const [details, setDetails] = useState<TransactionDetail[]>([]);
   const { fetchData } = useFetchGet(`api/grundbok/?q=${year}`);
 
-  // Justera datum +1
+  // Justera datum +1 dag för att matcha svenska datumformatet
   useEffect(() => {
     if (fetchData) {
       const adjustedData = fetchData.yearData.map((item: HistoryItem) => {
@@ -51,7 +51,7 @@ export default function Grundbok() {
       <GrundbokTable
         historyData={historyData}
         handleRowClick={handleRowClick}
-        activeTransId={activeTransId}
+        activeId={activeTransId}
         details={details}
       />
     </main>

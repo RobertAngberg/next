@@ -1,10 +1,4 @@
-import React from "react";
-
-type GrundbokHeaderProps = {
-  setYear: (year: string) => void;
-};
-
-export default function GrundbokHeader({ setYear }: GrundbokHeaderProps) {
+export default function TopSection({ setYear }: TopSectionProps) {
   return (
     <div className="flex flex-col items-center justify-center p-10 text-center md:flex-row md:text-left">
       <h1 className="mb-4 text-4xl font-bold md:mb-0 md:mr-4">Grundbok</h1>
