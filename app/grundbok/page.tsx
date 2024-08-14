@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useFetchGet from "../hooks/useFetchGet";
+import { useFetchGet } from "../hooks/useFetchGet";
 import { TopSection } from "./TopSection";
 import { Table } from "./Table";
 
@@ -14,7 +14,7 @@ function Grundbok() {
 
   // Justera datum +1 dag för att matcha svenska datumformatet
   useEffect(() => {
-    if (fetchData && fetchData.yearData) {
+    if (fetchData?.yearData) {
       const adjustedData = fetchData.yearData.map((item: HistoryItem) => {
         const adjustedDate = new Date(item.transaktionsdatum);
         adjustedDate.setDate(adjustedDate.getDate() + 1); // +1 dag
@@ -30,6 +30,7 @@ function Grundbok() {
     if (transaktionsId === activeTransId) {
       setActiveTransId(null);
       setDetails([]);
+      // Annars, fetcha detaljer för klickad rad
     } else {
       try {
         const response = await fetch(`api/grundbok/?q=row${transaktionsId}`);

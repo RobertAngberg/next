@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./start/Card";
 import { HomeChart } from "./start/HomeChart";
-import useFetchGet from "./hooks/useFetchGet";
+import { useFetchGet } from "./hooks/useFetchGet";
 // import DownloadXML from "./DownloadXML";
 
 function Home() {

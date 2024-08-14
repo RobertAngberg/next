@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFetchGet } from "../hooks/useFetchGet";
 
 function Huvudbok() {
@@ -8,15 +8,15 @@ function Huvudbok() {
   const [groupedData, setGroupedData] = useState<GroupedTransactions>({});
   const [expandedAccInfo, setExpandedAccInfo] = useState<string | null>(null);
 
-  // Organisera transaktioner efter "kontobeskrivning" in i groupedData (object)
+  // Ta fetchdata och gruppera transaktioner efter Kontobeskrivning
+  // Detta gör att varje konto visas som en egen grupp
   useEffect(() => {
     if (fetchData) {
-      // Gruppera och sortera transaktioner efter "kontobeskrivning"
       const groupedFinished: GroupedTransactions = fetchData.reduce(
         (groupedTransactions: GroupedTransactions, item: TransactionItem) => {
-          // Använd kontobeskrivning som nyckel för grouping
+          // Använd kontobeskrivning som varje key (se GroupedTransactions)
           const key: string = item.kontobeskrivning;
-          // Gör ny array om nyckeln inte redan finns
+          // Skapa ny array om nyckeln inte redan finns
           if (!groupedTransactions[key]) {
             groupedTransactions[key] = [];
           }
@@ -24,7 +24,7 @@ function Huvudbok() {
           groupedTransactions[key].push(item);
           return groupedTransactions;
         },
-        {} // Initiera som ett tomt objekt
+        {} // Initiera som tomt objekt
       );
 
       // Uppdatera state med de grupperade transaktionerna
@@ -33,7 +33,7 @@ function Huvudbok() {
   }, [fetchData]);
 
   const toggleAccInfo = (description: string) => {
-    setExpandedAccInfo((prev) => (prev === description ? null : description));
+    setExpandedAccInfo(expandedAccInfo === description ? null : description);
   };
 
   return (
@@ -42,15 +42,18 @@ function Huvudbok() {
         <h1 className="text-4xl font-bold text-white py-10 text-center">Huvudbok</h1>
         {Object.keys(groupedData).map((description, index) => (
           <div key={index} className="mb-4">
-            <h3
+            {/* En div/grupp för varje konto - minimerade */}
+            <div
               onClick={() => toggleAccInfo(description)}
               className="text-white flex justify-between items-center cursor-pointer py-2 bg-cyan-950 rounded-tl-lg pr-10 rounded-tr-lg "
             >
               <span className="text-white text-lg flex justify-between items-center cursor-pointer bg-cyan-950 p-5 pl-10 font-bold">
+                {/* T.ex. 1930 - Företagskonto */}
                 {groupedData[description][0].kontonummer} - {description}
               </span>
               <span>{expandedAccInfo === description ? "▽" : "▷"}</span>
-            </h3>
+            </div>
+            {/* Maximerade */}
             {expandedAccInfo === description && (
               <table className="w-full text-white">
                 <thead className="bg-gray-700">
