@@ -1,5 +1,3 @@
-"use client";
-
 function Comment({ kommentar, setKommentar }: CommentProps) {
   return (
     <div className="mb-4">

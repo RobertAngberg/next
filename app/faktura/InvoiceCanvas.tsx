@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect } from "react";
 
 function InvoiceCanvas({ canvasRef, textFields, logoImage, saveAsJPG }: InvoiceCanvasProps) {

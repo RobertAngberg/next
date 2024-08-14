@@ -1,5 +1,3 @@
-import React from "react";
-
 function TextField({ labelText, textFields, handleInputChange }: InputComponentProps) {
   return (
     <div key={labelText} className="w-full">

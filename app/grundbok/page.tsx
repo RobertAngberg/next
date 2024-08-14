@@ -6,6 +6,7 @@ import { TopSection } from "./TopSection";
 import { Table } from "./Table";
 
 function Grundbok() {
+  
   const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
   const [year, setYear] = useState("");
   const [activeTransId, setActiveTransId] = useState<number | null>(null);

@@ -1,6 +1,6 @@
 "use client";
-import { jsPDF } from "jspdf";
 
+import { jsPDF } from "jspdf";
 import { useState, ChangeEvent, useRef } from "react";
 import { TextField } from "./Textfield";
 import { ToggleButton } from "./ToggleButton";
@@ -16,24 +16,24 @@ function Invoice() {
   const [textFields, setTextFields] = useState<{ [key: string]: string }>({
     // Vid input så ändras state, och skickas sen till InvoiceCanvas
     // <{ [key: string]: string }> = key/value
-    Företagsnamn: "Testföretaget",
-    Adress: "Testgatan 10",
+    "Företagsnamn": "Testföretaget",
+    "Adress": "Testgatan 10",
     "Postnummer och stad": "123 45 Teststad",
-    Telefonnummer: "Tel: 076123456",
-    Bankgiro: "Bankgiro: 123-4567",
+    "Telefonnummer": "Tel: 076123456",
+    "Bankgiro": "Bankgiro: 123-4567",
     "Företagsnamn, kund": "Kundföretaget",
     "Namn, kund": "Kund Kundsson",
     "Adress, kund": "Kundvägen 20",
     "Postnummer och stad, kund": "543 21 Kundstad",
-    Fakturanummer: "12345",
-    Kundnummer: "54321",
-    Fakturadatum: "2021-08-10",
-    Förfallodatum: "2021-09-10",
-    Beskrivning: "Utfört arbete",
-    Antal: "2",
-    Apris: "400kr",
-    Moms: "100kr",
-    Belopp: "500kr",
+    "Fakturanummer": "12345",
+    "Kundnummer": "54321",
+    "Fakturadatum": "2021-08-10",
+    "Förfallodatum": "2021-09-10",
+    "Beskrivning": "Utfört arbete",
+    "Antal": "2",
+    "Apris": "400kr",
+    "Moms": "100kr",
+    "Belopp": "500kr",
     "Belopp före moms": "4000",
     "Moms totalt": "1000",
     "Summa att betala": "5000",

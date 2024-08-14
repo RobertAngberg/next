@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 import { ChatGPTAPI } from "chatgpt";
