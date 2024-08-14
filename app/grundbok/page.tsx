@@ -6,14 +6,13 @@ import { TopSection } from "./TopSection";
 import { Table } from "./Table";
 
 function Grundbok() {
-  
   const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
   const [year, setYear] = useState("");
   const [activeTransId, setActiveTransId] = useState<number | null>(null);
   const [details, setDetails] = useState<TransactionDetail[]>([]);
   const { fetchData } = useFetchGet(`api/grundbok/?q=${year}`);
 
-  // Justera datum +1 dag för att matcha svenska datumformatet
+  // Justera datum +1 dag pga sverige
   useEffect(() => {
     if (fetchData?.yearData) {
       const adjustedData = fetchData.yearData.map((item: HistoryItem) => {

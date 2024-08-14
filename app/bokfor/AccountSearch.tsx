@@ -10,7 +10,6 @@ function AccountSearch({
   setKontobeskrivning,
 }: AccountSearchProps) {
   const [showSearchResults, setShowSearchResults] = useState(true);
-
   const { fetchData } = useFetchGet(`api/bokfor?q=${searchText}`);
 
   const handleSearchAccNum = (e: React.ChangeEvent<HTMLInputElement>) => {

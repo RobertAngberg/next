@@ -14,7 +14,6 @@ function TableRow({ item, handleRowClick, activeId, details }: TableRowProps) {
         <td className="p-5">{item.belopp}</td>
         <td className="p-5 hidden md:table-cell">{item.kommentar}</td>
       </tr>
-
       {/* Detta är unfoldat / maximerat */}
       {activeId === item.transaktions_id && (
         <tr className="bg-gray-800 text-left">

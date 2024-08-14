@@ -15,9 +15,10 @@ function Step2({
   kommentar,
   setKommentar,
 }: Step2Props) {
-  function handleSubmit1() {
+  
+  const handleSubmit1 = () => {
     setCurrentStep(3);
-  }
+  };
 
   return (
     <main className="flex flex-col flex-col-reverse justify-center p-10 pt-0 text-white md:flex-row bg-slate-950 text-left">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 import { ChatGPTAPI } from "chatgpt";
 
@@ -28,6 +28,7 @@ function FileUpload({ setFil, setPdfUrl, setTransaktionsdatum, setBelopp, fil }:
         setRecognizedText(result.data.text);
       }
     };
+
     scanImage();
   }, [fil]);
 
