@@ -59,6 +59,11 @@ type FileUploadProps = {
   fil: File | null;
 };
 
+type SearchResultsProps = {
+  data: FetchDataItem;
+  onClick: (item: FetchDataItem) => void;
+};
+
 type TextRecognitionProps = {
   setBelopp: (belopp: number) => void;
   setDatum: (datum: string) => void;
@@ -79,6 +84,7 @@ type AccountSearchProps = {
 };
 
 type FetchDataItem = {
+  sökord: string;
   kontonummer: number;
   kontotyp: string;
   kontobeskrivning: string;
@@ -138,7 +144,7 @@ type TableProps = {
   details: TransactionDetail[];
 };
 
-type TopSectionProps = {
+type YearSelectProps = {
   setYear: (year: string) => void;
 };
 

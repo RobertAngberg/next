@@ -15,7 +15,6 @@ function Step2({
   kommentar,
   setKommentar,
 }: Step2Props) {
-  
   const handleSubmit1 = () => {
     setCurrentStep(3);
   };

@@ -2,59 +2,73 @@
 
 import { useEffect, useState } from "react";
 import { useFetchGet } from "../hooks/useFetchGet";
-import { TopSection } from "./TopSection";
+import { YearSelect } from "./YearSelect";
 import { Table } from "./Table";
 
 function Grundbok() {
   const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
   const [year, setYear] = useState("");
   const [activeTransId, setActiveTransId] = useState<number | null>(null);
-  const [details, setDetails] = useState<TransactionDetail[]>([]);
-  const { fetchData } = useFetchGet(`api/grundbok/?q=${year}`);
+  const [detailsUrl, setDetailsUrl] = useState<string | null>(null);
+  const [details, setDetails] = useState<TransactionDetail[]>([]); // Add this state
 
-  // Justera datum +1 dag pga sverige
+  // Lite konstiga workarounds pga hook-regler nedan
+  // Också, fetchData kommer från useFetchGet och måste renameas, annars blir två fetchData
+
+  // Denna körs på page load för att visa rader men ej detaljer
+  const { fetchData: yearFetchData } = useFetchGet(`api/grundbok/?q=${year}`);
+
+  // Visa detaljer, körs när detailsUrl ändras
+  const { fetchData: detailsData } = useFetchGet(detailsUrl || "");
+
+  // Date +1 pga Sveriges tidszon
   useEffect(() => {
-    if (fetchData?.yearData) {
-      const adjustedData = fetchData.yearData.map((item: HistoryItem) => {
+    if (yearFetchData?.yearData) {
+      const adjustedData = yearFetchData.yearData.map((item: HistoryItem) => {
         const adjustedDate = new Date(item.transaktionsdatum);
-        adjustedDate.setDate(adjustedDate.getDate() + 1); // +1 dag
+        adjustedDate.setDate(adjustedDate.getDate() + 1); // +1 day
         item.transaktionsdatum = adjustedDate.toISOString().slice(0, 10);
         return item;
       });
       setHistoryData(adjustedData);
     }
-  }, [fetchData]);
+  }, [yearFetchData]);
 
-  const handleRowClick = async (transaktionsId: number) => {
-    // Om klickad rad redan är aktiv, stäng detaljer
+  // Uppdatera detailsData när en rad klickas
+  useEffect(() => {
+    if (detailsData) {
+      setDetails(detailsData);
+    }
+  }, [detailsData]);
+
+  const handleRowClick = (transaktionsId: number) => {
+    // If the clicked row is already active, close the details
     if (transaktionsId === activeTransId) {
       setActiveTransId(null);
-      setDetails([]);
-      // Annars, fetcha detaljer för klickad rad
+      setDetails([]); // Clear details when deselecting
     } else {
-      try {
-        const response = await fetch(`api/grundbok/?q=row${transaktionsId}`);
-        if (!response.ok) {
-          throw new Error("Fel, vänligen försök igen.");
-        }
-        const data = await response.json();
-        setDetails(data);
-        setActiveTransId(transaktionsId);
-      } catch (error) {
-        console.error("Fel:", error);
-      }
+      // Sätt aktivt transaktionsId, används för att kunna folda ihop raden igen
+      // Sen ändra detailsUrl vilket triggar useFetchGet
+      // vilket triggar useEffect som sparar rad-detaljerna
+      setActiveTransId(transaktionsId);
+      setDetailsUrl(`api/grundbok/?q=row${transaktionsId}`);
     }
   };
 
   return (
     <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950">
-      <TopSection setYear={setYear} />
-      <Table
-        historyData={historyData}
-        handleRowClick={handleRowClick}
-        activeId={activeTransId}
-        details={details}
-      />
+      <div className="flex flex-col items-center justify-center p-10 text-center md:text-left md:flex-row w-full mb-2">
+        <h1 className="text-4xl font-bold md:mr-4">Grundbok</h1>
+        <YearSelect setYear={setYear} />
+      </div>
+      <div className="w-full">
+        <Table
+          historyData={historyData}
+          handleRowClick={handleRowClick}
+          activeId={activeTransId}
+          details={details}
+        />
+      </div>
     </main>
   );
 }

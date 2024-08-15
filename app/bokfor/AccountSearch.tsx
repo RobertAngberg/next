@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useFetchGet } from "../hooks/useFetchGet";
+import { SearchResults } from "./SearchResults";
 
 function AccountSearch({
   setCurrentStep,
@@ -17,13 +18,13 @@ function AccountSearch({
     setSearchText(inputValue);
   };
 
-  function searchResultClick(item: FetchDataItem): void {
+  const searchResultClick = (item: FetchDataItem): void => {
     setKontonummer(item.kontonummer);
     setKontotyp(item.kontotyp);
     setKontobeskrivning(item.kontobeskrivning);
     setCurrentStep(2);
     setShowSearchResults(false);
-  }
+  };
 
   return (
     <div className="w-full">
@@ -40,20 +41,9 @@ function AccountSearch({
         onChange={handleSearchAccNum}
       />
 
-      {/* Div som dyker upp när man söker efter konto */}
+      {/* Div med sökresultat */}
       {showSearchResults && fetchData?.data && searchText && (
-        <div id="searchResults">
-          {fetchData?.data && (
-            <div
-              className="rounded mt-2 text-xl bg-white w-full text-black font-bold py-3 px-4 mb-4 hover:bg-gray-300 hover:cursor-pointer text-xl"
-              onClick={() => searchResultClick(fetchData.data)}
-            >
-              &#10003; &nbsp; {fetchData.data.kontonummer} - {fetchData.data.kontobeskrivning}
-              <p className="p-2 text-base">Sökord:</p>
-              <div className="font-normal text-base">{fetchData.data.sökord}</div>
-            </div>
-          )}
-        </div>
+        <SearchResults data={fetchData.data} onClick={searchResultClick} />
       )}
     </div>
   );
