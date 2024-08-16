@@ -47,6 +47,12 @@ function Navbar() {
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
       >
+        <Link href="/sitebuilder">Sitebuilder</Link>
+      </li>
+      <li
+        onClick={closeMenu}
+        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-6 md:text-white md:font-bold"
+      >
         <LogoutButton />
       </li>
     </>

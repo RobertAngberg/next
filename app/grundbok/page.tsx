@@ -34,7 +34,7 @@ function Grundbok() {
     }
   }, [yearFetchData]);
 
-  // Uppdatera detailsData när en rad klickas
+  // Denna känner av när detailsData ändras (i []) och sparar
   useEffect(() => {
     if (detailsData) {
       setDetails(detailsData);
