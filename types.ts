@@ -228,6 +228,12 @@ type Content = {
   text: string;
 };
 
+type SectionProps = {
+  // onContentAdded: () => void;
+  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+  sections: number[];
+};
+
 type HandleAddContent = (kind: Content["kind"], text: string) => void;
 
 type ContentHeaderProps = {

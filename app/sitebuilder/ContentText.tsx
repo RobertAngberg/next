@@ -19,7 +19,7 @@ function ContentText({ handleAddContent }: ContentTextProps) {
         placeholder="Enter your text"
         className="mr-2 p-2 border border-gray-300 rounded flex-grow"
       />
-      <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleAdd}>Add Text</button>
+      <button className="bg-slate-700 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-slate-500" onClick={handleAdd}>Lägg till text</button>
     </div>
   );
 }

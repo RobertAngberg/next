@@ -2,30 +2,17 @@ import { useState } from "react";
 import ContentHeader from "./ContentHeader";
 import ContentText from "./ContentText";
 
-type SectionProps = {
-  onContentAdded: () => void;
-};
+function Section({ setSections, sections }: SectionProps) {
 
-function Section({ onContentAdded }: SectionProps) {
-
-  const [isHovered, setIsHovered] = useState(false);
   const [isAddingContent, setIsAddingContent] = useState<"header" | "text" | null>(null);
   const [content, setContent] = useState<Content | null>(null);
   const [showOptions, setShowOptions] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
 
   const handleAddContent: HandleAddContent = (kind, text) => {
     setContent({ kind, text });
     setIsAddingContent(null);
     setShowOptions(false);
-    onContentAdded(); // Lägger till ny sektion sist
+    setSections([...sections, sections.length + 1]);
   };
 
   const handlePlusClick = () => {
@@ -38,11 +25,7 @@ function Section({ onContentAdded }: SectionProps) {
   };
 
   return (
-    <div
-      className="relative p-5 border border-gray-300 mb-4"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="relative p-5 border border-gray-300 mb-4">
       {content?.kind === "header" ? (
         <h1 className="text-2xl font-bold">{content.text}</h1>
       ) : (
@@ -52,7 +35,7 @@ function Section({ onContentAdded }: SectionProps) {
       {!content && !isAddingContent && (
         <div className="absolute inset-0 flex justify-center items-center">
           <div
-            className={`bg-gray-600 text-white w-16 h-16 rounded-full flex justify-center items-center cursor-pointer text-3xl leading-none transition-all duration-500 transform ${isHovered || showOptions ? "opacity-100 scale-110 shadow-2xl" : "opacity-0 scale-90"}`}
+            className="bg-gray-600 text-white w-16 h-16 rounded-full flex justify-center items-center cursor-pointer text-3xl leading-none transition-all duration-500 transform hover:opacity-100 hover:scale-110 hover:shadow-2xl opacity-0 scale-90"
             onClick={handlePlusClick}
           >
             +
