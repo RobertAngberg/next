@@ -218,3 +218,22 @@ type InputComponentProps = {
 type LogoUploadProps = {
   handleFileUpload: (logoImage: HTMLImageElement) => void;
 };
+
+////////////////////////////////////////
+// SITEBUILDER
+////////////////////////////////////////
+
+type Content = {
+  kind: "header" | "text";
+  text: string;
+};
+
+type HandleAddContent = (kind: Content["kind"], text: string) => void;
+
+type ContentHeaderProps = {
+  handleAddContent: (type: "header", text: string) => void;
+};
+
+type ContentTextProps = {
+  handleAddContent: (type: "text", text: string) => void;
+}

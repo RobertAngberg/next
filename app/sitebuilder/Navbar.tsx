@@ -22,19 +22,19 @@ function Navbar() {
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
       >
-        <Link href="/bokfor">Bokför</Link>
+        <Link href="/">Priser</Link>
       </li>
       <li
         onClick={closeMenu}
         className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
       >
-        <Link href="/grundbok">Grundbok</Link>
+        <Link href="/">Kontakt</Link>
       </li>
     </>
   );
 
   return (
-    <div className="sticky top-0 z-50 flex items-center justify-end w-full h-20 bg-white md:justify-end md:pl-0">
+    <div className="sticky top-0 flex items-center justify-end w-full h-20 bg-white md:justify-end md:pl-0">
       {/* Mobile */}
       {isOpen && (
         <ul className="text-4xl absolute p-6 pr-10 top-20 right-0 w-full h-screen bg-white text-slate-600 font-bold text-right">
