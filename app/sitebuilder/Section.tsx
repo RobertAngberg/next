@@ -1,15 +1,16 @@
 import { useState } from "react";
 import ContentHeader from "./ContentHeader";
 import ContentText from "./ContentText";
+import ContentImage from "./ContentImage";  // Import the ContentImage component
 
 function Section({ setSections, sections }: SectionProps) {
 
-  const [isAddingContent, setIsAddingContent] = useState<"header" | "text" | null>(null);
+  const [isAddingContent, setIsAddingContent] = useState<"header" | "text" | "image" | null>(null);
   const [content, setContent] = useState<Content | null>(null);
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleAddContent: HandleAddContent = (kind, text) => {
-    setContent({ kind, text });
+  const handleAddContent: HandleAddContent = (kind, text, imageUrl) => {
+    setContent({ kind, text, imageUrl });
     setIsAddingContent(null);
     setShowOptions(false);
     setSections([...sections, sections.length + 1]);
@@ -19,17 +20,22 @@ function Section({ setSections, sections }: SectionProps) {
     setShowOptions(true);
   };
 
-  const handleButtonClick = (type: "header" | "text") => {
+  const handleButtonClick = (type: "header" | "text" | "image") => {
     setIsAddingContent(type);
     setShowOptions(false);
   };
 
   return (
     <div className="relative p-5 border border-gray-300 mb-4">
-      {content?.kind === "header" ? (
-        <h1 className="text-2xl font-bold">{content.text}</h1>
-      ) : (
-        <p>{content?.text}</p>
+      {content?.kind === "header" && <h1 className="text-2xl font-bold">{content.text}</h1>}
+      {content?.kind === "text" && <p>{content?.text}</p>}
+      {content?.kind === "image" && (
+        <img 
+          src={content.imageUrl} 
+          alt="Cropped" 
+          className="max-h-[500px] object-contain" 
+          style={{ maxWidth: '100%', width: 'auto', height: 'auto' }} 
+        />
       )}
 
       {!content && !isAddingContent && (
@@ -58,12 +64,21 @@ function Section({ setSections, sections }: SectionProps) {
             >
               Text
             </button>
+            <button
+              className="bg-gray-600 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-500"
+              onClick={() => handleButtonClick("image")}
+            >
+              Image
+            </button>
           </div>
         </div>
       )}
 
       {isAddingContent === "header" && <ContentHeader handleAddContent={handleAddContent} />}
       {isAddingContent === "text" && <ContentText handleAddContent={handleAddContent} />}
+      {isAddingContent === "image" && (
+        <ContentImage onImageCrop={(croppedImageUrl: string) => handleAddContent('image', undefined, croppedImageUrl)} />
+      )}
     </div>
   );
 }
