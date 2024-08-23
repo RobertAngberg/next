@@ -1,11 +1,25 @@
 import { useState } from "react";
-import ContentHeader from "./ContentHeader";
-import ContentText from "./ContentText";
-import ContentImage from "./ContentImage";  // Import the ContentImage component
+import AddButton from "./AddButton";
+import DisplayContent from "./DisplayContent";
+import AddSectionsMenu from "./AddSectionsMenu";
 
-function Section({ setSections, sections }: SectionProps) {
+interface SectionProps {
+  sections: number[];
+  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+  isInTwoColumns?: boolean; // New prop to control AddButton display in two-column layout
+  sectionId: number; // Unique ID for each section
+}
 
-  const [isAddingContent, setIsAddingContent] = useState<"header" | "text" | "image" | null>(null);
+interface Content {
+  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
+  text?: string;
+  imageUrl?: string;
+}
+
+type HandleAddContent = (kind: "header" | "text" | "image" | "twoColumns" | "threeColumns", text?: string, imageUrl?: string) => void;
+
+function Section({ setSections, sections, isInTwoColumns = false, sectionId }: SectionProps) {
+  const [isAddingContent, setIsAddingContent] = useState<"header" | "text" | "image" | "twoColumns" | "threeColumns" | null>(null);
   const [content, setContent] = useState<Content | null>(null);
   const [showOptions, setShowOptions] = useState(false);
 
@@ -13,72 +27,36 @@ function Section({ setSections, sections }: SectionProps) {
     setContent({ kind, text, imageUrl });
     setIsAddingContent(null);
     setShowOptions(false);
-    setSections([...sections, sections.length + 1]);
+
+    if (!isInTwoColumns) {
+      setSections([...sections, sectionId + 1]);
+    }
   };
 
   const handlePlusClick = () => {
     setShowOptions(true);
   };
 
-  const handleButtonClick = (type: "header" | "text" | "image") => {
+  const handleButtonClick = (type: "header" | "text" | "image" | "twoColumns" | "threeColumns") => {
     setIsAddingContent(type);
     setShowOptions(false);
   };
 
   return (
-    <div className="relative p-5 border border-gray-300 mb-4">
-      {content?.kind === "header" && <h1 className="text-2xl font-bold">{content.text}</h1>}
-      {content?.kind === "text" && <p>{content?.text}</p>}
-      {content?.kind === "image" && (
-        <img 
-          src={content.imageUrl} 
-          alt="Cropped" 
-          className="max-h-[500px] object-contain" 
-          style={{ maxWidth: '100%', width: 'auto', height: 'auto' }} 
-        />
-      )}
+    <div className="relative p-5 mb-4">
+      <DisplayContent
+        content={content}
+        sections={sections}
+        setSections={setSections}
+        handleAddContent={handleAddContent}
+        isAddingContent={isAddingContent}
+      />
 
       {!content && !isAddingContent && (
-        <div className="absolute inset-0 flex justify-center items-center">
-          <div
-            className="bg-gray-600 text-white w-16 h-16 rounded-full flex justify-center items-center cursor-pointer text-3xl leading-none transition-all duration-500 transform hover:opacity-100 hover:scale-110 hover:shadow-2xl opacity-0 scale-90"
-            onClick={handlePlusClick}
-          >
-            +
-          </div>
-        </div>
+        <AddButton onClick={handlePlusClick} />
       )}
 
-      {showOptions && (
-        <div className="absolute left-1/2 top-full mt-2 transform -translate-x-1/2">
-          <div className="flex space-x-2 bg-gray-600 p-2 rounded-lg mt-3">
-            <button
-              className="bg-gray-600 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-500"
-              onClick={() => handleButtonClick("header")}
-            >
-              Header
-            </button>
-            <button
-              className="bg-gray-600 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-500"
-              onClick={() => handleButtonClick("text")}
-            >
-              Text
-            </button>
-            <button
-              className="bg-gray-600 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-500"
-              onClick={() => handleButtonClick("image")}
-            >
-              Image
-            </button>
-          </div>
-        </div>
-      )}
-
-      {isAddingContent === "header" && <ContentHeader handleAddContent={handleAddContent} />}
-      {isAddingContent === "text" && <ContentText handleAddContent={handleAddContent} />}
-      {isAddingContent === "image" && (
-        <ContentImage onImageCrop={(croppedImageUrl: string) => handleAddContent('image', undefined, croppedImageUrl)} />
-      )}
+      {showOptions && <AddSectionsMenu handleButtonClick={handleButtonClick} />}
     </div>
   );
 }

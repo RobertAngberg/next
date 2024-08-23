@@ -247,7 +247,7 @@ type ContentTextProps = {
 type HandleAddContent = (kind: 'header' | 'text' | 'image', text?: string, imageUrl?: string) => void;
 
 type Content = {
-  kind: 'header' | 'text' | 'image';
+  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
   text?: string;
   imageUrl?: string;
 };

@@ -6,7 +6,6 @@ import { Navbar } from "./Navbar";
 import Section from "./Section";
 
 function Sitebuilder() {
-
   const [sections, setSections] = useState<number[]>([1]);
 
   return (
@@ -17,8 +16,13 @@ function Sitebuilder() {
           <Navbar />
         </div>
         <div className="px-6 py-4">
-          {sections.map((sectionId, index) => (
-            <Section key={sectionId} sections={sections} setSections={setSections} />
+          {sections.map((sectionId) => (
+            <Section
+              key={sectionId}
+              sections={sections}
+              setSections={setSections}
+              sectionId={sectionId}
+            />
           ))}
         </div>
       </div>
