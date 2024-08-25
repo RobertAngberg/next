@@ -4,6 +4,7 @@ function ContentHeader({ handleAddContent }: ContentHeaderProps) {
     
   const [inputValue, setInputValue] = useState("");
 
+  // Den här skiten kan tas bort tror jag
   const handleAdd = () => {
     if (inputValue.trim()) {
       handleAddContent("header", inputValue);

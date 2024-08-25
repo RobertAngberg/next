@@ -223,18 +223,30 @@ type LogoUploadProps = {
 // SITEBUILDER
 ////////////////////////////////////////
 
-// type Content = {
-//   kind: "header" | "text";
-//   text: string;
-// };
+type SectionProps = {
+  sections: number[];
+  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+  sectionId: number;
+};
 
-// type SectionProps = {
-//   // onContentAdded: () => void;
-//   setSections: React.Dispatch<React.SetStateAction<number[]>>;
-//   sections: number[];
-// };
+type Content = {
+  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
+  text?: string;
+  imageUrl?: string;
+};
 
-// type HandleAddContent = (kind: Content["kind"], text: string) => void;
+type DisplayContentProps = {
+  content: {
+    kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
+    text?: string;
+    imageUrl?: string;
+  } | null;
+  sections: number[];
+  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+  handleAddContent: (kind: "header" | "text" | "image" | "twoColumns" | "threeColumns", 
+    text?: string, imageUrl?: string) => void;
+  isAddingContent: "header" | "text" | "image" | "twoColumns" | "threeColumns" | null;
+}
 
 type ContentHeaderProps = {
   handleAddContent: (type: "header", text: string) => void;
@@ -244,15 +256,11 @@ type ContentTextProps = {
   handleAddContent: (type: "text", text: string) => void;
 }
 
-type HandleAddContent = (kind: 'header' | 'text' | 'image', text?: string, imageUrl?: string) => void;
+type HandleAddContent = (kind: "header" | "text" | "image" | "twoColumns" | "threeColumns", 
+  text?: string, imageUrl?: string) => void;
 
-type Content = {
-  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
-  text?: string;
-  imageUrl?: string;
-};
-
-type SectionProps = {
-  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+type ContentTwoColumnsProps = {
   sections: number[];
-};
+  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+  sectionId: number;
+}

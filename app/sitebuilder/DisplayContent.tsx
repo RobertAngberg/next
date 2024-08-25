@@ -4,24 +4,15 @@ import ContentImage from "./ContentImage";
 import ContentTwoColumns from "./ContentTwoColumns";
 import ContentThreeColumns from "./ContentThreeColumns";
 
-interface DisplayContentProps {
-  content: {
-    kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
-    text?: string;
-    imageUrl?: string;
-  } | null;
-  sections: number[];
-  setSections: React.Dispatch<React.SetStateAction<number[]>>;
-  handleAddContent: (kind: "header" | "text" | "image" | "twoColumns" | "threeColumns", text?: string, imageUrl?: string) => void;
-  isAddingContent: "header" | "text" | "image" | "twoColumns" | "threeColumns" | null;
-}
-
-const DisplayContent: React.FC<DisplayContentProps> = ({ content, sections, setSections, handleAddContent, isAddingContent }) => {
+function DisplayContent({ content, sections, setSections, 
+  handleAddContent, isAddingContent }: DisplayContentProps) {
+    
   return (
     <>
       {content?.kind === "header" && <h1 className="text-2xl font-bold">{content.text}</h1>}
       {content?.kind === "text" && <p>{content?.text}</p>}
       {content?.kind === "image" && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img 
           src={content.imageUrl} 
           alt="Cropped" 
@@ -30,10 +21,10 @@ const DisplayContent: React.FC<DisplayContentProps> = ({ content, sections, setS
         />
       )}
       {content?.kind === "twoColumns" && (
-        <ContentTwoColumns sections={sections} setSections={setSections} />
+        <ContentTwoColumns sections={sections} setSections={setSections} sectionId={0} />
       )}
       {content?.kind === "threeColumns" && (
-        <ContentThreeColumns sections={sections} setSections={setSections} />
+        <ContentThreeColumns sections={sections} setSections={setSections} sectionId={0} />
       )}
 
       {isAddingContent === "header" && <ContentHeader handleAddContent={handleAddContent} />}
@@ -42,10 +33,10 @@ const DisplayContent: React.FC<DisplayContentProps> = ({ content, sections, setS
         <ContentImage onImageCrop={(croppedImageUrl: string) => handleAddContent('image', undefined, croppedImageUrl)} />
       }
       {isAddingContent === "twoColumns" && 
-        <ContentTwoColumns sections={sections} setSections={setSections} />
+        <ContentTwoColumns sections={sections} setSections={setSections} sectionId={0} />
       }
       {isAddingContent === "threeColumns" && 
-        <ContentThreeColumns sections={sections} setSections={setSections} />
+        <ContentThreeColumns sections={sections} setSections={setSections} sectionId={0} />
       }
     </>
   );
