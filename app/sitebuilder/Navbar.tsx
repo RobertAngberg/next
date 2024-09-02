@@ -14,19 +14,19 @@ function Navbar() {
     <>
       <li
         onClick={closeMenu}
-        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
+        className="font-bold transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
       >
         <Link href="/">Hem</Link>
       </li>
       <li
         onClick={closeMenu}
-        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
+        className="font-bold transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
       >
         <Link href="/">Priser</Link>
       </li>
       <li
         onClick={closeMenu}
-        className="transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
+        className="font-bold transition-colors duration-300 hover:text-slate-400 mb-6 md:mb-0 md:text-lg md:px-4 md:text-slate-600"
       >
         <Link href="/">Kontakt</Link>
       </li>

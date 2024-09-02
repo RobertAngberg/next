@@ -32,12 +32,6 @@ function AddSectionsMenu({ handleButtonClick }: AddSectionsMenuProps) {
         >
           Tre kolumner
         </button>
-        <button
-          className="bg-gray-600 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-500"
-          onClick={() => handleButtonClick("headerImage")}
-        >
-          Toppbild
-        </button>
       </div>
     </div>
   );

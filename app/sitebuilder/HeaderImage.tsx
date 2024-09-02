@@ -15,6 +15,7 @@ function HeaderImage() {
   const [completedCrop, setCompletedCrop] = useState<PixelCrop | null>(null);
   const [isSaved, setIsSaved] = useState(false);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -76,6 +77,7 @@ function HeaderImage() {
     const ctx = canvas.getContext("2d");
 
     if (ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas before drawing
       ctx.drawImage(
         imageRef.current,
         completedCrop.x! * scaleX,
@@ -88,7 +90,7 @@ function HeaderImage() {
         canvas.height
       );
 
-      // Convert canvas to Blob and update the cropped image URL
+      // Convert canvas to Blob and update the cropped image URL as PNG
       canvas.toBlob(
         (blob) => {
           if (blob) {
@@ -97,10 +99,20 @@ function HeaderImage() {
             setIsSaved(true); // Mark as saved
           }
         },
-        "image/jpeg",
+        "image/png", // Save as PNG to preserve transparency
         1
       );
     }
+  };
+
+  const triggerFileUpload = () => {
+    // Reset the current image and crop state
+    setImageUrl(null);
+    setCroppedImageUrl(null);
+    setIsSaved(false);
+
+    // Trigger the file input click to allow the user to upload a new image
+    fileInputRef.current?.click();
   };
 
   return (
@@ -125,10 +137,16 @@ function HeaderImage() {
           {!isSaved && (
             <div className="flex justify-center mt-4">
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
                 onClick={getCroppedImage}
               >
-                Save Cropped Image
+                Spara beskuren bild
+              </button>
+              <button
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+                onClick={triggerFileUpload}
+              >
+                Byt bild
               </button>
             </div>
           )}
@@ -142,7 +160,13 @@ function HeaderImage() {
               <span className="text-gray-500 p-6 hover:text-gray-400 transition duration-300">
                 Ladda upp bild
               </span>
-              <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageUpload}
+                ref={fileInputRef}
+              />
             </label>
           </div>
           <div className="mt-6 pt-4 text-gray-500 text-center">
