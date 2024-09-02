@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function Footer() {
   const [isEditing, setIsEditing] = useState(false);
-  const [footerText, setFooterText] = useState('Placeholder footer text');
+  const [footerText, setFooterText] = useState('Sidfot, klicka för att ändra');
   const [inputValue, setInputValue] = useState(footerText);
 
   const handleTextClick = () => {
@@ -25,7 +25,7 @@ function Footer() {
   };
 
   return (
-    <footer className="py-4 text-center bg-gray-200">
+    <footer className="py-4 text-center bg-gray-100">
       {isEditing ? (
         <div>
           <input
@@ -39,7 +39,7 @@ function Footer() {
             onClick={handleSave}
             className="ml-2 bg-blue-500 text-white px-4 py-1 rounded"
           >
-            Save
+            Spara
           </button>
         </div>
       ) : (
