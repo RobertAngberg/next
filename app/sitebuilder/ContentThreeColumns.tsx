@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Section from "./Section";
 
 function ContentThreeColumns({ sections, setSections }: SectionProps) {

@@ -5,7 +5,7 @@ import ContentTwoColumns from "./ContentTwoColumns";
 import ContentThreeColumns from "./ContentThreeColumns";
 
 function DisplayContent({ content, sections, setSections, 
-  handleAddContent, isAddingContent }: DisplayContentProps) {
+  handleAddContent, isAddingContentType }: DisplayContentProps) {
     
   return (
     <>
@@ -27,15 +27,15 @@ function DisplayContent({ content, sections, setSections,
         <ContentThreeColumns sections={sections} setSections={setSections} sectionId={0} />
       )}
 
-      {isAddingContent === "header" && <ContentHeader handleAddContent={handleAddContent} />}
-      {isAddingContent === "text" && <ContentText handleAddContent={handleAddContent} />}
-      {isAddingContent === "image" && 
+      {isAddingContentType === "header" && <ContentHeader handleAddContent={handleAddContent} />}
+      {isAddingContentType === "text" && <ContentText handleAddContent={handleAddContent} />}
+      {isAddingContentType === "image" && 
         <ContentImage onImageCrop={(croppedImageUrl: string) => handleAddContent('image', undefined, croppedImageUrl)} />
       }
-      {isAddingContent === "twoColumns" && 
+      {isAddingContentType === "twoColumns" && 
         <ContentTwoColumns sections={sections} setSections={setSections} sectionId={0} />
       }
-      {isAddingContent === "threeColumns" && 
+      {isAddingContentType === "threeColumns" && 
         <ContentThreeColumns sections={sections} setSections={setSections} sectionId={0} />
       }
     </>

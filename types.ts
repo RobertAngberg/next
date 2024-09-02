@@ -223,30 +223,34 @@ type LogoUploadProps = {
 // SITEBUILDER
 ////////////////////////////////////////
 
+type AddSectionsMenuProps = {
+  handleButtonClick: (type: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage") => void;
+}
+
 type SectionProps = {
   sections: number[];
   setSections: React.Dispatch<React.SetStateAction<number[]>>;
   sectionId: number;
 };
 
+type AddButtonProps = {
+  onClick: () => void;
+}
+
 type Content = {
-  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
+  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage";
   text?: string;
   imageUrl?: string;
 };
 
 type DisplayContentProps = {
-  content: {
-    kind: "header" | "text" | "image" | "twoColumns" | "threeColumns";
-    text?: string;
-    imageUrl?: string;
-  } | null;
+  content: Content | null;
   sections: number[];
   setSections: React.Dispatch<React.SetStateAction<number[]>>;
-  handleAddContent: (kind: "header" | "text" | "image" | "twoColumns" | "threeColumns", 
-    text?: string, imageUrl?: string) => void;
-  isAddingContent: "header" | "text" | "image" | "twoColumns" | "threeColumns" | null;
+  handleAddContent: HandleAddContent;
+  isAddingContentType: Content["kind"] | null;
 }
+
 
 type ContentHeaderProps = {
   handleAddContent: (type: "header", text: string) => void;
@@ -260,6 +264,12 @@ type HandleAddContent = (kind: "header" | "text" | "image" | "twoColumns" | "thr
   text?: string, imageUrl?: string) => void;
 
 type ContentTwoColumnsProps = {
+  sections: number[];
+  setSections: React.Dispatch<React.SetStateAction<number[]>>;
+  sectionId: number;
+}
+
+type HeaderImageProps = {
   sections: number[];
   setSections: React.Dispatch<React.SetStateAction<number[]>>;
   sectionId: number;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Section from "./Section";
 
 function ContentTwoColumns({ sections, setSections, sectionId }: ContentTwoColumnsProps) {

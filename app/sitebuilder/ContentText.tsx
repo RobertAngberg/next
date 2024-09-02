@@ -4,12 +4,6 @@ function ContentText({ handleAddContent }: ContentTextProps) {
 
   const [inputValue, setInputValue] = useState("");
 
-  const handleAdd = () => {
-    if (inputValue.trim()) {
-      handleAddContent("text", inputValue);
-    }
-  };
-
   return (
     <div className="flex items-center">
       <input
@@ -19,7 +13,7 @@ function ContentText({ handleAddContent }: ContentTextProps) {
         placeholder="Enter your text"
         className="mr-2 p-2 border border-gray-300 rounded flex-grow"
       />
-      <button className="bg-slate-700 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-slate-500" onClick={handleAdd}>Lägg till text</button>
+      <button className="bg-slate-700 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-slate-500" onClick={() => handleAddContent("text", inputValue)}>Lägg till text</button>
     </div>
   );
 }
