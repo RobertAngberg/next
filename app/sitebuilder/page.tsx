@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 import { Navbar } from "./Navbar";
 import Section from "./Section";
-import HeaderImage from "./HeaderImage";
+import HeroImage from "./HeroImage";
 import Footer from "./Footer";
 
 function Sitebuilder() {
@@ -20,11 +20,11 @@ function Sitebuilder() {
           </div>
 
           <div className="mt-4">
-            <HeaderImage />
+            <HeroImage />
           </div>
         </div>
 
-        <div className="px-6 py-0 flex-grow">
+        <div className="px-6 py-0 mb-60 flex-grow">
           {sections.map((sectionId) => (
             <Section
               key={sectionId}

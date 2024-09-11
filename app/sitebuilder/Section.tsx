@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import AddButton from "./AddButton";
 import DisplayContent from "./DisplayContent";
 import AddSectionsMenu from "./AddSectionsMenu";
-import HeaderImage from "./HeaderImage";
+import HeaderImage from "./HeroImage";
 
 function Section({ setSections, sections, sectionId }: SectionProps) {
   const [isAddingContentType, setIsAddingContentType] = useState<

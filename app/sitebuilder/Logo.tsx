@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Image from "next/image";
+import placeholderLogo from "./placeholderLogo.jpg";
 
 function Logo() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -17,39 +19,37 @@ function Logo() {
   };
 
   return (
-    <div className="flex items-center md:ml-4">
+    <div className="flex items-center">
+      {/* Render user-uploaded image or placeholder */}
       {uploadedImage ? (
+        // For dynamically uploaded images (base64), use regular <img> with styles to constrain size
         <img
           src={uploadedImage}
-          alt="Logo"
-          className="w-36 h-16 mr-4 cursor-pointer object-contain" // Set max width to 144px and max height to 64px
-          onClick={() => document.getElementById("logo-upload")?.click()} // Trigger file input click
+          alt="Uploaded Logo"
+          style={{ maxWidth: "300px", maxHeight: "100px", objectFit: "contain" }}
+          className="cursor-pointer"
+          onClick={() => document.getElementById("logo-upload")?.click()}
         />
       ) : (
-        <div className="ml-4">
-          <label className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded transition-colors duration-300 hover:bg-blue-400 whitespace-nowrap">
-            Ladda upp logo
-            <input
-              id="logo-upload"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageUpload}
-            />
-          </label>
-        </div>
+        // For static placeholder, use Next.js <Image /> with layout="intrinsic" for optimization
+        <Image
+          src={placeholderLogo}
+          alt="Placeholder Logo"
+          width={300}
+          height={120}
+          className="cursor-pointer object-contain"
+          onClick={() => document.getElementById("logo-upload")?.click()}
+        />
       )}
 
       {/* Hidden input for uploading new logo */}
-      {uploadedImage && (
-        <input
-          id="logo-upload"
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleImageUpload}
-        />
-      )}
+      <input
+        id="logo-upload"
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleImageUpload}
+      />
     </div>
   );
 }
