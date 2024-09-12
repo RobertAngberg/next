@@ -159,6 +159,8 @@ type TableRowProps = {
 // HUVUDBOK
 ////////////////////////////////////////
 
+type Group = "first4" | "second4" | "third4" | "fourth4" | "fifth4" | "sixth4" | "seventh4";
+
 type HuvudbokProps = {
   toggleGroup: Group;
   buttonText: string;
@@ -189,8 +191,6 @@ type GroupedTransactions = Record<string, TransactionItem[]>;
 ////////////////////////////////////////
 // FAKTURA
 ////////////////////////////////////////
-
-type Group = "first4" | "second4" | "third4" | "fourth4" | "fifth4" | "sixth4" | "seventh4";
 
 type TextFields = { [key: string]: string };
 type LogoImage = HTMLImageElement | null;
@@ -224,15 +224,16 @@ type LogoUploadProps = {
 ////////////////////////////////////////
 
 type AddSectionsMenuProps = {
-  handleButtonClick: (
+  addMenuClick: (
     type: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage"
   ) => void;
 };
 
 type SectionProps = {
+  setSections: (sections: number[]) => void;
   sections: number[];
-  setSections: React.Dispatch<React.SetStateAction<number[]>>;
   sectionId: number;
+  nextSectionId: number;
 };
 
 type AddButtonProps = {
@@ -243,40 +244,42 @@ type Content = {
   kind: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage";
   text?: string;
   imageUrl?: string;
+  columns?: string[];
 };
 
-type DisplayContentProps = {
+type HandleAddContent = (
+  kind: Content["kind"],
+  text?: string,
+  imageUrl?: string,
+  columns?: string[]
+) => void;
+
+type SectionInsideProps = {
   content: Content | null;
-  sections: number[];
-  setSections: React.Dispatch<React.SetStateAction<number[]>>;
   handleAddContent: HandleAddContent;
   isAddingContentType: Content["kind"] | null;
 };
 
 type ContentHeaderProps = {
-  handleAddContent: (type: "header", text: string) => void;
+  handleAddContent: HandleAddContent;
 };
 
 type ContentTextProps = {
-  handleAddContent: (type: "text", text: string) => void;
+  handleAddContent: HandleAddContent;
 };
 
-type HandleAddContent = (
-  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns",
-  text?: string,
-  imageUrl?: string
-) => void;
+type ContentImageProps = {
+  onImageCrop: (croppedImageUrl: string) => void;
+};
 
 type ContentTwoColumnsProps = {
-  sections: number[];
-  setSections: React.Dispatch<React.SetStateAction<number[]>>;
-  sectionId: number;
+  handleAddContent: HandleAddContent;
 };
 
-type HeaderImageProps = {
-  sections: number[];
-  setSections: React.Dispatch<React.SetStateAction<number[]>>;
-  sectionId: number;
+type ContentThreeColumnsProps = {
+  handleAddContent: HandleAddContent;
 };
+
+type HeaderImageProps = {};
 
 type LinkKey = "home" | "prices" | "contact";

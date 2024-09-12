@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import AddButton from "./AddButton";
-import DisplayContent from "./DisplayContent";
+import SectionInside from "./SectionInside";
 import AddSectionsMenu from "./AddSectionsMenu";
-import HeaderImage from "./HeroImage";
+import HeroImage from "./HeroImage";
 
-function Section({ setSections, sections, sectionId }: SectionProps) {
+function Section({ setSections, sections, sectionId, nextSectionId }: SectionProps) {
   const [isAddingContentType, setIsAddingContentType] = useState<
     "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage" | null
   >(null);
@@ -12,32 +12,32 @@ function Section({ setSections, sections, sectionId }: SectionProps) {
   const [showOptions, setShowOptions] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  const handleAddContent: HandleAddContent = (kind, text, imageUrl) => {
-    setContent({ kind, text, imageUrl });
+  const handleAddContent: HandleAddContent = (kind, text, imageUrl, columns) => {
+    setContent({ kind, text, imageUrl, columns });
     setIsAddingContentType(null);
     setShowOptions(false);
-    setSections([...sections, sectionId + 1]);
+    setSections([...sections, nextSectionId]); // Adds a new section with a unique ID
   };
 
-  // Funktion för att hantera klick på plus-knappen
+  // Function to handle click on the plus button
   const handlePlusClick = () => {
-    setShowOptions(!showOptions); // Växla synlighet för menyn
+    setShowOptions(!showOptions); // Toggle visibility of the menu
   };
 
-  // Funktion för att hantera klick på en av menyknapparna
-  const handleButtonClick = (
+  // Function to handle click on one of the menu buttons
+  const addMenuClick = (
     type: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage"
   ) => {
     setIsAddingContentType(type);
-    setShowOptions(false); // Stäng menyn efter att en knapp har valts
+    setShowOptions(false); // Close the menu after a button has been selected
   };
 
   const isHeaderImage = isAddingContentType === "headerImage";
 
-  // Lyssna efter klick utanför menyn för att stänga den
+  // Listen for clicks outside the menu to close it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Om klicket inte sker inom menyn (menuRef), stäng menyn
+      // If the click is not within the menu (menuRef), close the menu
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setShowOptions(false);
       }
@@ -49,21 +49,19 @@ function Section({ setSections, sections, sectionId }: SectionProps) {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    // Rensa event listener när komponenten avmonteras eller när showOptions ändras
+    // Clean up event listener when component unmounts or when showOptions changes
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showOptions]);
 
   return (
-    // Om det är en headerImage, använd inte padding och margin
+    // If it's a headerImage, don't use padding and margin
     <div className={isHeaderImage ? "" : "relative p-5 py-2 mb-4"}>
-      {isHeaderImage && <HeaderImage />}
+      {isHeaderImage && <HeroImage />}
 
-      <DisplayContent
+      <SectionInside
         content={content}
-        sections={sections}
-        setSections={setSections}
         handleAddContent={handleAddContent}
         isAddingContentType={isAddingContentType}
       />
@@ -72,7 +70,7 @@ function Section({ setSections, sections, sectionId }: SectionProps) {
 
       {showOptions && (
         <div ref={menuRef}>
-          <AddSectionsMenu handleButtonClick={handleButtonClick} />
+          <AddSectionsMenu addMenuClick={addMenuClick} />
         </div>
       )}
     </div>

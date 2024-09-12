@@ -9,6 +9,7 @@ import Footer from "./Footer";
 
 function Sitebuilder() {
   const [sections, setSections] = useState<number[]>([1]);
+  const [nextSectionId, setNextSectionId] = useState(2);
 
   return (
     <main className="flex justify-center items-start min-h-screen bg-slate-50">
@@ -29,8 +30,12 @@ function Sitebuilder() {
             <Section
               key={sectionId}
               sections={sections}
-              setSections={setSections}
+              setSections={(newSections) => {
+                setSections(newSections);
+                setNextSectionId(nextSectionId + 1);
+              }}
               sectionId={sectionId}
+              nextSectionId={nextSectionId}
             />
           ))}
         </div>
