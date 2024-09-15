@@ -5,27 +5,6 @@ import ContentImage from "./ContentImage";
 import ContentTwoColumns from "./ContentTwoColumns";
 import ContentThreeColumns from "./ContentThreeColumns";
 
-type Content = {
-  kind: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage";
-  text?: string;
-  imageUrl?: string;
-  columns?: string[];
-};
-
-type HandleAddContent = (
-  kind: Content["kind"],
-  text?: string,
-  imageUrl?: string,
-  columns?: string[]
-) => void;
-
-type SectionInsideProps = {
-  content: Content | null;
-  handleAddContent: HandleAddContent;
-  isAddingContentType: Content["kind"] | null;
-  handleUpdateContent: (updatedContent: Content) => void;
-};
-
 function SectionInside({
   content,
   handleAddContent,

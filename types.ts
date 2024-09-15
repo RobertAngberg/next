@@ -258,6 +258,7 @@ type SectionInsideProps = {
   content: Content | null;
   handleAddContent: HandleAddContent;
   isAddingContentType: Content["kind"] | null;
+  handleUpdateContent: (updatedContent: Content) => void;
 };
 
 type ContentHeaderProps = {

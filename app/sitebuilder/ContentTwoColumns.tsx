@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { HandleAddContent, ContentTwoColumnsProps } from "./types";
 
 const ContentTwoColumns: React.FC<ContentTwoColumnsProps> = ({ handleAddContent }) => {
   const [columns, setColumns] = useState<{ text: string; isEditing: boolean }[]>([

@@ -19,25 +19,17 @@ function Section({ setSections, sections, sectionId, nextSectionId }: SectionPro
     setSections([...sections, nextSectionId]); // Adds a new section with a unique ID
   };
 
-  // Function to handle click on the plus button
+  const handleUpdateContent = (updatedContent: Content) => {
+    setContent(updatedContent);
+  };
+
   const handlePlusClick = () => {
-    setShowOptions(!showOptions); // Toggle visibility of the menu
+    setShowOptions(!showOptions);
   };
 
-  // Function to handle click on one of the menu buttons
-  const addMenuClick = (
-    type: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage"
-  ) => {
-    setIsAddingContentType(type);
-    setShowOptions(false); // Close the menu after a button has been selected
-  };
-
-  const isHeaderImage = isAddingContentType === "headerImage";
-
-  // Listen for clicks outside the menu to close it
+  // Klick utanför stänger menyn
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // If the click is not within the menu (menuRef), close the menu
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setShowOptions(false);
       }
@@ -55,8 +47,17 @@ function Section({ setSections, sections, sectionId, nextSectionId }: SectionPro
     };
   }, [showOptions]);
 
+  const addMenuClick = (
+    type: "header" | "text" | "image" | "twoColumns" | "threeColumns" | "headerImage"
+  ) => {
+    setIsAddingContentType(type);
+    setShowOptions(false); // Close the menu after a button has been selected
+  };
+
+  const isHeaderImage = isAddingContentType === "headerImage";
+
   return (
-    // If it's a headerImage, don't use padding and margin
+    // Om HeroImage, andvänd inte margin / padding
     <div className={isHeaderImage ? "" : "relative p-5 py-2 mb-4"}>
       {isHeaderImage && <HeroImage />}
 
@@ -64,6 +65,7 @@ function Section({ setSections, sections, sectionId, nextSectionId }: SectionPro
         content={content}
         handleAddContent={handleAddContent}
         isAddingContentType={isAddingContentType}
+        handleUpdateContent={handleUpdateContent}
       />
 
       {!content && !isAddingContentType && <AddButton onClick={handlePlusClick} />}
