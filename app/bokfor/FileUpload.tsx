@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 
-function FileUpload({ setFil, setPdfUrl, setTransaktionsdatum, setBelopp, fil }: FileUploadProps) {
+function FileUpload({
+  setFil,
+  setPdfUrl,
+  setTransaktionsdatum,
+  setBelopp,
+  fil,
+}: FileUploadProps) {
   const [recognizedText, setRecognizedText] = useState("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +20,10 @@ function FileUpload({ setFil, setPdfUrl, setTransaktionsdatum, setBelopp, fil }:
         setPdfUrl(fileUrl);
 
         // Image
-      } else if (file.type === "image/jpeg" || file.type === "image/png") {
+      } else if (
+        file.type === "image/jpeg" ||
+        file.type === "image/png"
+      ) {
         setFil(file);
       }
     }
@@ -38,8 +47,15 @@ function FileUpload({ setFil, setPdfUrl, setTransaktionsdatum, setBelopp, fil }:
           const response = await fetch("/api/chatgpt", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ recognizedText }),
+            body: JSON.stringify({ text: recognizedText }), // Updated to send 'text' key
           });
+
+          if (!response.ok) {
+            // Handle HTTP errors
+            const errorData = await response.json();
+            console.error("Error from API:", errorData.error);
+            return;
+          }
 
           const data = await response.json();
 
