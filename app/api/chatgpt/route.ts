@@ -1,5 +1,3 @@
-// app/api/chatgpt/route.ts
-
 export const runtime = 'nodejs'; // Ensure this API route runs in Node.js runtime
 
 import { NextResponse } from "next/server";
