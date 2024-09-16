@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 
-function FileUpload({
-  setFil,
-  setPdfUrl,
-  setTransaktionsdatum,
-  setBelopp,
-  fil,
-}: FileUploadProps) {
+function FileUpload({ setFil, setPdfUrl, setTransaktionsdatum, setBelopp, fil }: FileUploadProps) {
   const [recognizedText, setRecognizedText] = useState("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,10 +14,7 @@ function FileUpload({
         setPdfUrl(fileUrl);
 
         // Image
-      } else if (
-        file.type === "image/jpeg" ||
-        file.type === "image/png"
-      ) {
+      } else if (file.type === "image/jpeg" || file.type === "image/png") {
         setFil(file);
       }
     }
@@ -99,4 +90,4 @@ function FileUpload({
   );
 }
 
-export default FileUpload;
+export { FileUpload };
