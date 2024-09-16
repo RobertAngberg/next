@@ -1,7 +1,7 @@
 function useFetchPost() {
   const postData = async (url: string, formData: FormData) => {
     try {
-      const response = await fetch(`http://localhost:3000/` + url, {
+      const response = await fetch(`https://next-nu-brown.vercel.app/` + url, {
         method: "POST",
         body: formData,
       });
