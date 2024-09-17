@@ -13,9 +13,6 @@ const nextConfig = {
             }
         ]
     },
-    env: {
-        OPENAI_API_KEY: "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",
-    }
 }
 
 module.exports = nextConfig
