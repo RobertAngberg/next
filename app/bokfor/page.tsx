@@ -18,10 +18,8 @@ function Bokför() {
   const [transaktionsdatum, setTransaktionsdatum] = useState("");
   const [kommentar, setKommentar] = useState("");
 
-  /* Tror måste force lowercase steg 1, eller nåt */
-
   return (
-    <main className="items-center text-center bg-slate-950 min-h-screen pt-10">
+    <main className="items-center text-center bg-slate-950 min-h-screen pt-10 px-6">
       {currentStep === 1 && (
         <div className="w-full text-white md:mx-auto md:w-2/5 bg-cyan-950 p-10 rounded rounded-3xl">
           <AccountSearch

@@ -50,9 +50,11 @@ function Step3({
   return (
     <main className="items-center text-center bg-slate-950 min-h-screen text-white">
       <div className="w-full text-white md:mx-auto md:w-2/5 bg-cyan-950 p-10 rounded rounded-3xl">
-        <h1 className="text-3xl font-bold bokföring mb-4">Slutför bokföring</h1>
+        <h1 className="text-3xl font-bold bokföring mb-4">Steg 3: Kontrollera och slutför</h1>
         <p className="w-full font-bold">{kontobeskrivning}</p>
-        <p className="w-full mb-6">{transaktionsdatum}</p>
+        <p className="w-full mb-6">
+          {transaktionsdatum ? new Date(transaktionsdatum).toLocaleDateString("sv-SE") : ""}
+        </p>
         <table className="border border-gray-300 mb-8 w-full text-left">
           <thead>
             <tr>

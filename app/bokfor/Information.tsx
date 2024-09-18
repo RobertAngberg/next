@@ -3,6 +3,7 @@ import { registerLocale } from "react-datepicker";
 import { sv } from "date-fns/locale/sv";
 registerLocale("sv", sv);
 import "react-datepicker/dist/react-datepicker.css";
+import { useEffect } from "react";
 
 function Information({
   belopp,
@@ -10,9 +11,24 @@ function Information({
   transaktionsdatum,
   setTransaktionsdatum,
 }: InformationProps) {
+
+  // Av någon anledning tar inte react-datepicker upp full bredd
+  // Hax nedan för att fixa detta
+  useEffect(() => {
+    const datePickerEl = document.querySelector('.react-datepicker-wrapper');
+    if (datePickerEl) {
+      (datePickerEl as HTMLElement).style.width = '100%';
+    }
+
+    const inputEl = document.querySelector('.react-datepicker__input-container input');
+    if (inputEl) {
+      (inputEl as HTMLElement).style.width = '100%';
+    }
+  }, []);
+
   return (
     <div className="padder">
-      <label htmlFor="belopp">Belopp:</label>
+      <label htmlFor="belopp" className="block mb-2">Belopp:</label>
       <input
         className="w-full p-2 mb-4 text-black border-2 border-gray-600 border-solid rounded"
         type="number"
@@ -22,21 +38,19 @@ function Information({
         value={belopp}
         onChange={(e) => setBelopp(Number(e.target.value))}
       />
-      <div>
-        <label htmlFor="datum">Betaldatum (ÅÅÅÅ-MM-DD):</label>
-        <br />
-        <DatePicker
-          className="w-full p-2 text-black border-2 border-gray-600 border-solid rounded mb-4"
-          id="datum"
-          selected={transaktionsdatum ? new Date(transaktionsdatum) : null} // String till Date
-          onChange={(date) => {
-            setTransaktionsdatum(date ? date.toISOString() : ""); // Date till String
-          }}
-          dateFormat="yyyy-MM-dd"
-          locale="sv"
-          required
-        />
-      </div>
+      
+      <label htmlFor="datum" className="block mb-2">Betaldatum (ÅÅÅÅ-MM-DD):</label>
+      <DatePicker
+        className="w-full p-2 mb-4 text-black border-2 border-gray-600 border-solid rounded"
+        id="datum"
+        selected={transaktionsdatum ? new Date(transaktionsdatum) : null} // String to Date
+        onChange={(date) => {
+          setTransaktionsdatum(date ? date.toISOString() : ""); // Date to String
+        }}
+        dateFormat="yyyy-MM-dd"
+        locale="sv"
+        required
+      />
     </div>
   );
 }

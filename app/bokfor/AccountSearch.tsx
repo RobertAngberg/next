@@ -28,9 +28,11 @@ function AccountSearch({
 
   return (
     <div className="w-full">
-      <label className="font-bold text-2xl" htmlFor="search-account-number">
-        Sök bland förval
-      </label>
+      <h1 className="font-bold text-4xl mb-4">Steg 1: Sök förval</h1>
+      <div className="mb-2">
+        <p>Skriv in vad du vill bokföra.</p>
+        <p>Systemet hittar rätt förval att använda.</p>
+      </div>
       <input
         className="w-full mt-4 p-3 rounded-lg text-black border-slate-950 border-2"
         type="text"

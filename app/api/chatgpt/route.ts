@@ -1,5 +1,3 @@
-export const runtime = 'nodejs'; // Ensure this API route runs in Node.js runtime
-
 import { NextResponse } from "next/server";
 import OpenAI from 'openai';
 
@@ -10,12 +8,6 @@ const openai = new OpenAI({
 export async function POST(request: Request) {
   const { text } = await request.json();
   const apiKey = process.env.OPENAI_API_KEY;
-
-  // Console log to check the API key (showing only first and last 5 characters)
-  console.log(
-    'Using OpenAI API Key:',
-    apiKey ? `${apiKey.substring(0, 5)}...${apiKey.slice(-5)}` : 'Not Set'
-  );
 
   if (!apiKey) {
     console.error("Missing OpenAI API key");

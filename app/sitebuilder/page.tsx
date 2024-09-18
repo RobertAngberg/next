@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Logo } from "./Logo";
@@ -13,7 +13,7 @@ function Sitebuilder() {
 
   return (
     <main className="flex justify-center items-start min-h-screen bg-slate-50">
-      <div className="w-2/3 min-h-screen bg-white shadow-lg shadow-slate-400 flex flex-col">
+      <div className="w-full lg:w-2/3 min-h-screen bg-white shadow-lg shadow-slate-400 flex flex-col">
         <div className="px-6 py-4">
           <div className="flex justify-between items-center">
             <Logo />
@@ -41,6 +41,13 @@ function Sitebuilder() {
         </div>
 
         <Footer />
+      </div>
+
+      {/* Syns bara på mindre skärmar */}
+      <div className="fixed inset-0 flex items-center justify-center bg-slate-950 text-white block lg:hidden">
+        <p className="text-center text-xl p-4 md:p-8">
+          Beklagar, den här funktionen är endast tillgänglig på större skärmar.
+        </p>
       </div>
     </main>
   );

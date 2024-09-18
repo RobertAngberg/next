@@ -56,9 +56,9 @@ function Grundbok() {
   };
 
   return (
-    <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950">
+    <main className="items-center min-h-screen text-center text-white md:px-10 bg-slate-950 px-4">
       <div className="flex flex-col items-center justify-center p-10 text-center md:text-left md:flex-row w-full mb-2">
-        <h1 className="text-4xl font-bold md:mr-4">Grundbok</h1>
+        <h1 className="text-4xl font-bold md:mr-4 mb-6 md:mb-0">Grundbok</h1>
         <YearSelect setYear={setYear} />
       </div>
       <div className="w-full">
@@ -71,6 +71,7 @@ function Grundbok() {
       </div>
     </main>
   );
+  
 }
 
 export default Grundbok;
