@@ -4,21 +4,11 @@ import { formidable, Fields, Files } from "formidable"; // Use named import
 import fs from "fs";
 import path from "path";
 
-// Disable body parsing by Next.js to handle it manually with formidable
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 // Utility function to parse the form data using formidable
 const parseForm = async (request: NextRequest): Promise<{ fields: Fields, files: Files }> => {
   const form = formidable({
     uploadDir: path.join(process.cwd(), "public", "assets"),
     keepExtensions: true,
-    maxFileSize: 10 * 1024 * 1024, // Set a max file size if needed
-    allowEmptyFiles: false,
-    multiples: false, // Set to true if you expect multiple files
   });
 
   return new Promise((resolve, reject) => {
