@@ -5,7 +5,7 @@ function Table({ historyData, handleRowClick, activeId, details }: TableProps) {
     <table className="w-full m-auto md:w-3/4">
       <thead className="text-lg bg-cyan-950">
         <tr>
-          <th className="p-5 pl-10 rounded-tl-lg">ID</th>
+          <th className="p-5 rounded-tl-lg">ID</th>
           <th className="p-5">Datum</th>
           <th className="p-5 hidden md:table-cell">Fil</th>
           <th className="p-5">Konto</th>
