@@ -6,12 +6,16 @@ import path from "path";
 
 // Utility function to parse the form data using formidable
 const parseForm = async (request: NextRequest): Promise<{ fields: Fields, files: Files }> => {
-  const form = formidable({
-    uploadDir: path.join(process.cwd(), "public", "assets"),
-    keepExtensions: true,
-  });
-
   return new Promise((resolve, reject) => {
+    const form = formidable({
+      uploadDir: path.join(process.cwd(), "public", "assets"),
+      keepExtensions: true,
+      maxFileSize: 10 * 1024 * 1024, // Set a max file size if needed
+      allowEmptyFiles: false,
+      multiples: false, // Set to true if you expect multiple files
+    });
+
+    // Make sure `request` is compatible; use `request.body` if needed
     form.parse(request as any, (err, fields, files) => {
       if (err) {
         reject(err);
