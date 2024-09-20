@@ -1,17 +1,27 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
-import formidable, { Fields, Files, File } from "formidable";
+import { formidable, Fields, Files } from "formidable"; // Use named import
 import fs from "fs";
 import path from "path";
 
+// Disable body parsing by Next.js to handle it manually with formidable
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 // Utility function to parse the form data using formidable
 const parseForm = async (request: NextRequest): Promise<{ fields: Fields, files: Files }> => {
-  return new Promise((resolve, reject) => {
-    const form = new formidable.IncomingForm({
-      uploadDir: path.join(process.cwd(), "public", "assets"),
-      keepExtensions: true,
-    });
+  const form = formidable({
+    uploadDir: path.join(process.cwd(), "public", "assets"),
+    keepExtensions: true,
+    maxFileSize: 10 * 1024 * 1024, // Set a max file size if needed
+    allowEmptyFiles: false,
+    multiples: false, // Set to true if you expect multiple files
+  });
 
+  return new Promise((resolve, reject) => {
     form.parse(request as any, (err, fields, files) => {
       if (err) {
         reject(err);
@@ -36,6 +46,8 @@ export async function POST(request: NextRequest) {
     const belopp: number = parseFloat(fields.belopp?.toString() || "0");
     const moms: number = parseFloat(fields.moms?.toString() || "0");
     const beloppUtanMoms: number = parseFloat(fields.beloppUtanMoms?.toString() || "0");
+
+    // Handle file upload
     const file = Array.isArray(files.fil) ? files.fil[0] : files.fil;
 
     // Check if file exists and move it to the desired location
