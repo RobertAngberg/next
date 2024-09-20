@@ -4,13 +4,6 @@ import formidable, { Fields, Files, File } from "formidable";
 import fs from "fs";
 import path from "path";
 
-// Disable body parsing by Next.js to handle it manually with formidable
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 // Utility function to parse the form data using formidable
 const parseForm = async (request: NextRequest): Promise<{ fields: Fields, files: Files }> => {
   return new Promise((resolve, reject) => {
@@ -43,7 +36,6 @@ export async function POST(request: NextRequest) {
     const belopp: number = parseFloat(fields.belopp?.toString() || "0");
     const moms: number = parseFloat(fields.moms?.toString() || "0");
     const beloppUtanMoms: number = parseFloat(fields.beloppUtanMoms?.toString() || "0");
-    
     const file = Array.isArray(files.fil) ? files.fil[0] : files.fil;
 
     // Check if file exists and move it to the desired location
