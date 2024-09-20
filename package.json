@@ -12,6 +12,7 @@
     "@vercel/postgres": "^0.7.2",
     "chart.js": "^4.4.1",
     "dotenv": "^16.4.5",
+    "formidable": "^3.5.1",
     "jspdf": "^2.5.1",
     "next": "^14.2.3",
     "next-auth": "^4.24.7",
@@ -24,6 +25,7 @@
     "tesseract.js": "^5.0.5"
   },
   "devDependencies": {
+    "@types/formidable": "^3.4.5",
     "@types/node": "^20",
     "@types/pdf-parse": "^1.1.4",
     "@types/react": "^18",
