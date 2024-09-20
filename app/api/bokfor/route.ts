@@ -1,54 +1,24 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
-import { formidable, Fields, Files } from "formidable"; // Use named import
-import fs from "fs";
-import path from "path";
-
-// Utility function to parse the form data using formidable
-const parseForm = async (request: NextRequest): Promise<{ fields: Fields, files: Files }> => {
-  return new Promise((resolve, reject) => {
-    const form = formidable({
-      uploadDir: path.join(process.cwd(), "public", "assets"),
-      keepExtensions: true,
-      maxFileSize: 10 * 1024 * 1024, // Set a max file size if needed
-      allowEmptyFiles: false,
-      multiples: false, // Set to true if you expect multiple files
-    });
-
-    // Make sure `request` is compatible; use `request.body` if needed
-    form.parse(request as any, (err, fields, files) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ fields, files });
-      }
-    });
-  });
-};
 
 export async function POST(request: NextRequest) {
   try {
-    // Parse the form data using formidable
-    const { fields, files } = await parseForm(request);
+    // Parse form data from the request
+    const data = await request.formData();
 
-    // Extract data from the parsed fields
-    const transaktionsdatum: string = fields.transaktionsdatum?.toString() || "";
-    const kommentar: string = fields.kommentar?.toString() || "";
-    const kontonummer: string = fields.kontonummer?.toString() || "";
-    const kontobeskrivning: string = fields.kontobeskrivning?.toString() || "";
-    const kontotyp: string = fields.kontotyp?.toString() || "";
-    const belopp: number = parseFloat(fields.belopp?.toString() || "0");
-    const moms: number = parseFloat(fields.moms?.toString() || "0");
-    const beloppUtanMoms: number = parseFloat(fields.beloppUtanMoms?.toString() || "0");
+    // Extract form fields
+    const transaktionsdatum = data.get("transaktionsdatum")?.toString() || "";
+    const kommentar = data.get("kommentar")?.toString() || "";
+    const kontonummer = data.get("kontonummer")?.toString() || "";
+    const kontobeskrivning = data.get("kontobeskrivning")?.toString() || "";
+    const kontotyp = data.get("kontotyp")?.toString() || "";
+    const belopp = parseFloat(data.get("belopp")?.toString() || "0");
+    const moms = parseFloat(data.get("moms")?.toString() || "0");
+    const beloppUtanMoms = parseFloat(data.get("beloppUtanMoms")?.toString() || "0");
 
-    // Handle file upload
-    const file = Array.isArray(files.fil) ? files.fil[0] : files.fil;
-
-    // Check if file exists and move it to the desired location
-    if (file) {
-      const targetPath = path.join(process.cwd(), "public", "assets", file.newFilename || file.originalFilename || "");
-      fs.renameSync(file.filepath, targetPath);
-    }
+    // Get the file's name from the form data
+    const fil = data.get("fil") as File | null;
+    const filename = fil ? fil.name : "";
 
     // Begin SQL transaction
     await sql`BEGIN;`;
@@ -56,7 +26,7 @@ export async function POST(request: NextRequest) {
     // Insert into Transaktioner and retrieve transaktions_id
     const insertResult = await sql`
       INSERT INTO Transaktioner (transaktionsdatum, kontobeskrivning, kontotyp, belopp, fil, kommentar)
-      VALUES (${transaktionsdatum}, ${kontobeskrivning}, ${kontotyp}, ${belopp}, ${file?.newFilename || ""}, ${kommentar})
+      VALUES (${transaktionsdatum}, ${kontobeskrivning}, ${kontotyp}, ${belopp}, ${filename}, ${kommentar})
       RETURNING transaktions_id;
     `;
     const transaktionsId: number = insertResult.rows[0].transaktions_id;
